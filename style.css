@@ -23,3 +23,50 @@ button {
     font-size: 18px;
     border-radius: 10px;
 }
+nav {
+    background: #1565c0;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 15px;
+    font-size: 18px;
+}
+
+section {
+    background: white;
+    padding: 30px;
+    margin: 30px auto;
+    width: 70%;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.subjects {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: white;
+    width: 180px;
+    padding: 25px;
+    border-radius: 15px;
+    font-size: 18px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+button:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
