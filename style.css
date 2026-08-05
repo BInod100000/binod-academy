@@ -32,10 +32,9 @@ nav {
 nav a {
     color: white;
     text-decoration: none;
-    margin: 15px;
+    margin: 0 15px;
     font-size: 18px;
 }
-
 section {
     background: white;
     padding: 30px;
