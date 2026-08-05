@@ -33,8 +33,32 @@ Read all questions carefully before starting the exam.
 </p>
 
 <button>Start Exam</button>
+    <p id="timer">03:00:00</p>
 
 </section>
+<script>
 
+let time = 10800; // 3 hours in seconds
+
+const timer = document.getElementById("timer");
+
+setInterval(function () {
+
+let hours = Math.floor(time / 3600);
+let minutes = Math.floor((time % 3600) / 60);
+let seconds = time % 60;
+
+timer.innerHTML =
+String(hours).padStart(2, '0') + ":" +
+String(minutes).padStart(2, '0') + ":" +
+String(seconds).padStart(2, '0');
+
+if (time > 0) {
+    time--;
+}
+
+}, 1000);
+
+</script>
 </body>
 </html>
