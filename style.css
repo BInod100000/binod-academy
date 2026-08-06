@@ -101,3 +101,15 @@ h1 {
     text-align: center !important;
     width: 100%;
 }
+nav {
+    display: flex !important;
+    justify-content: center;
+    background: blue;
+    padding: 15px;
+}
+
+nav a {
+    color: white !important;
+    margin: 20px;
+    font-size: 20px;
+}
