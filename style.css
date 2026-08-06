@@ -74,16 +74,26 @@ button:hover {
 }
 .login-page {
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .login-box {
     background: white;
-    width: 300px;
+    width: 70%;
     padding: 30px;
+    margin: 30px auto;
     border-radius: 15px;
     text-align: center;
     box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+@media (max-width: 600px) {
+
+    .login-box {
+        width: 90%;
+    }
+
+    .subjects {
+        flex-direction: column;
+        align-items: center;
+    }
+
 }
