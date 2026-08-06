@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="login-page">
+<body>
 
 <h1>🎓 Binod Academy</h1>
 
@@ -24,19 +24,19 @@
 
 <h2>👨‍🎓 Student Login</h2>
 
-<div class="card">
+<div class="login-box">
 
-<input type="text" placeholder="Student ID">
+    <input type="text" id="studentId" placeholder="Student ID">
 
-<br><br>
+    <br><br>
 
-<input type="password" placeholder="Password">
+    <input type="password" id="password" placeholder="Password">
 
-<br><br>
+    <br><br>
 
-<a href="student.html">
-<button>Login</button>
-</a>
+    <button onclick="login()">Login</button>
+
+    <p id="error" style="color:red; margin-top:15px;"></p>
 
 </div>
 
