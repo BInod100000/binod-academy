@@ -5,8 +5,8 @@ body {
     margin: 0;
     padding: 40px;
 }
-
 h1 {
+    text-align: left;
     color: #1565c0;
     font-size: 40px;
 }
