@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     background: #f5f7fb;
     font-family: Arial, sans-serif;
@@ -22,6 +28,16 @@ button {
     padding: 15px 30px;
     font-size: 18px;
     border-radius: 10px;
+    transition: 0.3s;
+}
+input {
+    width: 80%;
+    max-width: 350px;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
 }
 nav {
     background: #1565c0;
@@ -29,19 +45,17 @@ nav {
     border-radius: 10px;
     display: flex;
     justify-content: center;
-    gap: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-}
+
 section {
     background: white;
     padding: 30px;
     margin: 30px auto;
-    width: 70%;
+    width: 90%;
+    max-width: 1000px;
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
@@ -65,51 +79,97 @@ section {
 }
 
 .card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
 button:hover {
     cursor: pointer;
     transform: scale(1.05);
+    background: #0d47a1;
 }
 .login-page {
     min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-box {
     background: white;
-    width: 70%;
+    width: 90%;
+    max-width: 450px;
     padding: 30px;
     margin: 30px auto;
     border-radius: 15px;
     text-align: center;
     box-shadow: 0 5px 20px rgba(0,0,0,0.2);
 }
-@media (max-width: 600px) {
+@media (max-width: 768px) {
 
-    .login-box {
-        width: 90%;
+    body {
+        padding: 15px;
     }
 
-    .subjects {
+    h1 {
+        font-size: 30px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    nav {
         flex-direction: column;
         align-items: center;
+        gap: 12px;
     }
 
-}
-h1 {
-    text-align: center !important;
-    width: 100%;
-}
-nav {
-    display: flex !important;
-    justify-content: center;
-    background: blue;
-    padding: 15px;
+    nav a {
+        display: block;
+        width: 90%;
+        padding: 10px;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.15);
+    }
+
+    section {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .login-box {
+        width: 95%;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    button {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    input {
+        width: 100%;
+        max-width: 300px;
+        padding: 12px;
+        font-size: 16px;
+    }
+
 }
 
 nav a {
-    color: white !important;
-    margin: 20px;
+    color: white;
+    text-decoration: none;
     font-size: 20px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    background: rgba(255,255,255,0.2);
 }
