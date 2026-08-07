@@ -8,13 +8,28 @@ function login() {
     // STUDENT LOGIN
     if (studentId) {
 
-        if (studentId.value === "student01" && password.value === "1234") {
+        const enteredId = studentId.value.trim();
+        const enteredPassword = password.value;
 
-            window.location.href = "student.html";
+        const savedStudent = localStorage.getItem("student_" + enteredId);
+
+        if (savedStudent) {
+
+            const student = JSON.parse(savedStudent);
+
+            if (student.password === enteredPassword) {
+
+                window.location.href = "student.html";
+
+            } else {
+
+                error.textContent = "❌ Incorrect Password";
+
+            }
 
         } else {
 
-            error.textContent = "❌ Invalid Student ID or Password";
+            error.textContent = "❌ Student ID not found";
 
         }
     }
@@ -22,7 +37,14 @@ function login() {
     // TEACHER LOGIN
     if (teacherId) {
 
-        if (teacherId.value === "teacher01" && password.value === "1234") {
+        const enteredTeacherId = teacherId.value.trim();
+        const enteredPassword = password.value;
+
+        // Temporary teacher account
+        if (
+            enteredTeacherId === "teacher01" &&
+            enteredPassword === "1234"
+        ) {
 
             window.location.href = "teacher.html";
 
@@ -32,4 +54,47 @@ function login() {
 
         }
     }
+}
+
+
+function registerStudent() {
+
+    const studentId = document.getElementById("newStudentId").value.trim();
+    const password = document.getElementById("newPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const error = document.getElementById("registerError");
+
+    if (studentId === "" || password === "" || confirmPassword === "") {
+
+        error.textContent = "❌ Please fill in all fields.";
+        return;
+    }
+
+    if (password !== confirmPassword) {
+
+        error.textContent = "❌ Passwords do not match.";
+        return;
+    }
+
+    const existingStudent = localStorage.getItem("student_" + studentId);
+
+    if (existingStudent) {
+
+        error.textContent = "❌ This Student ID is already registered.";
+        return;
+    }
+
+    const student = {
+        studentId: studentId,
+        password: password
+    };
+
+    localStorage.setItem(
+        "student_" + studentId,
+        JSON.stringify(student)
+    );
+
+    alert("✅ Account created successfully!");
+
+    window.location.href = "student-login.html";
 }
