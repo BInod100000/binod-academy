@@ -8,9 +8,9 @@ body {
     background: #f5f7fb;
     font-family: Arial, sans-serif;
     text-align: center;
-    margin: 0;
     padding: 40px;
 }
+
 h1 {
     text-align: center;
     color: #1565c0;
@@ -33,6 +33,7 @@ button {
     border-radius: 10px;
     transition: 0.3s;
 }
+
 input {
     width: 80%;
     max-width: 350px;
@@ -42,6 +43,7 @@ input {
     border-radius: 8px;
     font-size: 16px;
 }
+
 nav {
     background: #1565c0;
     padding: 15px;
@@ -52,6 +54,18 @@ nav {
     gap: 20px;
 }
 
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    background: rgba(255,255,255,0.2);
+}
 
 section {
     background: white;
@@ -91,10 +105,13 @@ button:hover {
     transform: scale(1.05);
     background: #0d47a1;
 }
+
+/* LOGIN PAGE */
+
 .login-page {
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
 }
 
@@ -108,15 +125,20 @@ button:hover {
     text-align: center;
     box-shadow: 0 5px 20px rgba(0,0,0,0.2);
 }
+
+/* MOBILE */
+
 @media (max-width: 768px) {
 
     body {
         padding: 15px;
     }
 
-   h1 {
-    font-size: clamp(26px, 6vw, 40px);
-}
+    h1 {
+        font-size: clamp(26px, 8vw, 36px);
+        width: 100%;
+        margin-bottom: 15px;
+    }
 
     p {
         font-size: 18px;
@@ -126,6 +148,7 @@ button:hover {
         flex-direction: column;
         align-items: center;
         gap: 12px;
+        width: 100%;
     }
 
     nav a {
@@ -161,18 +184,4 @@ button:hover {
         padding: 12px;
         font-size: 16px;
     }
-
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 20px;
-    padding: 10px 15px;
-    border-radius: 8px;
-    transition: 0.3s;
-}
-
-nav a:hover {
-    background: rgba(255,255,255,0.2);
 }
