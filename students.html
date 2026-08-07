@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Binod Academy - Students</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>🎓 Binod Academy</h1>
+
+    <nav>
+        <a href="index.html">🏠 Home</a>
+        <a href="teacher.html">👨‍🏫 Dashboard</a>
+        <a href="students.html">👨‍🎓 Students</a>
+        <a href="login.html">🔐 Logout</a>
+    </nav>
+
+    <section>
+
+        <h2>👨‍🎓 Student Management</h2>
+
+        <p>Registered students will appear here.</p>
+
+        <div id="studentList"></div>
+
+    </section>
+
+    <script>
+
+        function showStudents() {
+
+            const studentList = document.getElementById("studentList");
+
+            studentList.innerHTML = "";
+
+            let found = false;
+
+            for (let i = 0; i < localStorage.length; i++) {
+
+                const key = localStorage.key(i);
+
+                if (key.startsWith("student_")) {
+
+                    found = true;
+
+                    const student = JSON.parse(
+                        localStorage.getItem(key)
+                    );
+
+                    const card = document.createElement("div");
+
+                    card.className = "card";
+
+                    card.innerHTML = `
+                        <h3>👨‍🎓 ${student.studentId}</h3>
+                        <p>Student account registered.</p>
+                    `;
+
+                    studentList.appendChild(card);
+                }
+            }
+
+            if (!found) {
+
+                studentList.innerHTML =
+                    "<p>❌ No students registered yet.</p>";
+            }
+        }
+
+        showStudents();
+
+    </script>
+
+</body>
+
+</html>
