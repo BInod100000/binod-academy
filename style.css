@@ -111,7 +111,6 @@ section {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-
 /* LOGIN PAGE */
 
 .login-page {
@@ -131,13 +130,11 @@ section {
     text-align: center;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
-/* =========================================
-   BINOD ACADEMY LOGIN PAGE - MOBILE FIX
-   ========================================= */
+
+/* MOBILE */
 
 @media screen and (max-width: 768px) {
 
-    /* Login page itself */
     body.login-page {
         width: 100%;
         min-height: 100vh;
@@ -147,20 +144,17 @@ section {
         overflow-y: auto;
     }
 
-    /* Academy heading */
     body.login-page > h1 {
         width: 100%;
         font-size: 30px;
         margin: 10px 0 20px 0;
     }
 
-    /* Navigation */
     body.login-page nav {
         width: 94%;
         margin: 0 auto;
         padding: 12px 8px;
         gap: 5px;
-        box-sizing: border-box;
     }
 
     body.login-page nav a {
@@ -168,37 +162,30 @@ section {
         padding: 8px 10px;
     }
 
-    /* Main white area */
     body.login-page > section {
         width: 94%;
         max-width: 500px;
         margin: 25px auto;
         padding: 20px 10px 40px 10px;
-        box-sizing: border-box;
     }
 
-    /* Choose Login box */
     body.login-page .login-box {
         width: 100%;
         max-width: 450px;
         margin: 0 auto;
         padding: 20px 10px 30px 10px;
-        box-sizing: border-box;
     }
 
-    /* Choose Login heading */
     body.login-page .login-box > h2 {
         font-size: 27px;
         line-height: 1.2;
     }
 
-    /* Choose Login description */
     body.login-page .login-box > p {
         font-size: 18px;
         margin-bottom: 20px;
     }
 
-    /* Teacher + Student container */
     body.login-page .subjects {
         width: 100%;
         display: flex;
@@ -207,32 +194,27 @@ section {
         gap: 30px;
     }
 
-    /* Teacher and Student cards */
     body.login-page .subjects .card {
         width: 100%;
         max-width: 380px;
         min-height: auto;
         margin: 0 auto;
         padding: 25px 15px;
-        box-sizing: border-box;
         border-radius: 15px;
     }
 
-    /* Teacher / Student titles */
     body.login-page .subjects .card h2 {
         font-size: 29px;
         line-height: 1.2;
         margin: 5px 0 18px 0;
     }
 
-    /* Description */
     body.login-page .subjects .card p {
         font-size: 18px;
         line-height: 1.45;
         margin: 10px 0 20px 0;
     }
 
-    /* Login buttons */
     body.login-page .subjects .card a {
         display: block;
         width: 100%;
@@ -247,4 +229,3 @@ section {
         margin: 5px auto;
     }
 }
-
