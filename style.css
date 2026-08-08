@@ -131,55 +131,119 @@ section {
     text-align: center;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
-/* ================================
-   MOBILE LOGIN PORTALS
-   ================================ */
+/* =========================================
+   BINOD ACADEMY LOGIN PAGE - MOBILE FIX
+   ========================================= */
 
 @media screen and (max-width: 768px) {
 
-    /* Main login section */
-    section {
-        width: 94% !important;
-        max-width: 500px !important;
-        padding: 20px 10px !important;
-        margin: 25px auto !important;
+    /* Login page itself */
+    body.login-page {
+        width: 100%;
+        min-height: 100vh;
+        padding: 20px 0 80px 0;
+        margin: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    /* Academy heading */
+    body.login-page > h1 {
+        width: 100%;
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+    }
+
+    /* Navigation */
+    body.login-page nav {
+        width: 94%;
+        margin: 0 auto;
+        padding: 12px 8px;
+        gap: 5px;
+        box-sizing: border-box;
+    }
+
+    body.login-page nav a {
+        font-size: 17px;
+        padding: 8px 10px;
+    }
+
+    /* Main white area */
+    body.login-page > section {
+        width: 94%;
+        max-width: 500px;
+        margin: 25px auto;
+        padding: 20px 10px 40px 10px;
+        box-sizing: border-box;
+    }
+
+    /* Choose Login box */
+    body.login-page .login-box {
+        width: 100%;
+        max-width: 450px;
+        margin: 0 auto;
+        padding: 20px 10px 30px 10px;
+        box-sizing: border-box;
+    }
+
+    /* Choose Login heading */
+    body.login-page .login-box > h2 {
+        font-size: 27px;
+        line-height: 1.2;
+    }
+
+    /* Choose Login description */
+    body.login-page .login-box > p {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    /* Teacher + Student container */
+    body.login-page .subjects {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
     }
 
     /* Teacher and Student cards */
-    .card {
-        width: 92% !important;
-        max-width: 400px !important;
-        padding: 22px 15px !important;
-        margin: 25px auto !important;
-        box-sizing: border-box !important;
+    body.login-page .subjects .card {
+        width: 100%;
+        max-width: 380px;
+        min-height: auto;
+        margin: 0 auto;
+        padding: 25px 15px;
+        box-sizing: border-box;
+        border-radius: 15px;
     }
 
-    /* Portal headings */
-    .card h2 {
-        font-size: 30px !important;
-        line-height: 1.2 !important;
-        margin: 10px 0 15px 0 !important;
+    /* Teacher / Student titles */
+    body.login-page .subjects .card h2 {
+        font-size: 29px;
+        line-height: 1.2;
+        margin: 5px 0 18px 0;
     }
 
-    /* Portal text */
-    .card p {
-        font-size: 18px !important;
-        line-height: 1.4 !important;
-        margin: 10px 0 20px 0 !important;
+    /* Description */
+    body.login-page .subjects .card p {
+        font-size: 18px;
+        line-height: 1.45;
+        margin: 10px 0 20px 0;
     }
 
     /* Login buttons */
-    .card button {
-        width: 90% !important;
-        max-width: 330px !important;
-        padding: 14px 15px !important;
-        font-size: 19px !important;
-        margin: 10px auto !important;
+    body.login-page .subjects .card a {
+        display: block;
+        width: 100%;
+        text-decoration: none;
     }
 
-    /* Keep the whole page scrollable */
-    body {
-        overflow-x: hidden !important;
-        overflow-y: auto !important;
+    body.login-page .subjects .card button {
+        width: 90%;
+        max-width: 320px;
+        padding: 14px 10px;
+        font-size: 19px;
+        margin: 5px auto;
     }
 }
