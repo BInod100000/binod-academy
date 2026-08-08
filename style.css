@@ -248,5 +248,8 @@ section {
     }
 }
 body {
-    background: red !important;
+    background: #f5f7fb;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 40px;
 }
