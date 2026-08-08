@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="login-page">
+<body>
 
     <h1>🎓 Binod Academy</h1>
 
@@ -31,37 +31,27 @@
 
             <p>Create your student account.</p>
 
-            <br>
-
+            <!-- STUDENT NAME -->
             <input
                 type="text"
                 id="studentName"
-                placeholder="Enter Your Full Name"
+                placeholder="ENTER YOUR FULL NAME"
+                oninput="this.value = this.value.toUpperCase()"
+                autocomplete="off"
             >
 
             <br><br>
-<label for="studentName">Student Name</label>
 
-<br><br>
-
-<input
-    type="text"
-    id="studentName"
-    name="studentName"
-    placeholder="ENTER YOUR FULL NAME"
-    oninput="this.value = this.value.toUpperCase()"
-    autocomplete="off"
->
-           <input
-    type="text"
-    id="studentName"
-    placeholder="ENTER YOUR FULL NAME"
-    style="text-transform: uppercase;"
-    oninput="this.value = this.value.toUpperCase()"
->
+            <!-- CREATE PASSWORD -->
+            <input
+                type="password"
+                id="newPassword"
+                placeholder="Create Password"
+            >
 
             <br><br>
 
+            <!-- RETYPE PASSWORD -->
             <input
                 type="password"
                 id="confirmPassword"
@@ -81,9 +71,7 @@
 
             <p style="margin-top:20px;">
                 Already have an account?
-                <a href="student-login.html">
-                    Login here
-                </a>
+                <a href="student-login.html">Login here</a>
             </p>
 
         </div>
