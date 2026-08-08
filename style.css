@@ -131,39 +131,46 @@ section {
     text-align: center;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
-/* ===== MOBILE LOGIN SCROLL SPACE ===== */
+/* ===== MOBILE LOGIN PORTALS ===== */
 
 @media (max-width: 768px) {
 
-    body.login-page {
-        min-height: 120vh;
-        padding-top: 30px;
-        padding-bottom: 200px;
-        overflow-y: auto;
-    }
-
+    /* Login page main section */
     .login-page section {
         width: 95%;
-        margin-top: 30px;
-        margin-bottom: 100px;
-        padding: 20px;
+        max-width: 500px;
+        padding: 20px 10px;
+        margin: 25px auto;
     }
 
-    .login-page .login-box {
+    /* Teacher & Student portal cards */
+    .login-page .card {
         width: 100%;
-        margin-top: 20px;
-        margin-bottom: 150px;
-        padding: 25px 15px;
+        max-width: 420px;
+        padding: 25px 18px;
+        margin: 20px auto;
+        border-radius: 18px;
     }
 
-    .login-page input {
-        width: 100%;
-        max-width: 350px;
-        margin-top: 15px;
+    /* Portal headings */
+    .login-page .card h2 {
+        font-size: 32px;
+        line-height: 1.2;
         margin-bottom: 15px;
     }
 
-    .login-page button {
-        margin-top: 10px;
+    /* Portal description */
+    .login-page .card p {
+        font-size: 20px;
+        line-height: 1.4;
+        margin-bottom: 20px;
+    }
+
+    /* Portal buttons */
+    .login-page .card button {
+        width: 90%;
+        max-width: 350px;
+        padding: 14px 20px;
+        font-size: 20px;
     }
 }
