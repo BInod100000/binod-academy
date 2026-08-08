@@ -131,61 +131,39 @@ section {
     text-align: center;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
-/* ===== MOBILE LOGIN FIX ===== */
+/* ===== MOBILE LOGIN SCROLL SPACE ===== */
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
 
-    body {
-        padding: 15px;
+    body.login-page {
+        min-height: 120vh;
+        padding-top: 30px;
+        padding-bottom: 200px;
+        overflow-y: auto;
     }
 
-    h1 {
-        font-size: 28px;
-        margin-bottom: 20px;
-    }
-
-    nav {
-        flex-direction: column;
-        gap: 10px;
+    .login-page section {
+        width: 95%;
+        margin-top: 30px;
+        margin-bottom: 100px;
         padding: 20px;
     }
 
-    nav a {
-        font-size: 20px;
-        padding: 8px;
-    }
-
-    section {
+    .login-page .login-box {
         width: 100%;
-        padding: 20px 10px;
-        margin: 20px auto;
+        margin-top: 20px;
+        margin-bottom: 150px;
+        padding: 25px 15px;
     }
 
-    .login-box {
+    .login-page input {
         width: 100%;
-        padding: 20px 10px;
-        box-sizing: border-box;
+        max-width: 350px;
+        margin-top: 15px;
+        margin-bottom: 15px;
     }
 
-    .login-box h2 {
-        font-size: 28px;
-    }
-
-    .login-box p {
-        font-size: 18px;
-    }
-
-    .login-box input {
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
-        font-size: 18px;
-        padding: 14px;
-        margin-bottom: 10px;
-    }
-
-    .login-box button {
-        font-size: 18px;
-        padding: 12px 25px;
+    .login-page button {
+        margin-top: 10px;
     }
 }
