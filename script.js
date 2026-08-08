@@ -8,8 +8,12 @@ function login() {
     // STUDENT LOGIN
     if (studentId) {
 
-        const enteredId = studentId.value.trim();
-        const enteredPassword = password.value;
+     const enteredId = studentId.value
+    .trim()
+    .replace(/\s+/g, "")
+    .toUpperCase();
+
+const enteredPassword = password.value;
 
         const savedStudent = localStorage.getItem("student_" + enteredId);
 
