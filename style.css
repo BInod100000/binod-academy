@@ -131,46 +131,55 @@ section {
     text-align: center;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
-/* ===== MOBILE LOGIN PORTALS ===== */
+/* ================================
+   MOBILE LOGIN PORTALS
+   ================================ */
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
 
-    /* Login page main section */
-    .login-page section {
-        width: 95%;
-        max-width: 500px;
-        padding: 20px 10px;
-        margin: 25px auto;
+    /* Main login section */
+    section {
+        width: 94% !important;
+        max-width: 500px !important;
+        padding: 20px 10px !important;
+        margin: 25px auto !important;
     }
 
-    /* Teacher & Student portal cards */
-    .login-page .card {
-        width: 100%;
-        max-width: 420px;
-        padding: 25px 18px;
-        margin: 20px auto;
-        border-radius: 18px;
+    /* Teacher and Student cards */
+    .card {
+        width: 92% !important;
+        max-width: 400px !important;
+        padding: 22px 15px !important;
+        margin: 25px auto !important;
+        box-sizing: border-box !important;
     }
 
     /* Portal headings */
-    .login-page .card h2 {
-        font-size: 32px;
-        line-height: 1.2;
-        margin-bottom: 15px;
+    .card h2 {
+        font-size: 30px !important;
+        line-height: 1.2 !important;
+        margin: 10px 0 15px 0 !important;
     }
 
-    /* Portal description */
-    .login-page .card p {
-        font-size: 20px;
-        line-height: 1.4;
-        margin-bottom: 20px;
+    /* Portal text */
+    .card p {
+        font-size: 18px !important;
+        line-height: 1.4 !important;
+        margin: 10px 0 20px 0 !important;
     }
 
-    /* Portal buttons */
-    .login-page .card button {
-        width: 90%;
-        max-width: 350px;
-        padding: 14px 20px;
-        font-size: 20px;
+    /* Login buttons */
+    .card button {
+        width: 90% !important;
+        max-width: 330px !important;
+        padding: 14px 15px !important;
+        font-size: 19px !important;
+        margin: 10px auto !important;
+    }
+
+    /* Keep the whole page scrollable */
+    body {
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
     }
 }
