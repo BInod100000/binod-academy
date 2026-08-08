@@ -8,12 +8,12 @@ function login() {
     // STUDENT LOGIN
     if (studentId) {
 
-     const enteredId = studentId.value
-    .trim()
-    .replace(/\s+/g, "")
-    .toUpperCase();
+        const enteredId = studentId.value
+            .trim()
+            .replace(/\s+/g, "")
+            .toUpperCase();
 
-const enteredPassword = password.value;
+        const enteredPassword = password.value;
 
         const savedStudent = localStorage.getItem("student_" + enteredId);
 
@@ -36,7 +36,10 @@ const enteredPassword = password.value;
             error.textContent = "❌ Student ID not found";
 
         }
+
+        return;
     }
+
 
     // TEACHER LOGIN
     if (teacherId) {
@@ -44,7 +47,6 @@ const enteredPassword = password.value;
         const enteredTeacherId = teacherId.value.trim();
         const enteredPassword = password.value;
 
-        // Temporary teacher account
         if (
             enteredTeacherId === "teacher01" &&
             enteredPassword === "1234"
@@ -57,66 +59,103 @@ const enteredPassword = password.value;
             error.textContent = "❌ Invalid Teacher ID or Password";
 
         }
+
+        return;
     }
 }
+
+
 function registerStudent() {
 
-    const studentName = document.getElementById("studentName").value.trim();
+    const studentName = document
+        .getElementById("studentName")
+        .value
+        .trim();
+
     const password = document.getElementById("newPassword").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-    const error = document.getElementById("registerError");
 
-    // Check name
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+    const error =
+        document.getElementById("registerError");
+
+
+    // CHECK NAME
     if (studentName === "") {
+
         error.textContent = "❌ Please enter your full name.";
+
         return;
     }
 
-    // Check password
+
+    // CHECK PASSWORD
     if (password === "" || confirmPassword === "") {
-        error.textContent = "❌ Please enter your password twice.";
+
+        error.textContent =
+            "❌ Please enter your password twice.";
+
         return;
     }
 
-    // Check passwords
+
+    // CHECK PASSWORD MATCH
     if (password !== confirmPassword) {
-        error.textContent = "❌ Passwords do not match.";
+
+        error.textContent =
+            "❌ Passwords do not match.";
+
         return;
     }
 
-    // Create Student ID from name
+
+    // CREATE STUDENT ID
     const studentId = studentName
         .replace(/\s+/g, "")
         .toUpperCase();
 
-    // Check whether name/ID already exists
-    const existingStudent = localStorage.getItem("student_" + studentId);
+
+    // CHECK EXISTING STUDENT
+    const existingStudent =
+        localStorage.getItem("student_" + studentId);
 
     if (existingStudent) {
-        error.textContent = "❌ This student is already registered.";
+
+        error.textContent =
+            "❌ This student is already registered.";
+
         return;
     }
 
-    // Create student account
+
+    // CREATE STUDENT ACCOUNT
     const student = {
+
         studentId: studentId,
+
         name: studentName,
+
         password: password
+
     };
 
-    // Save account
+
+    // SAVE ACCOUNT
     localStorage.setItem(
         "student_" + studentId,
         JSON.stringify(student)
     );
 
+
     alert(
-        "✅ Account created successfully!\n\nYour Student ID is: " +
+        "✅ Account created successfully!\n\n" +
+        "Your Student ID is: " +
         studentId
     );
 
-    // Go to login page
-    window.location.href = "student-login.html";
+
+    // GO TO LOGIN
+    window.location.href =
+        "student-login.html";
 }
-
-
