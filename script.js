@@ -55,46 +55,64 @@ function login() {
         }
     }
 }
-
-
 function registerStudent() {
 
-    const studentId = document.getElementById("newStudentId").value.trim();
+    const studentName = document.getElementById("studentName").value.trim();
     const password = document.getElementById("newPassword").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
     const error = document.getElementById("registerError");
 
-    if (studentId === "" || password === "" || confirmPassword === "") {
-
-        error.textContent = "❌ Please fill in all fields.";
+    // Check name
+    if (studentName === "") {
+        error.textContent = "❌ Please enter your full name.";
         return;
     }
 
-    if (password !== confirmPassword) {
+    // Check password
+    if (password === "" || confirmPassword === "") {
+        error.textContent = "❌ Please enter your password twice.";
+        return;
+    }
 
+    // Check passwords
+    if (password !== confirmPassword) {
         error.textContent = "❌ Passwords do not match.";
         return;
     }
 
+    // Create Student ID from name
+    const studentId = studentName
+        .replace(/\s+/g, "")
+        .toUpperCase();
+
+    // Check whether name/ID already exists
     const existingStudent = localStorage.getItem("student_" + studentId);
 
     if (existingStudent) {
-
-        error.textContent = "❌ This Student ID is already registered.";
+        error.textContent = "❌ This student is already registered.";
         return;
     }
 
+    // Create student account
     const student = {
         studentId: studentId,
+        name: studentName,
         password: password
     };
 
+    // Save account
     localStorage.setItem(
         "student_" + studentId,
         JSON.stringify(student)
     );
 
-    alert("✅ Account created successfully!");
+    alert(
+        "✅ Account created successfully!\n\nYour Student ID is: " +
+        studentId
+    );
 
+    // Go to login page
     window.location.href = "student-login.html";
 }
+
+
