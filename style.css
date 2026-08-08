@@ -247,3 +247,6 @@ section {
         margin: 5px auto;
     }
 }
+body {
+    background: red !important;
+}
