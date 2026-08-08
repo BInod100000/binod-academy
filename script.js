@@ -15,7 +15,8 @@ function login() {
 
         const enteredPassword = password.value;
 
-        const savedStudent = localStorage.getItem("student_" + enteredId);
+        const savedStudent =
+            localStorage.getItem("student_" + enteredId);
 
         if (savedStudent) {
 
@@ -40,12 +41,14 @@ function login() {
         return;
     }
 
-
     // TEACHER LOGIN
     if (teacherId) {
 
-        const enteredTeacherId = teacherId.value.trim();
-        const enteredPassword = password.value;
+        const enteredTeacherId =
+            teacherId.value.trim();
+
+        const enteredPassword =
+            password.value;
 
         if (
             enteredTeacherId === "teacher01" &&
@@ -56,7 +59,8 @@ function login() {
 
         } else {
 
-            error.textContent = "❌ Invalid Teacher ID or Password";
+            error.textContent =
+                "❌ Invalid Teacher ID or Password";
 
         }
 
@@ -72,7 +76,8 @@ function registerStudent() {
         .value
         .trim();
 
-    const password = document.getElementById("newPassword").value;
+    const password =
+        document.getElementById("newPassword").value;
 
     const confirmPassword =
         document.getElementById("confirmPassword").value;
@@ -81,16 +86,15 @@ function registerStudent() {
         document.getElementById("registerError");
 
 
-    // CHECK NAME
     if (studentName === "") {
 
-        error.textContent = "❌ Please enter your full name.";
+        error.textContent =
+            "❌ Please enter your full name.";
 
         return;
     }
 
 
-    // CHECK PASSWORD
     if (password === "" || confirmPassword === "") {
 
         error.textContent =
@@ -100,7 +104,6 @@ function registerStudent() {
     }
 
 
-    // CHECK PASSWORD MATCH
     if (password !== confirmPassword) {
 
         error.textContent =
@@ -110,13 +113,11 @@ function registerStudent() {
     }
 
 
-    // CREATE STUDENT ID
     const studentId = studentName
         .replace(/\s+/g, "")
         .toUpperCase();
 
 
-    // CHECK EXISTING STUDENT
     const existingStudent =
         localStorage.getItem("student_" + studentId);
 
@@ -129,19 +130,15 @@ function registerStudent() {
     }
 
 
-    // CREATE STUDENT ACCOUNT
     const student = {
 
         studentId: studentId,
-
         name: studentName,
-
         password: password
 
     };
 
 
-    // SAVE ACCOUNT
     localStorage.setItem(
         "student_" + studentId,
         JSON.stringify(student)
@@ -155,7 +152,5 @@ function registerStudent() {
     );
 
 
-    // GO TO LOGIN
-    window.location.href =
-        "student-login.html";
+    window.location.href = "student-login.html";
 }
