@@ -31,35 +31,30 @@
 
             <p>Enter your Student ID and Password.</p>
 
-            <br>
-
             <input
                 type="text"
                 id="studentId"
                 placeholder="Student ID"
+                autocomplete="username"
             >
-
-            <br><br>
 
             <input
                 type="password"
                 id="password"
                 placeholder="Password"
+                autocomplete="current-password"
             >
 
-            <br><br>
+            <button onclick="login()">
+                Login
+            </button>
 
-            <button onclick="login()">Login</button>
-
-            <p
-                id="error"
-                style="color:red; margin-top:15px;"
-            ></p>
+            <p id="error" style="color:red; margin-top:15px;"></p>
 
             <p style="margin-top:20px;">
                 Don't have an account?
                 <a href="student-registration.html">
-                    Create Account
+                    Register here
                 </a>
             </p>
 
@@ -67,7 +62,6 @@
 
     </section>
 
-    <!-- JavaScript -->
     <script src="script.js"></script>
 
 </body>
