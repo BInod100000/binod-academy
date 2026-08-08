@@ -126,23 +126,62 @@ button:hover {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* MOBILE */
+/* =========================
+   STUDENT LOGIN MOBILE FIX
+   ========================= */
 
 @media (max-width: 768px) {
 
-    body {
-        padding: 15px;
+    .login-page {
+        min-height: 100vh;
+        padding: 15px 10px;
+        overflow-x: hidden;
     }
 
-    h1 {
-        font-size: clamp(26px, 8vw, 36px);
-        width: 100%;
+    .login-page h1 {
+        font-size: 30px;
         margin-bottom: 15px;
     }
 
-    p {
+    .login-page section {
+        width: 100%;
+        margin: 20px auto;
+        padding: 20px 10px;
+    }
+
+    .login-page .login-box {
+        width: 100%;
+        max-width: 400px;
+        margin: 10px auto;
+        padding: 20px 15px;
+    }
+
+    .login-page .login-box h2 {
+        font-size: 28px;
+        line-height: 1.2;
+        margin-bottom: 10px;
+    }
+
+    .login-page .login-box p {
+        font-size: 17px;
+        line-height: 1.4;
+    }
+
+    .login-page input {
+        width: 100%;
+        max-width: 350px;
+        height: 52px;
+        font-size: 17px;
+        padding: 12px;
+    }
+
+    .login-page button {
+        width: 100%;
+        max-width: 250px;
+        height: 52px;
         font-size: 18px;
     }
+}
 
     nav {
         flex-direction: column;
