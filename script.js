@@ -104,31 +104,24 @@ async function login() {
 // STUDENT REGISTRATION
 // =====================================
 
-function registerStudent() {
+async function registerStudent() {
 
-    const studentName =
-        document
-            .getElementById("studentName")
-            .value
-            .trim();
+    const studentName = document
+        .getElementById("studentName")
+        .value
+        .trim();
 
     const password =
-        document
-            .getElementById("newPassword")
-            .value;
+        document.getElementById("newPassword").value;
 
     const confirmPassword =
-        document
-            .getElementById("confirmPassword")
-            .value;
+        document.getElementById("confirmPassword").value;
 
     const error =
-        document
-            .getElementById("registerError");
+        document.getElementById("registerError");
 
 
     // CHECK NAME
-
     if (studentName === "") {
 
         error.textContent =
@@ -139,11 +132,7 @@ function registerStudent() {
 
 
     // CHECK PASSWORD
-
-    if (
-        password === "" ||
-        confirmPassword === ""
-    ) {
+    if (password === "" || confirmPassword === "") {
 
         error.textContent =
             "❌ Please enter your password twice.";
@@ -153,7 +142,6 @@ function registerStudent() {
 
 
     // CHECK PASSWORD MATCH
-
     if (password !== confirmPassword) {
 
         error.textContent =
@@ -163,20 +151,19 @@ function registerStudent() {
     }
 
 
-    // CREATE STUDENT ID
-
-    const studentId =
-        studentName
-            .replace(/\s+/g, "")
-            .toUpperCase();
+    // CREATE UPPERCASE STUDENT ID
+    const studentId = studentName
+        .replace(/\s+/g, "")
+        .toUpperCase();
 
 
-    // TEMPORARY CHECK
-
-    const existingStudent =
-        localStorage.getItem(
-            "student_" + studentId
-        );
+    // CHECK SUPABASE FOR EXISTING STUDENT
+    const { data: existingStudent } =
+        await supabaseClient
+            .from("students")
+            .select("student_id")
+            .eq("student_id", studentId)
+            .maybeSingle();
 
 
     if (existingStudent) {
@@ -188,34 +175,40 @@ function registerStudent() {
     }
 
 
-    // CREATE STUDENT
-
-    const student = {
-
-        studentId: studentId,
-
-        name: studentName,
-
-        password: password
-
-    };
-
-
-    // TEMPORARY LOCAL STORAGE
-
-    localStorage.setItem(
-        "student_" + studentId,
-        JSON.stringify(student)
-    );
+    // SAVE STUDENT TO SUPABASE
+    const { error: insertError } =
+        await supabaseClient
+            .from("students")
+            .insert([
+                {
+                    student_id: studentId,
+                    name: studentName.toUpperCase(),
+                    password: password
+                }
+            ]);
 
 
+    // CHECK DATABASE ERROR
+    if (insertError) {
+
+        console.log(insertError);
+
+        error.textContent =
+            "❌ Registration failed. Please try again.";
+
+        return;
+    }
+
+
+    // SUCCESS
     alert(
         "✅ Account created successfully!\n\n" +
-        "Your Student ID is: " +
+        "Your Student ID is:\n" +
         studentId
     );
 
 
+    // GO TO LOGIN
     window.location.href =
         "student-login.html";
 }
