@@ -1,11 +1,19 @@
-function login() {
+// =====================================
+// BINOD ACADEMY - LOGIN
+// =====================================
+
+async function login() {
 
     const studentId = document.getElementById("studentId");
     const teacherId = document.getElementById("teacherId");
     const password = document.getElementById("password");
     const error = document.getElementById("error");
 
+
+    // =====================================
     // STUDENT LOGIN
+    // =====================================
+
     if (studentId) {
 
         const enteredId = studentId.value
@@ -15,33 +23,53 @@ function login() {
 
         const enteredPassword = password.value;
 
-        const savedStudent =
-            localStorage.getItem("student_" + enteredId);
 
-        if (savedStudent) {
+        if (enteredId === "" || enteredPassword === "") {
 
-            const student = JSON.parse(savedStudent);
+            error.textContent =
+                "❌ Please enter Student ID and Password.";
 
-            if (student.password === enteredPassword) {
-
-                window.location.href = "student.html";
-
-            } else {
-
-                error.textContent = "❌ Incorrect Password";
-
-            }
-
-        } else {
-
-            error.textContent = "❌ Student ID not found";
-
+            return;
         }
+
+
+        const { data, error: supabaseError } =
+            await supabaseClient
+                .from("students")
+                .select("*")
+                .eq("student_id", enteredId)
+                .eq("password", enteredPassword)
+                .single();
+
+
+        if (supabaseError || !data) {
+
+            console.log(supabaseError);
+
+            error.textContent =
+                "❌ Student ID or Password is incorrect.";
+
+            return;
+        }
+
+
+        // Login successful
+
+        localStorage.setItem(
+            "loggedInStudent",
+            data.student_id
+        );
+
+        window.location.href = "student.html";
 
         return;
     }
 
+
+    // =====================================
     // TEACHER LOGIN
+    // =====================================
+
     if (teacherId) {
 
         const enteredTeacherId =
@@ -50,12 +78,14 @@ function login() {
         const enteredPassword =
             password.value;
 
+
         if (
             enteredTeacherId === "teacher01" &&
             enteredPassword === "1234"
         ) {
 
-            window.location.href = "teacher.html";
+            window.location.href =
+                "teacher.html";
 
         } else {
 
@@ -69,22 +99,35 @@ function login() {
 }
 
 
+
+// =====================================
+// STUDENT REGISTRATION
+// =====================================
+
 function registerStudent() {
 
-    const studentName = document
-        .getElementById("studentName")
-        .value
-        .trim();
+    const studentName =
+        document
+            .getElementById("studentName")
+            .value
+            .trim();
 
     const password =
-        document.getElementById("newPassword").value;
+        document
+            .getElementById("newPassword")
+            .value;
 
     const confirmPassword =
-        document.getElementById("confirmPassword").value;
+        document
+            .getElementById("confirmPassword")
+            .value;
 
     const error =
-        document.getElementById("registerError");
+        document
+            .getElementById("registerError");
 
+
+    // CHECK NAME
 
     if (studentName === "") {
 
@@ -95,7 +138,12 @@ function registerStudent() {
     }
 
 
-    if (password === "" || confirmPassword === "") {
+    // CHECK PASSWORD
+
+    if (
+        password === "" ||
+        confirmPassword === ""
+    ) {
 
         error.textContent =
             "❌ Please enter your password twice.";
@@ -103,6 +151,8 @@ function registerStudent() {
         return;
     }
 
+
+    // CHECK PASSWORD MATCH
 
     if (password !== confirmPassword) {
 
@@ -113,13 +163,21 @@ function registerStudent() {
     }
 
 
-    const studentId = studentName
-        .replace(/\s+/g, "")
-        .toUpperCase();
+    // CREATE STUDENT ID
 
+    const studentId =
+        studentName
+            .replace(/\s+/g, "")
+            .toUpperCase();
+
+
+    // TEMPORARY CHECK
 
     const existingStudent =
-        localStorage.getItem("student_" + studentId);
+        localStorage.getItem(
+            "student_" + studentId
+        );
+
 
     if (existingStudent) {
 
@@ -130,14 +188,20 @@ function registerStudent() {
     }
 
 
+    // CREATE STUDENT
+
     const student = {
 
         studentId: studentId,
+
         name: studentName,
+
         password: password
 
     };
 
+
+    // TEMPORARY LOCAL STORAGE
 
     localStorage.setItem(
         "student_" + studentId,
@@ -152,5 +216,6 @@ function registerStudent() {
     );
 
 
-    window.location.href = "student-login.html";
+    window.location.href =
+        "student-login.html";
 }
