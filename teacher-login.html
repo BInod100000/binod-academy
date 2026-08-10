@@ -50,6 +50,8 @@
             </p>
 
 
+            <!-- TEACHER ID -->
+
             <input
                 type="text"
                 id="teacherId"
@@ -58,30 +60,39 @@
             >
 
 
+            <!-- PASSWORD -->
+
             <input
                 type="password"
-                id="password"
+                id="teacherPassword"
                 placeholder="Password"
                 autocomplete="current-password"
             >
 
 
-            <button onclick="login()">
+            <!-- LOGIN BUTTON -->
+
+            <button onclick="teacherLogin()">
                 Login
             </button>
 
 
+            <!-- ERROR MESSAGE -->
+
             <p
-                id="error"
+                id="teacherError"
                 style="color:red; margin-top:15px;"
             ></p>
+
 
         </div>
 
     </section>
 
 
-    <!-- SUPABASE -->
+    <!-- =================================
+         SUPABASE
+    ================================== -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -93,7 +104,7 @@
 
 
         const SUPABASE_KEY =
-            "sb_publishable_LzpPYJfrnh604E-guWCezA_mzZjaS6x";
+            "YOUR_PUBLISHABLE_KEY";
 
 
         const supabaseClient =
@@ -105,7 +116,9 @@
     </script>
 
 
-    <!-- YOUR WEBSITE JAVASCRIPT -->
+    <!-- =================================
+         YOUR JAVASCRIPT
+    ================================== -->
 
     <script src="script.js"></script>
 
