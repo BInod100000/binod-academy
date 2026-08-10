@@ -65,37 +65,69 @@ async function login() {
         return;
     }
 
+// =====================================
+// TEACHER LOGIN
+// =====================================
 
-    // =====================================
-    // TEACHER LOGIN
-    // =====================================
+if (teacherId) {
 
-    if (teacherId) {
+    const enteredTeacherId =
+        teacherId.value
+            .trim()
+            .toUpperCase();
 
-        const enteredTeacherId =
-            teacherId.value.trim();
-
-        const enteredPassword =
-            password.value;
+    const enteredPassword =
+        password.value;
 
 
-        if (
-            enteredTeacherId === "teacher01" &&
-            enteredPassword === "1234"
-        ) {
+    if (
+        enteredTeacherId === "" ||
+        enteredPassword === ""
+    ) {
 
-            window.location.href =
-                "teacher.html";
-
-        } else {
-
-            error.textContent =
-                "❌ Invalid Teacher ID or Password";
-
-        }
+        error.textContent =
+            "❌ Please enter Teacher ID and Password.";
 
         return;
     }
+
+
+    // Check teacher in Supabase
+
+    const { data, error: supabaseError } =
+        await supabaseClient
+            .from("teachers")
+            .select("*")
+            .eq("teacher_id", enteredTeacherId)
+            .eq("password", enteredPassword)
+            .single();
+
+
+    // Login failed
+
+    if (supabaseError || !data) {
+
+        console.log(supabaseError);
+
+        error.textContent =
+            "❌ Teacher ID or Password is incorrect.";
+
+        return;
+    }
+
+
+    // Login successful
+
+    localStorage.setItem(
+        "loggedInTeacher",
+        data.teacher_id
+    );
+
+
+    window.location.href =
+        "teacher.html";
+
+    return;
 }
 
 
