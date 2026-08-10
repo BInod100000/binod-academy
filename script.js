@@ -19,13 +19,13 @@ async function login() {
         document.getElementById("error");
 
 
-    // Make sure this function is being used
-    // only on the student login page.
+    if (!studentId || !password || !error) {
 
-    if (!studentId) {
+        console.error(
+            "Student login elements not found."
+        );
 
         return;
-
     }
 
 
@@ -35,12 +35,9 @@ async function login() {
             .replace(/\s+/g, "")
             .toUpperCase();
 
-
     const enteredPassword =
         password.value;
 
-
-    // Empty fields
 
     if (
         enteredId === "" ||
@@ -51,11 +48,8 @@ async function login() {
             "❌ Please enter Student ID and Password.";
 
         return;
-
     }
 
-
-    // Search student in Supabase
 
     const {
         data,
@@ -67,9 +61,15 @@ async function login() {
 
             .select("*")
 
-            .eq("student_id", enteredId)
+            .eq(
+                "student_id",
+                enteredId
+            )
 
-            .eq("password", enteredPassword)
+            .eq(
+                "password",
+                enteredPassword
+            )
 
             .maybeSingle();
 
@@ -85,8 +85,6 @@ async function login() {
     );
 
 
-    // Database error
-
     if (supabaseError) {
 
         console.error(
@@ -97,11 +95,8 @@ async function login() {
             "❌ Database error. Please try again.";
 
         return;
-
     }
 
-
-    // Student not found
 
     if (!data) {
 
@@ -109,11 +104,8 @@ async function login() {
             "❌ Student ID or Password is incorrect.";
 
         return;
-
     }
 
-
-    // Successful login
 
     localStorage.setItem(
         "loggedInStudent",
@@ -123,7 +115,6 @@ async function login() {
 
     window.location.href =
         "student.html";
-
 }
 
 
@@ -144,8 +135,6 @@ async function teacherLogin() {
         document.getElementById("teacherError");
 
 
-    // Safety check
-
     if (
         !teacherId ||
         !password ||
@@ -157,23 +146,17 @@ async function teacherLogin() {
         );
 
         return;
-
     }
 
-
-    // Get values
 
     const enteredTeacherId =
         teacherId.value
             .trim()
             .toUpperCase();
 
-
     const enteredPassword =
         password.value;
 
-
-    // Empty fields
 
     if (
         enteredTeacherId === "" ||
@@ -184,13 +167,8 @@ async function teacherLogin() {
             "❌ Please enter Teacher ID and Password.";
 
         return;
-
     }
 
-
-    // =================================
-    // CHECK TEACHER IN SUPABASE
-    // =================================
 
     const {
         data,
@@ -215,9 +193,6 @@ async function teacherLogin() {
             .maybeSingle();
 
 
-    // Show result in browser console
-    // for debugging
-
     console.log(
         "Teacher result:",
         data
@@ -229,8 +204,6 @@ async function teacherLogin() {
     );
 
 
-    // Database error
-
     if (supabaseError) {
 
         console.error(
@@ -241,11 +214,8 @@ async function teacherLogin() {
             "❌ Database error. Please try again.";
 
         return;
-
     }
 
-
-    // Teacher not found
 
     if (!data) {
 
@@ -253,13 +223,8 @@ async function teacherLogin() {
             "❌ Invalid Teacher ID or Password.";
 
         return;
-
     }
 
-
-    // =================================
-    // SUCCESSFUL TEACHER LOGIN
-    // =================================
 
     localStorage.setItem(
         "loggedInTeacher",
@@ -275,7 +240,6 @@ async function teacherLogin() {
 
     window.location.href =
         "teacher.html";
-
 }
 
 
@@ -292,27 +256,20 @@ async function registerStudent() {
             .value
             .trim();
 
-
     const password =
         document
             .getElementById("newPassword")
             .value;
-
 
     const confirmPassword =
         document
             .getElementById("confirmPassword")
             .value;
 
-
     const error =
         document
             .getElementById("registerError");
 
-
-    // =================================
-    // CHECK NAME
-    // =================================
 
     if (studentName === "") {
 
@@ -320,13 +277,8 @@ async function registerStudent() {
             "❌ Please enter your full name.";
 
         return;
-
     }
 
-
-    // =================================
-    // CHECK PASSWORD
-    // =================================
 
     if (
         password === "" ||
@@ -337,13 +289,8 @@ async function registerStudent() {
             "❌ Please enter your password twice.";
 
         return;
-
     }
 
-
-    // =================================
-    // CHECK PASSWORD MATCH
-    // =================================
 
     if (
         password !== confirmPassword
@@ -353,25 +300,14 @@ async function registerStudent() {
             "❌ Passwords do not match.";
 
         return;
-
     }
 
 
-    // =================================
-    // CREATE STUDENT ID
-    // =================================
-
     const studentId =
         studentName
-
             .replace(/\s+/g, "")
-
             .toUpperCase();
 
-
-    // =================================
-    // CHECK EXISTING STUDENT
-    // =================================
 
     const {
         data: existingStudent,
@@ -401,11 +337,8 @@ async function registerStudent() {
             "❌ Database error. Please try again.";
 
         return;
-
     }
 
-
-    // Already registered
 
     if (existingStudent) {
 
@@ -413,13 +346,8 @@ async function registerStudent() {
             "❌ This student is already registered.";
 
         return;
-
     }
 
-
-    // =================================
-    // INSERT STUDENT
-    // =================================
 
     const {
         error: insertError
@@ -431,7 +359,6 @@ async function registerStudent() {
             .insert([
 
                 {
-
                     student_id:
                         studentId,
 
@@ -440,13 +367,10 @@ async function registerStudent() {
 
                     password:
                         password
-
                 }
 
             ]);
 
-
-    // Registration error
 
     if (insertError) {
 
@@ -458,26 +382,16 @@ async function registerStudent() {
             "❌ Registration failed. Please try again.";
 
         return;
-
     }
 
 
-    // =================================
-    // SUCCESS
-    // =================================
-
     alert(
-
         "✅ Account created successfully!\n\n" +
-
         "Your Student ID is:\n" +
-
         studentId
-
     );
 
 
     window.location.href =
         "student-login.html";
-
 }
