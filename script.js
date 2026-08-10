@@ -1,84 +1,179 @@
 // =====================================
-// BINOD ACADEMY - LOGIN
+// BINOD ACADEMY - SCRIPT.JS
+// =====================================
+
+
+// =====================================
+// STUDENT LOGIN
 // =====================================
 
 async function login() {
 
-    const studentId = document.getElementById("studentId");
-    const teacherId = document.getElementById("teacherId");
-    const password = document.getElementById("password");
-    const error = document.getElementById("error");
+    const studentId =
+        document.getElementById("studentId");
+
+    const password =
+        document.getElementById("password");
+
+    const error =
+        document.getElementById("error");
 
 
-    // =====================================
-    // STUDENT LOGIN
-    // =====================================
+    // Make sure this function is being used
+    // only on the student login page.
 
-    if (studentId) {
+    if (!studentId) {
 
-        const enteredId = studentId.value
+        return;
+
+    }
+
+
+    const enteredId =
+        studentId.value
             .trim()
             .replace(/\s+/g, "")
             .toUpperCase();
 
-        const enteredPassword = password.value;
+
+    const enteredPassword =
+        password.value;
 
 
-        if (enteredId === "" || enteredPassword === "") {
+    // Empty fields
 
-            error.textContent =
-                "❌ Please enter Student ID and Password.";
+    if (
+        enteredId === "" ||
+        enteredPassword === ""
+    ) {
 
-            return;
-        }
-
-
-        const { data, error: supabaseError } =
-            await supabaseClient
-                .from("students")
-                .select("*")
-                .eq("student_id", enteredId)
-                .eq("password", enteredPassword)
-                .single();
-
-
-        if (supabaseError || !data) {
-
-            console.log(supabaseError);
-
-            error.textContent =
-                "❌ Student ID or Password is incorrect.";
-
-            return;
-        }
-
-
-        // Login successful
-
-        localStorage.setItem(
-            "loggedInStudent",
-            data.student_id
-        );
-
-        window.location.href = "student.html";
+        error.textContent =
+            "❌ Please enter Student ID and Password.";
 
         return;
+
     }
+
+
+    // Search student in Supabase
+
+    const {
+        data,
+        error: supabaseError
+    } =
+        await supabaseClient
+
+            .from("students")
+
+            .select("*")
+
+            .eq("student_id", enteredId)
+
+            .eq("password", enteredPassword)
+
+            .maybeSingle();
+
+
+    console.log(
+        "Student result:",
+        data
+    );
+
+    console.log(
+        "Student error:",
+        supabaseError
+    );
+
+
+    // Database error
+
+    if (supabaseError) {
+
+        console.error(
+            supabaseError
+        );
+
+        error.textContent =
+            "❌ Database error. Please try again.";
+
+        return;
+
+    }
+
+
+    // Student not found
+
+    if (!data) {
+
+        error.textContent =
+            "❌ Student ID or Password is incorrect.";
+
+        return;
+
+    }
+
+
+    // Successful login
+
+    localStorage.setItem(
+        "loggedInStudent",
+        data.student_id
+    );
+
+
+    window.location.href =
+        "student.html";
+
+}
+
+
 
 // =====================================
 // TEACHER LOGIN
 // =====================================
 
-if (teacherId) {
+async function teacherLogin() {
+
+    const teacherId =
+        document.getElementById("teacherId");
+
+    const password =
+        document.getElementById("teacherPassword");
+
+    const error =
+        document.getElementById("teacherError");
+
+
+    // Safety check
+
+    if (
+        !teacherId ||
+        !password ||
+        !error
+    ) {
+
+        console.error(
+            "Teacher login elements not found."
+        );
+
+        return;
+
+    }
+
+
+    // Get values
 
     const enteredTeacherId =
         teacherId.value
             .trim()
             .toUpperCase();
 
+
     const enteredPassword =
         password.value;
 
+
+    // Empty fields
 
     if (
         enteredTeacherId === "" ||
@@ -89,34 +184,82 @@ if (teacherId) {
             "❌ Please enter Teacher ID and Password.";
 
         return;
+
     }
 
 
-    // Check teacher in Supabase
+    // =================================
+    // CHECK TEACHER IN SUPABASE
+    // =================================
 
-    const { data, error: supabaseError } =
+    const {
+        data,
+        error: supabaseError
+    } =
         await supabaseClient
+
             .from("teachers")
-            .select("*")
-            .eq("teacher_id", enteredTeacherId)
-            .eq("password", enteredPassword)
-            .single();
+
+            .select("teacher_id, name")
+
+            .eq(
+                "teacher_id",
+                enteredTeacherId
+            )
+
+            .eq(
+                "password",
+                enteredPassword
+            )
+
+            .maybeSingle();
 
 
-    // Login failed
+    // Show result in browser console
+    // for debugging
 
-    if (supabaseError || !data) {
+    console.log(
+        "Teacher result:",
+        data
+    );
 
-        console.log(supabaseError);
+    console.log(
+        "Teacher error:",
+        supabaseError
+    );
+
+
+    // Database error
+
+    if (supabaseError) {
+
+        console.error(
+            supabaseError
+        );
 
         error.textContent =
-            "❌ Teacher ID or Password is incorrect.";
+            "❌ Database error. Please try again.";
 
         return;
+
     }
 
 
-    // Login successful
+    // Teacher not found
+
+    if (!data) {
+
+        error.textContent =
+            "❌ Invalid Teacher ID or Password.";
+
+        return;
+
+    }
+
+
+    // =================================
+    // SUCCESSFUL TEACHER LOGIN
+    // =================================
 
     localStorage.setItem(
         "loggedInTeacher",
@@ -124,10 +267,15 @@ if (teacherId) {
     );
 
 
+    localStorage.setItem(
+        "teacherName",
+        data.name
+    );
+
+
     window.location.href =
         "teacher.html";
 
-    return;
 }
 
 
@@ -138,65 +286,126 @@ if (teacherId) {
 
 async function registerStudent() {
 
-    const studentName = document
-        .getElementById("studentName")
-        .value
-        .trim();
+    const studentName =
+        document
+            .getElementById("studentName")
+            .value
+            .trim();
+
 
     const password =
-        document.getElementById("newPassword").value;
+        document
+            .getElementById("newPassword")
+            .value;
+
 
     const confirmPassword =
-        document.getElementById("confirmPassword").value;
+        document
+            .getElementById("confirmPassword")
+            .value;
+
 
     const error =
-        document.getElementById("registerError");
+        document
+            .getElementById("registerError");
 
 
+    // =================================
     // CHECK NAME
+    // =================================
+
     if (studentName === "") {
 
         error.textContent =
             "❌ Please enter your full name.";
 
         return;
+
     }
 
 
+    // =================================
     // CHECK PASSWORD
-    if (password === "" || confirmPassword === "") {
+    // =================================
+
+    if (
+        password === "" ||
+        confirmPassword === ""
+    ) {
 
         error.textContent =
             "❌ Please enter your password twice.";
 
         return;
+
     }
 
 
+    // =================================
     // CHECK PASSWORD MATCH
-    if (password !== confirmPassword) {
+    // =================================
+
+    if (
+        password !== confirmPassword
+    ) {
 
         error.textContent =
             "❌ Passwords do not match.";
 
         return;
+
     }
 
 
-    // CREATE UPPERCASE STUDENT ID
-    const studentId = studentName
-        .replace(/\s+/g, "")
-        .toUpperCase();
+    // =================================
+    // CREATE STUDENT ID
+    // =================================
+
+    const studentId =
+        studentName
+
+            .replace(/\s+/g, "")
+
+            .toUpperCase();
 
 
-    // CHECK SUPABASE FOR EXISTING STUDENT
-    const { data: existingStudent } =
+    // =================================
+    // CHECK EXISTING STUDENT
+    // =================================
+
+    const {
+        data: existingStudent,
+        error: checkError
+    } =
         await supabaseClient
+
             .from("students")
+
             .select("student_id")
-            .eq("student_id", studentId)
+
+            .eq(
+                "student_id",
+                studentId
+            )
+
             .maybeSingle();
 
+
+    if (checkError) {
+
+        console.error(
+            checkError
+        );
+
+        error.textContent =
+            "❌ Database error. Please try again.";
+
+        return;
+
+    }
+
+
+    // Already registered
 
     if (existingStudent) {
 
@@ -204,43 +413,71 @@ async function registerStudent() {
             "❌ This student is already registered.";
 
         return;
+
     }
 
 
-    // SAVE STUDENT TO SUPABASE
-    const { error: insertError } =
+    // =================================
+    // INSERT STUDENT
+    // =================================
+
+    const {
+        error: insertError
+    } =
         await supabaseClient
+
             .from("students")
+
             .insert([
+
                 {
-                    student_id: studentId,
-                    name: studentName.toUpperCase(),
-                    password: password
+
+                    student_id:
+                        studentId,
+
+                    name:
+                        studentName.toUpperCase(),
+
+                    password:
+                        password
+
                 }
+
             ]);
 
 
-    // CHECK DATABASE ERROR
+    // Registration error
+
     if (insertError) {
 
-        console.log(insertError);
+        console.error(
+            insertError
+        );
 
         error.textContent =
             "❌ Registration failed. Please try again.";
 
         return;
+
     }
 
 
+    // =================================
     // SUCCESS
+    // =================================
+
     alert(
+
         "✅ Account created successfully!\n\n" +
+
         "Your Student ID is:\n" +
+
         studentId
+
     );
 
 
-    // GO TO LOGIN
     window.location.href =
         "student-login.html";
+
 }
