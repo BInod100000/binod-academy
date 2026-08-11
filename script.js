@@ -395,3 +395,305 @@ async function registerStudent() {
     window.location.href =
         "student-login.html";
 }
+
+
+
+// =====================================
+// CREATE / SAVE EXAM
+// =====================================
+
+async function saveExam() {
+
+    const examTitle =
+        document.getElementById("examTitle");
+
+    const examSubject =
+        document.getElementById("examSubject");
+
+    const examDate =
+        document.getElementById("examDate");
+
+    const examDuration =
+        document.getElementById("examDuration");
+
+    const totalMarks =
+        document.getElementById("totalMarks");
+
+    const examMessage =
+        document.getElementById("examMessage");
+
+
+    // =====================================
+    // CHECK ELEMENTS
+    // =====================================
+
+    if (
+        !examTitle ||
+        !examSubject ||
+        !examDate ||
+        !examDuration ||
+        !totalMarks ||
+        !examMessage
+    ) {
+
+        console.error(
+            "Create Exam elements not found."
+        );
+
+        return;
+    }
+
+
+    // =====================================
+    // GET VALUES
+    // =====================================
+
+    const title =
+        examTitle.value.trim();
+
+    const subject =
+        examSubject.value;
+
+    const date =
+        examDate.value;
+
+    const duration =
+        Number(examDuration.value);
+
+    const marks =
+        Number(totalMarks.value);
+
+
+    // =====================================
+    // CHECK EXAM NAME
+    // =====================================
+
+    if (title === "") {
+
+        examMessage.style.color = "red";
+
+        examMessage.textContent =
+            "❌ Please enter the exam name.";
+
+        return;
+    }
+
+
+    // =====================================
+    // CHECK SUBJECT
+    // =====================================
+
+    if (subject === "") {
+
+        examMessage.style.color = "red";
+
+        examMessage.textContent =
+            "❌ Please select a subject.";
+
+        return;
+    }
+
+
+    // =====================================
+    // CHECK DATE
+    // =====================================
+
+    if (date === "") {
+
+        examMessage.style.color = "red";
+
+        examMessage.textContent =
+            "❌ Please select the exam date.";
+
+        return;
+    }
+
+
+    // =====================================
+    // CHECK DURATION
+    // MAXIMUM 180 MINUTES
+    // =====================================
+
+    if (
+        !duration ||
+        duration < 30 ||
+        duration > 180
+    ) {
+
+        examMessage.style.color = "red";
+
+        examMessage.textContent =
+            "❌ Exam duration must be between 30 minutes and 3 hours.";
+
+        return;
+    }
+
+
+    // =====================================
+    // CHECK TOTAL MARKS
+    // MUST BE 75
+    // =====================================
+
+    if (marks !== 75) {
+
+        examMessage.style.color = "red";
+
+        examMessage.textContent =
+            "❌ Total marks must be 75.";
+
+        return;
+    }
+
+
+    // =====================================
+    // FIXED EXAM INSTRUCTIONS
+    // =====================================
+
+    const fixedInstructions = `
+🎓 Welcome to Binod Academy!
+
+Dear Student, welcome to your examination.
+Stay calm, read every question carefully,
+and give your best effort. Believe in yourself! 🌟
+
+📜 Examination Rules:
+
+1. The examination duration is the duration
+   selected by the teacher, with a maximum
+   of 3 hours.
+
+2. The timer starts only after the student
+   clicks START EXAM NOW.
+
+3. The timer cannot be paused once the
+   examination starts.
+
+4. Questions will appear only after the
+   examination starts.
+
+5. Students should write their answers
+   clearly on their answer sheets.
+
+6. Students must upload their answer-sheet
+   photos before the examination ends.
+
+7. When the timer reaches 00:00:00,
+   the examination closes automatically.
+
+8. Submission after the examination
+   deadline will not be accepted.
+
+9. Students should make sure their internet
+   connection is stable while submitting.
+
+🍀 All the best!
+Give it your best effort! ❤️
+`;
+
+
+    // =====================================
+    // SAVE TO SUPABASE
+    // =====================================
+
+    examMessage.style.color = "#1565c0";
+
+    examMessage.textContent =
+        "⏳ Saving exam...";
+
+
+    const {
+        data,
+        error: insertError
+    } =
+        await supabaseClient
+
+            .from("exams")
+
+            .insert([
+
+                {
+                    title:
+                        title,
+
+                    subject:
+                        subject,
+
+                    exam_date:
+                        date,
+
+                    duration_minutes:
+                        duration,
+
+                    total_marks:
+                        75,
+
+                    instructions:
+                        fixedInstructions,
+
+                    status:
+                        "draft"
+                }
+
+            ])
+
+            .select();
+
+
+    // =====================================
+    // CHECK DATABASE ERROR
+    // =====================================
+
+    if (insertError) {
+
+        console.error(
+            "Exam save error:",
+            insertError
+        );
+
+        examMessage.style.color = "red";
+
+        examMessage.textContent =
+            "❌ Exam could not be saved. Please try again.";
+
+        return;
+    }
+
+
+    // =====================================
+    // SUCCESS
+    // =====================================
+
+    console.log(
+        "Exam saved successfully:",
+        data
+    );
+
+
+    examMessage.style.color = "green";
+
+    examMessage.textContent =
+        "✅ Exam saved successfully!";
+
+
+    alert(
+        "✅ Exam created successfully!\n\n" +
+        "Exam: " + title + "\n" +
+        "Subject: " + subject + "\n" +
+        "Total Marks: 75"
+    );
+
+
+    // =====================================
+    // CLEAR FORM
+    // =====================================
+
+    examTitle.value = "";
+
+    examSubject.value = "";
+
+    examDate.value = "";
+
+    examDuration.value = "";
+
+    totalMarks.value = 75;
+}
