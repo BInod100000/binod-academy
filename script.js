@@ -423,10 +423,6 @@ async function saveExam() {
         document.getElementById("examMessage");
 
 
-    // =====================================
-    // CHECK ELEMENTS
-    // =====================================
-
     if (
         !examTitle ||
         !examSubject ||
@@ -444,10 +440,6 @@ async function saveExam() {
     }
 
 
-    // =====================================
-    // GET VALUES
-    // =====================================
-
     const title =
         examTitle.value.trim();
 
@@ -464,10 +456,6 @@ async function saveExam() {
         Number(totalMarks.value);
 
 
-    // =====================================
-    // CHECK EXAM NAME
-    // =====================================
-
     if (title === "") {
 
         examMessage.style.color = "red";
@@ -478,10 +466,6 @@ async function saveExam() {
         return;
     }
 
-
-    // =====================================
-    // CHECK SUBJECT
-    // =====================================
 
     if (subject === "") {
 
@@ -494,10 +478,6 @@ async function saveExam() {
     }
 
 
-    // =====================================
-    // CHECK DATE
-    // =====================================
-
     if (date === "") {
 
         examMessage.style.color = "red";
@@ -509,11 +489,7 @@ async function saveExam() {
     }
 
 
-    // =====================================
-    // CHECK DURATION
-    // MAXIMUM 180 MINUTES
-    // =====================================
-
+    // Maximum 3 hours
     if (
         !duration ||
         duration < 30 ||
@@ -529,11 +505,7 @@ async function saveExam() {
     }
 
 
-    // =====================================
-    // CHECK TOTAL MARKS
-    // MUST BE 75
-    // =====================================
-
+    // Total marks fixed at 75
     if (marks !== 75) {
 
         examMessage.style.color = "red";
@@ -591,10 +563,6 @@ Give it your best effort! ❤️
 `;
 
 
-    // =====================================
-    // SAVE TO SUPABASE
-    // =====================================
-
     examMessage.style.color = "#1565c0";
 
     examMessage.textContent =
@@ -639,10 +607,6 @@ Give it your best effort! ❤️
             .select();
 
 
-    // =====================================
-    // CHECK DATABASE ERROR
-    // =====================================
-
     if (insertError) {
 
         console.error(
@@ -658,10 +622,6 @@ Give it your best effort! ❤️
         return;
     }
 
-
-    // =====================================
-    // SUCCESS
-    // =====================================
 
     console.log(
         "Exam saved successfully:",
@@ -683,10 +643,6 @@ Give it your best effort! ❤️
     );
 
 
-    // =====================================
-    // CLEAR FORM
-    // =====================================
-
     examTitle.value = "";
 
     examSubject.value = "";
@@ -697,22 +653,29 @@ Give it your best effort! ❤️
 
     totalMarks.value = 75;
 }
+
+
+
 // =====================================
-// MANAGE EXAMS
+// MANAGE EXAMS - LOAD ON PAGE
 // =====================================
 
-// Load exams when Manage Exams page opens
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    const examList =
-        document.getElementById("examList");
+        const examList =
+            document.getElementById("examList");
 
-    // Only run on manage-exams.html
-    if (examList) {
-        loadExams();
+        if (examList) {
+
+            loadExams();
+
+        }
+
     }
+);
 
-});
 
 
 // =====================================
@@ -724,8 +687,11 @@ async function loadExams() {
     const examList =
         document.getElementById("examList");
 
+
     if (!examList) {
+
         return;
+
     }
 
 
@@ -765,8 +731,10 @@ async function loadExams() {
     }
 
 
-    // No exams yet
-    if (!exams || exams.length === 0) {
+    if (
+        !exams ||
+        exams.length === 0
+    ) {
 
         examList.innerHTML =
             `
@@ -793,116 +761,139 @@ async function loadExams() {
     }
 
 
-    // Clear loading message
     examList.innerHTML = "";
 
 
-    // Display every exam
-    exams.forEach(function (exam) {
+    exams.forEach(
+        function (exam) {
 
-        const card =
-            document.createElement("div");
-
-        card.className = "card";
-
-        card.style.width = "90%";
-        card.style.maxWidth = "700px";
-        card.style.textAlign = "left";
+            const card =
+                document.createElement("div");
 
 
-        // Convert duration into readable text
-        const durationText =
-            formatExamDuration(
-                exam.duration_minutes
-            );
+            card.className =
+                "card";
 
 
-        // Status
-        let statusText = "";
-
-        if (exam.status === "published") {
-
-            statusText =
-                "🟢 PUBLISHED";
-
-        } else {
-
-            statusText =
-                "🟡 DRAFT";
-
-        }
+            card.style.width =
+                "90%";
 
 
-        card.innerHTML = `
+            card.style.maxWidth =
+                "700px";
 
-            <h2>
-                📝 ${escapeHtml(exam.title)}
-            </h2>
 
-            <p>
-                📚 <strong>Subject:</strong>
-                ${escapeHtml(exam.subject)}
-            </p>
+            card.style.textAlign =
+                "left";
 
-            <p>
-                📅 <strong>Date:</strong>
-                ${escapeHtml(exam.exam_date)}
-            </p>
 
-            <p>
-                ⏱️ <strong>Duration:</strong>
-                ${durationText}
-            </p>
+            const durationText =
+                formatExamDuration(
+                    exam.duration_minutes
+                );
 
-            <p>
-                📊 <strong>Total Marks:</strong>
-                75
-            </p>
 
-            <p>
-                <strong>Status:</strong>
-                ${statusText}
-            </p>
+            let statusText = "";
 
-            <br>
 
-            ${
-                exam.status === "published"
+            if (
+                exam.status ===
+                "published"
+            ) {
 
-                ?
+                statusText =
+                    "🟢 PUBLISHED";
 
-                `
-                <button
-                    onclick="unpublishExam(${exam.id})"
-                >
-                    🔒 Unpublish
-                </button>
-                `
+            } else {
 
-                :
+                statusText =
+                    "🟡 DRAFT";
 
-                `
-                <button
-                    onclick="publishExam(${exam.id})"
-                >
-                    🚀 Publish Exam
-                </button>
-                `
             }
 
-            <button
-                onclick="deleteExam(${exam.id})"
-                style="margin-left:10px;"
-            >
-                🗑️ Delete
-            </button>
 
-        `;
+            card.innerHTML = `
+
+                <h2>
+                    📝 ${escapeHtml(exam.title)}
+                </h2>
+
+                <p>
+                    📚 <strong>Subject:</strong>
+                    ${escapeHtml(exam.subject)}
+                </p>
+
+                <p>
+                    📅 <strong>Date:</strong>
+                    ${escapeHtml(exam.exam_date)}
+                </p>
+
+                <p>
+                    ⏱️ <strong>Duration:</strong>
+                    ${durationText}
+                </p>
+
+                <p>
+                    📊 <strong>Total Marks:</strong>
+                    75
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    ${statusText}
+                </p>
+
+                <br>
+
+                ${
+                    exam.status ===
+                    "published"
+
+                    ?
+
+                    `
+                    <button
+                        onclick="unpublishExam(${exam.id})"
+                    >
+                        🔒 Unpublish
+                    </button>
+                    `
+
+                    :
+
+                    `
+                    <button
+                        onclick="publishExam(${exam.id})"
+                    >
+                        🚀 Publish Exam
+                    </button>
+                    `
+                }
+
+                <br><br>
+
+                <button
+                    onclick="giveQuestionPaper(${exam.id})"
+                >
+                    📄 Give Question Paper
+                </button>
+
+                <button
+                    onclick="deleteExam(${exam.id})"
+                    style="margin-left:10px;"
+                >
+                    🗑️ Delete
+                </button>
+
+            `;
 
 
-        examList.appendChild(card);
+            examList.appendChild(
+                card
+            );
 
-    });
+        }
+    );
 
 }
 
@@ -912,37 +903,61 @@ async function loadExams() {
 // FORMAT EXAM DURATION
 // =====================================
 
-function formatExamDuration(minutes) {
+function formatExamDuration(
+    minutes
+) {
 
     if (minutes === 30) {
+
         return "30 Minutes";
+
     }
+
 
     if (minutes === 45) {
+
         return "45 Minutes";
+
     }
+
 
     if (minutes === 60) {
+
         return "1 Hour";
+
     }
+
 
     if (minutes === 90) {
+
         return "1 Hour 30 Minutes";
+
     }
+
 
     if (minutes === 120) {
+
         return "2 Hours";
+
     }
+
 
     if (minutes === 150) {
+
         return "2 Hours 30 Minutes";
+
     }
+
 
     if (minutes === 180) {
+
         return "3 Hours";
+
     }
 
+
     return minutes + " Minutes";
+
 }
 
 
@@ -951,7 +966,9 @@ function formatExamDuration(minutes) {
 // PUBLISH EXAM
 // =====================================
 
-async function publishExam(examId) {
+async function publishExam(
+    examId
+) {
 
     const confirmPublish =
         confirm(
@@ -961,7 +978,9 @@ async function publishExam(examId) {
 
 
     if (!confirmPublish) {
+
         return;
+
     }
 
 
@@ -973,7 +992,8 @@ async function publishExam(examId) {
             .from("exams")
 
             .update({
-                status: "published"
+                status:
+                    "published"
             })
 
             .eq(
@@ -1012,7 +1032,9 @@ async function publishExam(examId) {
 // UNPUBLISH EXAM
 // =====================================
 
-async function unpublishExam(examId) {
+async function unpublishExam(
+    examId
+) {
 
     const confirmUnpublish =
         confirm(
@@ -1022,7 +1044,9 @@ async function unpublishExam(examId) {
 
 
     if (!confirmUnpublish) {
+
         return;
+
     }
 
 
@@ -1034,7 +1058,8 @@ async function unpublishExam(examId) {
             .from("exams")
 
             .update({
-                status: "draft"
+                status:
+                    "draft"
             })
 
             .eq(
@@ -1073,7 +1098,9 @@ async function unpublishExam(examId) {
 // DELETE EXAM
 // =====================================
 
-async function deleteExam(examId) {
+async function deleteExam(
+    examId
+) {
 
     const confirmDelete =
         confirm(
@@ -1083,7 +1110,9 @@ async function deleteExam(examId) {
 
 
     if (!confirmDelete) {
+
         return;
+
     }
 
 
@@ -1129,19 +1158,290 @@ async function deleteExam(examId) {
 
 
 // =====================================
+// GIVE QUESTION PAPER
+// =====================================
+
+async function giveQuestionPaper(
+    examId
+) {
+
+    // Create file selector
+    const fileInput =
+        document.createElement(
+            "input"
+        );
+
+
+    fileInput.type =
+        "file";
+
+
+    // Allow PDF and image
+    fileInput.accept =
+        ".pdf,.jpg,.jpeg,.png";
+
+
+    fileInput.style.display =
+        "none";
+
+
+    document.body.appendChild(
+        fileInput
+    );
+
+
+    fileInput.click();
+
+
+    fileInput.addEventListener(
+        "change",
+        async function () {
+
+            const file =
+                fileInput.files[0];
+
+
+            if (!file) {
+
+                document.body.removeChild(
+                    fileInput
+                );
+
+                return;
+            }
+
+
+            // =====================================
+            // CHECK FILE SIZE
+            // =====================================
+
+            if (
+                file.size >
+                50 * 1024 * 1024
+            ) {
+
+                alert(
+                    "❌ File is too large.\n\n" +
+                    "Maximum allowed size is 50 MB."
+                );
+
+
+                document.body.removeChild(
+                    fileInput
+                );
+
+
+                return;
+            }
+
+
+            alert(
+                "⏳ Uploading question paper..."
+            );
+
+
+            // =====================================
+            // FILE EXTENSION
+            // =====================================
+
+            const fileExtension =
+                file.name
+                    .split(".")
+                    .pop()
+                    .toLowerCase();
+
+
+            // =====================================
+            // UNIQUE FILE NAME
+            // =====================================
+
+            const filePath =
+                "exam-" +
+                examId +
+                "-" +
+                Date.now() +
+                "." +
+                fileExtension;
+
+
+            // =====================================
+            // UPLOAD TO STORAGE
+            // =====================================
+
+            const {
+                error: uploadError
+            } =
+                await supabaseClient
+                    .storage
+                    .from(
+                        "question-papers"
+                    )
+                    .upload(
+                        filePath,
+                        file,
+                        {
+                            upsert: true
+                        }
+                    );
+
+
+            if (uploadError) {
+
+                console.error(
+                    "Question paper upload error:",
+                    uploadError
+                );
+
+
+                alert(
+                    "❌ Question paper could not be uploaded."
+                );
+
+
+                document.body.removeChild(
+                    fileInput
+                );
+
+
+                return;
+            }
+
+
+            // =====================================
+            // GET PUBLIC URL
+            // =====================================
+
+            const {
+                data: publicData
+            } =
+                supabaseClient
+                    .storage
+                    .from(
+                        "question-papers"
+                    )
+                    .getPublicUrl(
+                        filePath
+                    );
+
+
+            const questionPaperUrl =
+                publicData.publicUrl;
+
+
+            // =====================================
+            // SAVE URL TO EXAM
+            // =====================================
+
+            const {
+                error: updateError
+            } =
+                await supabaseClient
+
+                    .from("exams")
+
+                    .update({
+
+                        question_paper_url:
+                            questionPaperUrl
+
+                    })
+
+                    .eq(
+                        "id",
+                        examId
+                    );
+
+
+            if (updateError) {
+
+                console.error(
+                    "Question paper URL error:",
+                    updateError
+                );
+
+
+                alert(
+                    "❌ File uploaded, but the exam could not be updated.\n\n" +
+                    "Check that the exams table contains the " +
+                    "question_paper_url column."
+                );
+
+
+                document.body.removeChild(
+                    fileInput
+                );
+
+
+                return;
+            }
+
+
+            // =====================================
+            // SUCCESS
+            // =====================================
+
+            alert(
+                "✅ Question paper added successfully!"
+            );
+
+
+            document.body.removeChild(
+                fileInput
+            );
+
+
+            loadExams();
+
+        }
+    );
+
+}
+
+
+
+// =====================================
 // SAFELY DISPLAY TEXT
 // =====================================
 
-function escapeHtml(text) {
+function escapeHtml(
+    text
+) {
 
-    if (text === null || text === undefined) {
+    if (
+        text === null ||
+        text === undefined
+    ) {
+
         return "";
+
     }
 
+
     return String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
 }
