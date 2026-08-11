@@ -697,3 +697,451 @@ Give it your best effort! ❤️
 
     totalMarks.value = 75;
 }
+// =====================================
+// MANAGE EXAMS
+// =====================================
+
+// Load exams when Manage Exams page opens
+document.addEventListener("DOMContentLoaded", function () {
+
+    const examList =
+        document.getElementById("examList");
+
+    // Only run on manage-exams.html
+    if (examList) {
+        loadExams();
+    }
+
+});
+
+
+// =====================================
+// LOAD ALL EXAMS
+// =====================================
+
+async function loadExams() {
+
+    const examList =
+        document.getElementById("examList");
+
+    if (!examList) {
+        return;
+    }
+
+
+    examList.innerHTML =
+        "<p>⏳ Loading exams...</p>";
+
+
+    const {
+        data: exams,
+        error
+    } =
+        await supabaseClient
+
+            .from("exams")
+
+            .select("*")
+
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
+
+
+    if (error) {
+
+        console.error(
+            "Load exams error:",
+            error
+        );
+
+        examList.innerHTML =
+            "<p style='color:red;'>❌ Could not load exams.</p>";
+
+        return;
+    }
+
+
+    // No exams yet
+    if (!exams || exams.length === 0) {
+
+        examList.innerHTML =
+            `
+            <div class="card">
+
+                <h2>📭 No Exams Yet</h2>
+
+                <p>
+                    You have not created any exams yet.
+                </p>
+
+                <br>
+
+                <a href="create-exam.html">
+                    <button>
+                        ➕ Create First Exam
+                    </button>
+                </a>
+
+            </div>
+            `;
+
+        return;
+    }
+
+
+    // Clear loading message
+    examList.innerHTML = "";
+
+
+    // Display every exam
+    exams.forEach(function (exam) {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "card";
+
+        card.style.width = "90%";
+        card.style.maxWidth = "700px";
+        card.style.textAlign = "left";
+
+
+        // Convert duration into readable text
+        const durationText =
+            formatExamDuration(
+                exam.duration_minutes
+            );
+
+
+        // Status
+        let statusText = "";
+
+        if (exam.status === "published") {
+
+            statusText =
+                "🟢 PUBLISHED";
+
+        } else {
+
+            statusText =
+                "🟡 DRAFT";
+
+        }
+
+
+        card.innerHTML = `
+
+            <h2>
+                📝 ${escapeHtml(exam.title)}
+            </h2>
+
+            <p>
+                📚 <strong>Subject:</strong>
+                ${escapeHtml(exam.subject)}
+            </p>
+
+            <p>
+                📅 <strong>Date:</strong>
+                ${escapeHtml(exam.exam_date)}
+            </p>
+
+            <p>
+                ⏱️ <strong>Duration:</strong>
+                ${durationText}
+            </p>
+
+            <p>
+                📊 <strong>Total Marks:</strong>
+                75
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                ${statusText}
+            </p>
+
+            <br>
+
+            ${
+                exam.status === "published"
+
+                ?
+
+                `
+                <button
+                    onclick="unpublishExam(${exam.id})"
+                >
+                    🔒 Unpublish
+                </button>
+                `
+
+                :
+
+                `
+                <button
+                    onclick="publishExam(${exam.id})"
+                >
+                    🚀 Publish Exam
+                </button>
+                `
+            }
+
+            <button
+                onclick="deleteExam(${exam.id})"
+                style="margin-left:10px;"
+            >
+                🗑️ Delete
+            </button>
+
+        `;
+
+
+        examList.appendChild(card);
+
+    });
+
+}
+
+
+
+// =====================================
+// FORMAT EXAM DURATION
+// =====================================
+
+function formatExamDuration(minutes) {
+
+    if (minutes === 30) {
+        return "30 Minutes";
+    }
+
+    if (minutes === 45) {
+        return "45 Minutes";
+    }
+
+    if (minutes === 60) {
+        return "1 Hour";
+    }
+
+    if (minutes === 90) {
+        return "1 Hour 30 Minutes";
+    }
+
+    if (minutes === 120) {
+        return "2 Hours";
+    }
+
+    if (minutes === 150) {
+        return "2 Hours 30 Minutes";
+    }
+
+    if (minutes === 180) {
+        return "3 Hours";
+    }
+
+    return minutes + " Minutes";
+}
+
+
+
+// =====================================
+// PUBLISH EXAM
+// =====================================
+
+async function publishExam(examId) {
+
+    const confirmPublish =
+        confirm(
+            "🚀 Publish this exam?\n\n" +
+            "Students will be able to see it after publishing."
+        );
+
+
+    if (!confirmPublish) {
+        return;
+    }
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+
+            .from("exams")
+
+            .update({
+                status: "published"
+            })
+
+            .eq(
+                "id",
+                examId
+            );
+
+
+    if (error) {
+
+        console.error(
+            "Publish error:",
+            error
+        );
+
+        alert(
+            "❌ Could not publish the exam."
+        );
+
+        return;
+    }
+
+
+    alert(
+        "✅ Exam published successfully!"
+    );
+
+
+    loadExams();
+
+}
+
+
+
+// =====================================
+// UNPUBLISH EXAM
+// =====================================
+
+async function unpublishExam(examId) {
+
+    const confirmUnpublish =
+        confirm(
+            "🔒 Unpublish this exam?\n\n" +
+            "Students will no longer see it as an available exam."
+        );
+
+
+    if (!confirmUnpublish) {
+        return;
+    }
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+
+            .from("exams")
+
+            .update({
+                status: "draft"
+            })
+
+            .eq(
+                "id",
+                examId
+            );
+
+
+    if (error) {
+
+        console.error(
+            "Unpublish error:",
+            error
+        );
+
+        alert(
+            "❌ Could not unpublish the exam."
+        );
+
+        return;
+    }
+
+
+    alert(
+        "✅ Exam unpublished."
+    );
+
+
+    loadExams();
+
+}
+
+
+
+// =====================================
+// DELETE EXAM
+// =====================================
+
+async function deleteExam(examId) {
+
+    const confirmDelete =
+        confirm(
+            "⚠️ Delete this exam?\n\n" +
+            "This action cannot be undone."
+        );
+
+
+    if (!confirmDelete) {
+        return;
+    }
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+
+            .from("exams")
+
+            .delete()
+
+            .eq(
+                "id",
+                examId
+            );
+
+
+    if (error) {
+
+        console.error(
+            "Delete exam error:",
+            error
+        );
+
+        alert(
+            "❌ Could not delete the exam."
+        );
+
+        return;
+    }
+
+
+    alert(
+        "🗑️ Exam deleted successfully."
+    );
+
+
+    loadExams();
+
+}
+
+
+
+// =====================================
+// SAFELY DISPLAY TEXT
+// =====================================
+
+function escapeHtml(text) {
+
+    if (text === null || text === undefined) {
+        return "";
+    }
+
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
