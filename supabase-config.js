@@ -2,9 +2,10 @@
 // BINOD ACADEMY - SUPABASE CONFIG
 // =====================================
 
-const SUPABASE_URL = "https://zapjcweoui0habrmyqg.supabase.co";
+const SUPABASE_URL = "https://zapjcweoui0habmyqg.supabase.co";
 
-const SUPABASE_ANON_KEY = "sb_publishable_LzpPYJfrnh604E-guWCezA_mzZjaS6x";
+const SUPABASE_ANON_KEY =
+    "sb_publishable_LzpPYJfrnh604E-guWCezA_mzZjaS6x";
 
 const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
