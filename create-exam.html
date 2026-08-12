@@ -2,230 +2,392 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Binod Academy - Create Exam</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <style>
+
+        .exam-form {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 90%;
+            max-width: 450px;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 17px;
+            box-sizing: border-box;
+        }
+
+        .question-paper-box {
+            background: #f5f7fb;
+            padding: 25px;
+            margin: 30px auto;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 15px;
+            border: 2px dashed #1565c0;
+            box-sizing: border-box;
+        }
+
+        .question-paper-box h2 {
+            color: #1565c0;
+            margin-bottom: 10px;
+        }
+
+        .question-paper-box input[type="file"] {
+            width: 90%;
+            max-width: 450px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .instructions-box {
+            background: #f5f7fb;
+            padding: 25px;
+            margin: 30px auto;
+            width: 90%;
+            max-width: 650px;
+            border-radius: 15px;
+            text-align: left;
+            line-height: 1.7;
+            box-sizing: border-box;
+        }
+
+        .instructions-box h2 {
+            text-align: center;
+            color: #1565c0;
+        }
+
+        .instructions-box p {
+            font-size: 18px;
+        }
+
+        .instructions-box ol {
+            font-size: 17px;
+            padding-left: 25px;
+        }
+
+        .instructions-box li {
+            margin-bottom: 10px;
+        }
+
+        #examMessage {
+            margin: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .save-button {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
     <h1>🎓 Binod Academy</h1>
 
+
     <nav>
-        <a href="teacher.html">👨‍🏫 Teacher Dashboard</a>
-        <a href="index.html">🏠 Home</a>
-        <a href="exams.html">📝 Exams</a>
-        <a href="notes.html">📚 Notes</a>
-        <a href="results.html">📊 Results</a>
-        <a href="contact.html">📞 Contact</a>
-        <a href="login.html">🔐 Logout</a>
+
+        <a href="teacher.html">
+            👨‍🏫 Teacher Dashboard
+        </a>
+
+        <a href="manage-exams.html">
+            📝 Manage Exams
+        </a>
+
+        <a href="create-exam.html">
+            ➕ Create Exam
+        </a>
+
+        <a href="index.html">
+            🏠 Home
+        </a>
+
+        <a href="exams.html">
+            📝 Exams
+        </a>
+
+        <a href="notes.html">
+            📚 Notes
+        </a>
+
+        <a href="results.html">
+            📊 Results
+        </a>
+
+        <a href="contact.html">
+            📞 Contact
+        </a>
+
+        <a href="login.html">
+            🔐 Logout
+        </a>
+
     </nav>
 
 
     <section>
 
-        <div class="login-box">
+        <h2>📝 Create New Examination</h2>
 
-            <h2>📝 Create Exam</h2>
-
-            <p>
-                Create a new examination for your students.
-            </p>
-
-            <br>
+        <p>
+            Create an examination for your students.
+        </p>
 
 
-            <!-- =====================================
-                 EXAM NAME
-                 ===================================== -->
-
-            <input
-                type="text"
-                id="examTitle"
-                placeholder="Exam Name e.g. Mathematics Exam"
-                autocomplete="off"
-            >
-
-            <br><br>
+        <div class="exam-form">
 
 
-            <!-- =====================================
-                 SUBJECT
-                 ===================================== -->
+            <!-- ========================= -->
+            <!-- EXAM TITLE -->
+            <!-- ========================= -->
 
-            <select
-                id="examSubject"
-                style="
-                    width: 80%;
-                    max-width: 350px;
-                    padding: 12px;
-                    border: 1px solid #ccc;
-                    border-radius: 8px;
-                    font-size: 16px;
-                "
-            >
+            <div class="form-group">
 
-                <option value="">
-                    Select Subject
-                </option>
+                <label for="examTitle">
+                    📝 Examination Name
+                </label>
 
-                <option value="Mathematics">
-                    Mathematics
-                </option>
+                <input
+                    type="text"
+                    id="examTitle"
+                    placeholder="Example: First Terminal Examination"
+                >
 
-                <option value="Science">
-                    Science
-                </option>
-
-                <option value="English">
-                    English
-                </option>
-
-                <option value="Optional Mathematics">
-                    Optional Mathematics
-                </option>
-
-                <option value="Computer">
-                    Computer
-                </option>
-
-            </select>
-
-            <br><br>
+            </div>
 
 
-            <!-- =====================================
-                 EXAM DATE
-                 ===================================== -->
+            <!-- ========================= -->
+            <!-- SUBJECT -->
+            <!-- ========================= -->
 
-            <input
-                type="date"
-                id="examDate"
-            >
+            <div class="form-group">
 
-            <br><br>
+                <label for="examSubject">
+                    📚 Subject
+                </label>
 
+                <select id="examSubject">
 
-            <!-- =====================================
-                 EXAM DURATION
-                 MAXIMUM 3 HOURS
-                 ===================================== -->
+                    <option value="">
+                        -- Select Subject --
+                    </option>
 
-            <select
-                id="examDuration"
-                style="
-                    width: 80%;
-                    max-width: 350px;
-                    padding: 12px;
-                    border: 1px solid #ccc;
-                    border-radius: 8px;
-                    font-size: 16px;
-                "
-            >
+                    <option value="Mathematics">
+                        Mathematics
+                    </option>
 
-                <option value="">
-                    Select Duration
-                </option>
+                    <option value="Science">
+                        Science
+                    </option>
 
-                <option value="30">
-                    30 Minutes
-                </option>
+                    <option value="English">
+                        English
+                    </option>
 
-                <option value="45">
-                    45 Minutes
-                </option>
+                    <option value="Optional Mathematics">
+                        Optional Mathematics
+                    </option>
 
-                <option value="60">
-                    1 Hour
-                </option>
+                    <option value="Computer">
+                        Computer
+                    </option>
 
-                <option value="90">
-                    1 Hour 30 Minutes
-                </option>
+                </select>
 
-                <option value="120">
-                    2 Hours
-                </option>
-
-                <option value="150">
-                    2 Hours 30 Minutes
-                </option>
-
-                <option value="180">
-                    3 Hours (Maximum)
-                </option>
-
-            </select>
-
-            <br><br>
+            </div>
 
 
-            <!-- =====================================
-                 TOTAL MARKS
-                 FIXED AT 75
-                 ===================================== -->
+            <!-- ========================= -->
+            <!-- EXAM DATE -->
+            <!-- ========================= -->
 
-            <input
-                type="number"
-                id="totalMarks"
-                value="75"
-                min="75"
-                max="75"
-                readonly
-            >
+            <div class="form-group">
 
-            <br><br>
+                <label for="examDate">
+                    📅 Examination Date
+                </label>
+
+                <input
+                    type="date"
+                    id="examDate"
+                >
+
+            </div>
 
 
-            <!-- =====================================
-                 FIXED EXAM INSTRUCTIONS
-                 ===================================== -->
+            <!-- ========================= -->
+            <!-- EXAM DURATION -->
+            <!-- ========================= -->
 
-            <div
-                style="
-                    width: 90%;
-                    max-width: 450px;
-                    margin: 20px auto;
-                    padding: 20px;
-                    background: #f5f7fb;
-                    border-radius: 15px;
-                    text-align: left;
-                    box-sizing: border-box;
-                "
-            >
+            <div class="form-group">
 
-                <h3 style="text-align: center;">
-                    📜 Fixed Examination Instructions
-                </h3>
+                <label for="examDuration">
+                    ⏱️ Examination Duration
+                </label>
 
-                <br>
+                <select id="examDuration">
 
-                <p style="font-size: 16px;">
+                    <option value="">
+                        -- Select Duration --
+                    </option>
+
+                    <option value="30">
+                        30 Minutes
+                    </option>
+
+                    <option value="45">
+                        45 Minutes
+                    </option>
+
+                    <option value="60">
+                        1 Hour
+                    </option>
+
+                    <option value="90">
+                        1 Hour 30 Minutes
+                    </option>
+
+                    <option value="120">
+                        2 Hours
+                    </option>
+
+                    <option value="150">
+                        2 Hours 30 Minutes
+                    </option>
+
+                    <option value="180">
+                        3 Hours
+                    </option>
+
+                </select>
+
+                <p style="font-size:15px; color:#666;">
+                    Maximum examination time: 3 hours
+                </p>
+
+            </div>
+
+
+            <!-- ========================= -->
+            <!-- TOTAL MARKS -->
+            <!-- ========================= -->
+
+            <div class="form-group">
+
+                <label for="totalMarks">
+                    📊 Total Marks
+                </label>
+
+                <input
+                    type="number"
+                    id="totalMarks"
+                    value="75"
+                    readonly
+                >
+
+                <p style="font-size:15px; color:#666;">
+                    Total marks are fixed at 75.
+                </p>
+
+            </div>
+
+
+            <!-- ========================= -->
+            <!-- QUESTION PAPER -->
+            <!-- ========================= -->
+
+            <div class="question-paper-box">
+
+                <h2>
+                    📄 Question Paper
+                </h2>
+
+                <p>
+                    Upload the question paper for this examination.
+                </p>
+
+                <input
+                    type="file"
+                    id="questionPaper"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                >
+
+                <p
+                    style="
+                        font-size:15px;
+                        color:#666;
+                    "
+                >
+                    Accepted formats:
+                    PDF, JPG, JPEG, PNG
+                </p>
+
+            </div>
+
+
+            <!-- ========================= -->
+            <!-- FIXED INSTRUCTIONS -->
+            <!-- ========================= -->
+
+            <div class="instructions-box">
+
+                <h2>
+                    📜 Examination Instructions
+                </h2>
+
+
+                <p>
                     🎓 <strong>Welcome to Binod Academy!</strong>
                 </p>
 
-                <p style="font-size: 16px;">
+                <p>
                     Dear Student, welcome to your examination.
                     Stay calm, read every question carefully,
                     and give your best effort. Believe in yourself! 🌟
                 </p>
 
-                <br>
 
-                <p style="font-size: 16px;">
-                    <strong>Examination Rules:</strong>
-                </p>
-
-                <ol
-                    style="
-                        padding-left: 25px;
-                        font-size: 16px;
-                        line-height: 1.7;
-                    "
-                >
+                <ol>
 
                     <li>
                         The examination duration is the duration
@@ -260,8 +422,8 @@
 
                     <li>
                         When the timer reaches
-                        <strong>00:00:00</strong>, the examination
-                        closes automatically.
+                        <strong>00:00:00</strong>,
+                        the examination closes automatically.
                     </li>
 
                     <li>
@@ -278,48 +440,50 @@
 
                 </ol>
 
-                <br>
 
-                <p
-                    style="
-                        text-align: center;
-                        font-size: 18px;
-                    "
-                >
-                    🍀 <strong>All the best!</strong><br>
+                <p style="text-align:center;">
+
+                    🍀 <strong>All the best!</strong>
+
+                    <br>
+
                     Give it your best effort! ❤️
+
                 </p>
 
             </div>
 
 
-            <!-- =====================================
-                 SAVE EXAM
-                 ===================================== -->
+            <!-- ========================= -->
+            <!-- MESSAGE -->
+            <!-- ========================= -->
 
-            <button onclick="saveExam()">
+            <p id="examMessage"></p>
+
+
+            <!-- ========================= -->
+            <!-- SAVE EXAM -->
+            <!-- ========================= -->
+
+            <button
+                class="save-button"
+                onclick="saveExam()"
+            >
                 💾 Save Exam
             </button>
 
-
-            <!-- =====================================
-                 MESSAGE
-                 ===================================== -->
-
-            <p
-                id="examMessage"
-                style="
-                    color: green;
-                    margin-top: 15px;
-                "
-            ></p>
 
         </div>
 
     </section>
 
 
+    <!-- ========================= -->
+    <!-- SCRIPT -->
+    <!-- ========================= -->
+
     <script src="script.js"></script>
+
 
 </body>
 
