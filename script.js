@@ -1720,24 +1720,18 @@ function getStorageFilePath(
         index + marker.length
     );
 }
-
-
 // =====================================
 // SAFELY DISPLAY TEXT
 // =====================================
 
-function escapeHtml(
-    text
-) {
+function escapeHtml(text) {
 
     if (
         text === null ||
         text === undefined
     ) {
-
         return "";
     }
-
 
     return String(text)
         .replace(
@@ -1756,63 +1750,101 @@ function escapeHtml(
             /"/g,
             "&quot;"
         )
-        // =====================================
-// SHOW ALL SELECTED QUESTION PAPER FILES
-// =====================================
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const questionPaper =
-        document.getElementById("questionPaper");
-
-    const selectedFiles =
-        document.getElementById("selectedFiles");
-
-    if (!questionPaper || !selectedFiles) {
-        return;
-    }
-
-    questionPaper.addEventListener("change", function () {
-
-        const files =
-            Array.from(questionPaper.files);
-
-        if (files.length === 0) {
-
-            selectedFiles.innerHTML =
-                "<strong>📄 No files selected yet.</strong>";
-
-            return;
-        }
-
-        let html =
-            "<strong>📄 " +
-            files.length +
-            " file(s) selected:</strong>";
-
-        html += "<ol style='margin-top:10px;'>";
-
-        files.forEach(function (file, index) {
-
-            html +=
-                "<li style='margin-bottom:8px;'>" +
-                "Page " +
-                (index + 1) +
-                ": " +
-                escapeHtml(file.name) +
-                "</li>";
-
-        });
-
-        html += "</ol>";
-
-        selectedFiles.innerHTML = html;
-
-    });
-
-});
         .replace(
             /'/g,
             "&#039;"
         );
 }
+
+
+// =====================================
+// SHOW ALL SELECTED QUESTION PAPER FILES
+// =====================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const questionPaper =
+            document.getElementById(
+                "questionPaper"
+            );
+
+        const selectedFiles =
+            document.getElementById(
+                "selectedFiles"
+            );
+
+        // If this page does not have these elements,
+        // simply do nothing.
+
+        if (
+            !questionPaper ||
+            !selectedFiles
+        ) {
+            return;
+        }
+
+
+        questionPaper.addEventListener(
+            "change",
+            function () {
+
+                const files =
+                    Array.from(
+                        questionPaper.files
+                    );
+
+
+                if (
+                    files.length === 0
+                ) {
+
+                    selectedFiles.innerHTML =
+                        "<strong>📄 No files selected yet.</strong>";
+
+                    return;
+                }
+
+
+                let html =
+                    "<strong>📄 " +
+                    files.length +
+                    " file(s) selected:</strong>";
+
+
+                html +=
+                    "<ol style='margin-top:10px;'>";
+
+
+                files.forEach(
+                    function (
+                        file,
+                        index
+                    ) {
+
+                        html +=
+                            "<li style='margin-bottom:8px;'>" +
+                            "Page " +
+                            (index + 1) +
+                            ": " +
+                            escapeHtml(
+                                file.name
+                            ) +
+                            "</li>";
+
+                    }
+                );
+
+
+                html += "</ol>";
+
+
+                selectedFiles.innerHTML =
+                    html;
+
+            }
+        );
+
+    }
+);
