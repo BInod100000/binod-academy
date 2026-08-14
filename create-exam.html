@@ -73,6 +73,15 @@
             font-size: 16px;
         }
 
+        .selected-files-box {
+            margin-top: 20px;
+            text-align: left;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
         .instructions-box {
             background: #f5f7fb;
             padding: 25px;
@@ -124,6 +133,10 @@
     <h1>🎓 Binod Academy</h1>
 
 
+    <!-- ========================= -->
+    <!-- NAVIGATION -->
+    <!-- ========================= -->
+
     <nav>
 
         <a href="teacher.html">
@@ -165,9 +178,15 @@
     </nav>
 
 
+    <!-- ========================= -->
+    <!-- MAIN SECTION -->
+    <!-- ========================= -->
+
     <section>
 
-        <h2>📝 Create New Examination</h2>
+        <h2>
+            📝 Create New Examination
+        </h2>
 
         <p>
             Create an examination for your students.
@@ -332,81 +351,67 @@
             </div>
 
 
-        <!-- ========================= -->
-<!-- QUESTION PAPER -->
-<!-- ========================= -->
+            <!-- ========================= -->
+            <!-- QUESTION PAPER -->
+            <!-- ========================= -->
 
-<div class="question-paper-box">
+            <div class="question-paper-box">
 
-    <h2>
-        📄 Question Paper
-    </h2>
+                <h2>
+                    📄 Question Paper
+                </h2>
 
-    <p>
-        Upload all question-paper pages together.
-    </p>
-<input
-    type="file"
-    id="questionPaper"
-    accept=".jpg,.jpeg,.png,.pdf"
-    multiple
->
+                <p>
+                    Upload all question-paper pages together.
+                </p>
 
-<div
-    id="selectedFiles"
-    style="
-        margin-top:15px;
-        text-align:left;
-        font-size:16px;
-    "
->
-    <strong>📄 No files selected yet.</strong>
-</div>
 
-<p
-    style="
-        font-size:15px;
-        color:#666;
-    "
->
-    Accepted formats:
-    PDF, JPG, JPEG, PNG
-</p>
-    <!-- SHOW SELECTED FILES -->
-    <div
-        id="selectedFiles"
-        style="
-            margin-top:20px;
-            text-align:left;
-            background:white;
-            padding:15px;
-            border-radius:10px;
-        "
-    >
-        <strong>📄 No files selected yet.</strong>
-    </div>
+                <input
+                    type="file"
+                    id="questionPaper"
+                    accept=".jpg,.jpeg,.png,.pdf"
+                    multiple
+                >
 
-    <p
-        style="
-            font-size:15px;
-            color:#666;
-            margin-top:15px;
-        "
-    >
-        Accepted formats:
-        PDF, JPG, JPEG, PNG
-    </p>
 
-    <p
-        style="
-            font-size:15px;
-            color:#1565c0;
-        "
-    >
-        💡 You can select multiple pages at once.
-    </p>
+                <!-- ========================= -->
+                <!-- SELECTED FILES -->
+                <!-- ========================= -->
 
-</div>
+                <div
+                    id="selectedFiles"
+                    class="selected-files-box"
+                >
+
+                    <strong>
+                        📄 No files selected yet.
+                    </strong>
+
+                </div>
+
+
+                <p
+                    style="
+                        font-size:15px;
+                        color:#666;
+                        margin-top:15px;
+                    "
+                >
+                    Accepted formats:
+                    PDF, JPG, JPEG, PNG
+                </p>
+
+
+                <p
+                    style="
+                        font-size:15px;
+                        color:#1565c0;
+                    "
+                >
+                    💡 You can select multiple pages at once.
+                </p>
+
+            </div>
 
 
             <!-- ========================= -->
@@ -421,8 +426,12 @@
 
 
                 <p>
-                    🎓 <strong>Welcome to Binod Academy!</strong>
+                    🎓
+                    <strong>
+                        Welcome to Binod Academy!
+                    </strong>
                 </p>
+
 
                 <p>
                     Dear Student, welcome to your examination.
@@ -441,7 +450,10 @@
 
                     <li>
                         The timer starts only after the student
-                        clicks <strong>START EXAM NOW</strong>.
+                        clicks
+                        <strong>
+                            START EXAM NOW
+                        </strong>.
                     </li>
 
                     <li>
@@ -466,7 +478,9 @@
 
                     <li>
                         When the timer reaches
-                        <strong>00:00:00</strong>,
+                        <strong>
+                            00:00:00
+                        </strong>,
                         the examination closes automatically.
                     </li>
 
@@ -487,7 +501,10 @@
 
                 <p style="text-align:center;">
 
-                    🍀 <strong>All the best!</strong>
+                    🍀
+                    <strong>
+                        All the best!
+                    </strong>
 
                     <br>
 
@@ -523,16 +540,24 @@
 
 
     <!-- ========================= -->
-    <!-- SCRIPT -->
+    <!-- SUPABASE LIBRARY -->
     <!-- ========================= -->
-<!-- Supabase library -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- Your Supabase configuration -->
-<script src="supabase-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- Your main JavaScript -->
-<script src="script.js"></script>
+
+    <!-- ========================= -->
+    <!-- SUPABASE CONFIGURATION -->
+    <!-- ========================= -->
+
+    <script src="supabase-config.js"></script>
+
+
+    <!-- ========================= -->
+    <!-- MAIN JAVASCRIPT -->
+    <!-- ========================= -->
+
+    <script src="script.js"></script>
 
 
 </body>
