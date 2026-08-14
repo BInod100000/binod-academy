@@ -2,16 +2,29 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Binod Academy - Exam</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
     <style>
+
+        /* =========================================
+           EXAM CONTAINER
+        ========================================= */
+
         .exam-container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 30px auto;
         }
 
@@ -22,659 +35,2051 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.10);
         }
 
+
+        /* =========================================
+           TITLE
+        ========================================= */
+
         .exam-title {
             color: #1565c0;
             margin-bottom: 20px;
         }
+
+
+        /* =========================================
+           EXAM INFORMATION
+        ========================================= */
 
         .exam-info {
             font-size: 19px;
             line-height: 1.8;
         }
 
+
+        /* =========================================
+           TIMER
+        ========================================= */
+
         #timer {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: bold;
             margin: 25px 0;
+            color: #1565c0;
         }
 
+
+        /* =========================================
+           START BUTTON
+        ========================================= */
+
         #startExamButton {
+
             background: #1565c0;
+
             color: white;
+
             border: none;
+
             padding: 15px 30px;
+
             font-size: 20px;
+
             border-radius: 8px;
+
             cursor: pointer;
+
         }
 
         #startExamButton:hover {
             background: #0d47a1;
         }
 
+        #startExamButton:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+
+        /* =========================================
+           QUESTION PAPER AREA
+        ========================================= */
+
         #questionPaperArea {
+
             display: none;
-            margin-top: 30px;
+
+            margin-top: 35px;
+
         }
 
-        #questionPaperArea iframe {
+
+        /* =========================================
+           SLIDESHOW
+        ========================================= */
+
+        .slideshow-box {
+
+            background: #f5f7fb;
+
+            padding: 20px;
+
+            border-radius: 15px;
+
+            border: 1px solid #ddd;
+
+        }
+
+
+        .slideshow-header {
+
+            text-align: center;
+
+            margin-bottom: 20px;
+
+        }
+
+        .slideshow-header h2 {
+
+            color: #1565c0;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        /* =========================================
+           PAGE COUNTER
+        ========================================= */
+
+        #pageCounter {
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            color: #333;
+
+        }
+
+
+        /* =========================================
+           MAIN IMAGE
+        ========================================= */
+
+        .main-page-container {
+
+            position: relative;
+
             width: 100%;
-            height: 700px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
+
+            background: #222;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            text-align: center;
+
         }
 
-        #questionPaperArea img {
-            max-width: 100%;
-            border-radius: 10px;
+
+        #currentPageImage {
+
+            display: block;
+
+            width: 100%;
+
+            max-height: 750px;
+
+            object-fit: contain;
+
+            margin: auto;
+
+            background: #222;
+
         }
+
+
+        /* =========================================
+           PREVIOUS / NEXT BUTTONS
+        ========================================= */
+
+        .slide-controls {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-top: 20px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .slide-button {
+
+            background: #1565c0;
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 22px;
+
+            font-size: 17px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+        }
+
+
+        .slide-button:hover {
+
+            background: #0d47a1;
+
+        }
+
+
+        .slide-button:disabled {
+
+            background: #aaa;
+
+            cursor: not-allowed;
+
+        }
+
+
+        /* =========================================
+           SLIDESHOW AUTO BUTTON
+        ========================================= */
+
+        #autoSlideButton {
+
+            background: #2e7d32;
+
+        }
+
+        #autoSlideButton:hover {
+
+            background: #1b5e20;
+
+        }
+
+
+        /* =========================================
+           THUMBNAILS
+        ========================================= */
+
+        .thumbnail-container {
+
+            display: flex;
+
+            gap: 10px;
+
+            overflow-x: auto;
+
+            padding: 15px 5px;
+
+            margin-top: 15px;
+
+        }
+
+
+        .thumbnail {
+
+            width: 90px;
+
+            height: 70px;
+
+            object-fit: cover;
+
+            border-radius: 8px;
+
+            border: 3px solid transparent;
+
+            cursor: pointer;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .thumbnail:hover {
+
+            border-color: #1565c0;
+
+        }
+
+
+        .thumbnail.active {
+
+            border-color: #1565c0;
+
+        }
+
+
+        /* =========================================
+           PDF VIEWER
+        ========================================= */
+
+        #pdfViewer {
+
+            width: 100%;
+
+            height: 750px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            display: none;
+
+        }
+
+
+        /* =========================================
+           MESSAGE
+        ========================================= */
 
         .message {
+
             font-size: 18px;
+
             font-weight: bold;
+
             margin: 20px 0;
+
         }
+
+
+        /* =========================================
+           INSTRUCTIONS
+        ========================================= */
 
         .instructions {
+
             background: #f5f7fb;
+
             padding: 20px;
+
             border-radius: 10px;
+
             text-align: left;
+
             line-height: 1.7;
+
             margin-top: 25px;
-            white-space: pre-line;
+
         }
 
+
+        /* =========================================
+           BACK BUTTON
+        ========================================= */
+
         .back-button {
+
             display: inline-block;
+
             margin-top: 25px;
+
             text-decoration: none;
+
         }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            .exam-card {
+
+                padding: 20px;
+
+            }
+
+            .exam-info {
+
+                font-size: 16px;
+
+            }
+
+            #timer {
+
+                font-size: 30px;
+
+            }
+
+            .slide-button {
+
+                padding: 10px 15px;
+
+                font-size: 15px;
+
+            }
+
+            #currentPageImage {
+
+                max-height: 600px;
+
+            }
+
+        }
+
     </style>
+
 </head>
 
 
 <body>
 
-<h1>🎓 Binod Academy</h1>
 
-<nav>
-    <a href="index.html">🏠 Home</a>
-    <a href="exams.html">📝 Exams</a>
-    <a href="notes.html">📚 Notes</a>
-    <a href="results.html">📊 Results</a>
-    <a href="contact.html">📞 Contact</a>
-    <a href="login.html">🔐 Login</a>
-</nav>
+    <!-- =========================================
+         HEADER
+    ========================================= -->
+
+    <h1>🎓 Binod Academy</h1>
 
 
-<section class="exam-container">
+    <nav>
 
-    <div class="exam-card">
+        <a href="index.html">
+            🏠 Home
+        </a>
 
-        <h2 id="examTitle" class="exam-title">
-            ⏳ Loading exam...
-        </h2>
+        <a href="exams.html">
+            📝 Exams
+        </a>
 
-        <div id="examMessage" class="message"></div>
+        <a href="notes.html">
+            📚 Notes
+        </a>
 
-        <div id="examContent" style="display:none;">
+        <a href="results.html">
+            📊 Results
+        </a>
 
-            <div class="exam-info">
+        <a href="contact.html">
+            📞 Contact
+        </a>
+
+        <a href="login.html">
+            🔐 Login
+        </a>
+
+    </nav>
+
+
+    <!-- =========================================
+         EXAM
+    ========================================= -->
+
+    <section class="exam-container">
+
+        <div class="exam-card">
+
+
+            <!-- EXAM TITLE -->
+
+            <h2
+                id="examTitle"
+                class="exam-title"
+            >
+                ⏳ Loading exam...
+            </h2>
+
+
+            <!-- MESSAGE -->
+
+            <div
+                id="examMessage"
+                class="message"
+            >
+            </div>
+
+
+            <!-- EXAM CONTENT -->
+
+            <div
+                id="examContent"
+                style="display:none;"
+            >
+
+
+                <!-- =====================================
+                     EXAM INFORMATION
+                ====================================== -->
+
+                <div class="exam-info">
+
+                    <p>
+
+                        📚
+                        <strong>Subject:</strong>
+
+                        <span id="examSubject">
+                        </span>
+
+                    </p>
+
+
+                    <p>
+
+                        📅
+                        <strong>Exam Date:</strong>
+
+                        <span id="examDate">
+                        </span>
+
+                    </p>
+
+
+                    <p>
+
+                        ⏱️
+                        <strong>Duration:</strong>
+
+                        <span id="examDuration">
+                        </span>
+
+                    </p>
+
+
+                    <p>
+
+                        📊
+                        <strong>Total Marks:</strong>
+
+                        <span id="totalMarks">
+                        </span>
+
+                    </p>
+
+                </div>
+
+
+                <!-- =====================================
+                     INSTRUCTIONS
+                ====================================== -->
+
+                <div class="instructions">
+
+                    <strong>
+                        📜 Examination Instructions
+                    </strong>
+
+                    <p id="examInstructions">
+                    </p>
+
+                </div>
+
+
+                <br>
+
 
                 <p>
-                    📚 <strong>Subject:</strong>
-                    <span id="examSubject"></span>
+                    Read all instructions carefully
+                    before starting.
                 </p>
 
-                <p>
-                    📅 <strong>Exam Date:</strong>
-                    <span id="examDate"></span>
+
+                <!-- =====================================
+                     START EXAM
+                ====================================== -->
+
+                <button
+                    id="startExamButton"
+                >
+                    ▶️ Start Exam
+                </button>
+
+
+                <!-- =====================================
+                     TIMER
+                ====================================== -->
+
+                <p id="timer">
+                    00:00:00
                 </p>
 
-                <p>
-                    ⏱️ <strong>Duration:</strong>
-                    <span id="examDuration"></span>
-                </p>
 
-                <p>
-                    📊 <strong>Total Marks:</strong>
-                    <span id="totalMarks"></span>
-                </p>
+                <!-- =====================================
+                     QUESTION PAPER
+                ====================================== -->
+
+                <div
+                    id="questionPaperArea"
+                >
+
+                    <div class="slideshow-box">
+
+
+                        <!-- HEADER -->
+
+                        <div class="slideshow-header">
+
+                            <h2>
+                                📄 Question Paper
+                            </h2>
+
+                            <div id="pageCounter">
+                                Page 0 of 0
+                            </div>
+
+                        </div>
+
+
+                        <!-- MAIN IMAGE -->
+
+                        <div class="main-page-container">
+
+                            <img
+                                id="currentPageImage"
+                                src=""
+                                alt="Question Paper Page"
+                            >
+
+                            <iframe
+                                id="pdfViewer"
+                                title="Question Paper PDF"
+                            >
+                            </iframe>
+
+                        </div>
+
+
+                        <!-- CONTROLS -->
+
+                        <div class="slide-controls">
+
+
+                            <button
+                                id="previousButton"
+                                class="slide-button"
+                            >
+                                ◀ Previous
+                            </button>
+
+
+                            <button
+                                id="autoSlideButton"
+                                class="slide-button"
+                            >
+                                ▶ Start Slideshow
+                            </button>
+
+
+                            <button
+                                id="nextButton"
+                                class="slide-button"
+                            >
+                                Next ▶
+                            </button>
+
+
+                        </div>
+
+
+                        <!-- THUMBNAILS -->
+
+                        <div
+                            id="thumbnailContainer"
+                            class="thumbnail-container"
+                        >
+                        </div>
+
+
+                    </div>
+
+                </div>
+
 
             </div>
 
 
-            <div class="instructions">
+            <!-- BACK -->
 
-                <strong>📜 Examination Instructions</strong>
-
-                <p id="examInstructions"></p>
-
-            </div>
-
-
-            <br>
-
-            <p>
-                Read all instructions carefully before starting.
-            </p>
-
-
-            <button id="startExamButton">
-                ▶️ Start Exam
-            </button>
-
-
-            <p id="timer">
-                00:00:00
-            </p>
-
-
-            <!-- QUESTION PAPER -->
-
-            <div id="questionPaperArea">
-
-                <h2>📄 Question Paper</h2>
-
-                <div id="questionPaperContainer"></div>
-
-            </div>
+            <a
+                href="exams.html"
+                class="back-button"
+            >
+                ← Back to Exams
+            </a>
 
 
         </div>
 
+    </section>
 
-        <a href="exams.html" class="back-button">
-            ← Back to Exams
-        </a>
 
-    </div>
 
-</section>
+    <!-- =========================================
+         SUPABASE
+    ========================================= -->
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
 
-<!-- Supabase -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js">
+    </script>
 
-<script src="supabase-config.js"></script>
 
 
-<script>
+    <!-- =========================================
+         MAIN JAVASCRIPT
+    ========================================= -->
 
-let exam = null;
+    <script>
 
-let remainingSeconds = 0;
 
-let timerInterval = null;
+        /* =========================================
+           VARIABLES
+        ========================================= */
 
-let examStarted = false;
+        let exam = null;
 
+        let remainingSeconds = 0;
 
-/* =========================================
-   GET EXAM ID FROM URL
-   ========================================= */
+        let timerInterval = null;
 
-const urlParams = new URLSearchParams(window.location.search);
+        let examStarted = false;
 
-const examId = urlParams.get("id");
+        let currentPage = 0;
 
+        let questionPages = [];
 
-/* =========================================
-   LOAD EXAM
-   ========================================= */
+        let slideshowInterval = null;
 
-async function loadExam() {
+        let slideshowRunning = false;
 
-    const titleElement =
-        document.getElementById("examTitle");
 
-    const messageElement =
-        document.getElementById("examMessage");
 
-    try {
+        /* =========================================
+           GET EXAM ID
+        ========================================= */
 
-        let query =
-            supabaseClient
-                .from("exams")
-                .select("*")
-                .eq("status", "published");
-
-
-        /*
-         * If an exam ID is supplied,
-         * load that exact exam.
-         */
-
-        if (examId) {
-
-            query = query.eq("id", examId);
-
-        }
-
-
-        /*
-         * Otherwise load latest published exam.
-         */
-
-        query = query
-            .order("created_at", {
-                ascending: false
-            })
-            .limit(1);
-
-
-        const {
-            data,
-            error
-        } = await query;
-
-
-        if (error) {
-
-            console.error(error);
-
-            titleElement.textContent =
-                "❌ Could not load exam";
-
-            messageElement.style.color = "red";
-
-            messageElement.textContent =
-                error.message;
-
-            return;
-        }
-
-
-        if (!data || data.length === 0) {
-
-            titleElement.textContent =
-                "📭 No Published Exam";
-
-            messageElement.style.color = "#555";
-
-            messageElement.textContent =
-                "There is currently no published examination.";
-
-            return;
-        }
-
-
-        exam = data[0];
-
-
-        displayExam();
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        titleElement.textContent =
-            "❌ Error";
-
-        messageElement.style.color = "red";
-
-        messageElement.textContent =
-            error.message;
-
-    }
-
-}
-
-
-/* =========================================
-   DISPLAY EXAM
-   ========================================= */
-
-function displayExam() {
-
-    document.getElementById("examTitle").textContent =
-        "📝 " + exam.title;
-
-
-    document.getElementById("examSubject").textContent =
-        exam.subject || "Not specified";
-
-
-    document.getElementById("examDate").textContent =
-        exam.exam_date || "Not specified";
-
-
-    document.getElementById("examDuration").textContent =
-        formatDuration(exam.duration_minutes);
-
-
-    document.getElementById("totalMarks").textContent =
-        exam.total_marks || 75;
-
-
-    document.getElementById("examInstructions").textContent =
-        exam.instructions ||
-        "Read all questions carefully before starting the examination.";
-
-
-    document.getElementById("examContent").style.display =
-        "block";
-
-
-    /*
-     * Set timer according to database duration.
-     */
-
-    remainingSeconds =
-        Number(exam.duration_minutes) * 60;
-
-
-    updateTimer();
-
-
-    /*
-     * If there is no question paper,
-     * tell the teacher/student.
-     */
-
-    if (!exam.question_paper_url) {
-
-        document.getElementById("questionPaperContainer").innerHTML =
-            "<p style='color:red;'>⚠️ Question paper is not available.</p>";
-
-    }
-
-}
-
-
-/* =========================================
-   FORMAT DURATION
-   ========================================= */
-
-function formatDuration(minutes) {
-
-    minutes = Number(minutes);
-
-
-    if (minutes === 30) {
-        return "30 Minutes";
-    }
-
-    if (minutes === 45) {
-        return "45 Minutes";
-    }
-
-    if (minutes === 60) {
-        return "1 Hour";
-    }
-
-    if (minutes === 90) {
-        return "1 Hour 30 Minutes";
-    }
-
-    if (minutes === 120) {
-        return "2 Hours";
-    }
-
-    if (minutes === 150) {
-        return "2 Hours 30 Minutes";
-    }
-
-    if (minutes === 180) {
-        return "3 Hours";
-    }
-
-
-    const hours =
-        Math.floor(minutes / 60);
-
-    const mins =
-        minutes % 60;
-
-
-    if (hours > 0) {
-
-        return hours +
-            " Hour" +
-            (hours > 1 ? "s " : " ") +
-            mins +
-            " Minutes";
-
-    }
-
-
-    return minutes + " Minutes";
-
-}
-
-
-/* =========================================
-   START EXAM
-   ========================================= */
-
-document.getElementById("startExamButton")
-    .addEventListener("click", function () {
-
-        if (examStarted) {
-            return;
-        }
-
-
-        if (!exam) {
-
-            alert("Exam is still loading.");
-
-            return;
-        }
-
-
-        if (!exam.question_paper_url) {
-
-            alert(
-                "❌ Question paper is not available."
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
             );
 
-            return;
-        }
+
+        const examId =
+            urlParams.get("id");
 
 
-        examStarted = true;
+
+        /* =========================================
+           LOAD EXAM
+        ========================================= */
+
+        async function loadExam() {
+
+            const titleElement =
+                document.getElementById(
+                    "examTitle"
+                );
 
 
-        /*
-         * Disable start button
-         */
-
-        const button =
-            document.getElementById("startExamButton");
-
-        button.disabled = true;
-
-        button.textContent =
-            "🟢 Exam Started";
+            const messageElement =
+                document.getElementById(
+                    "examMessage"
+                );
 
 
-        /*
-         * Show question paper
-         */
-
-        showQuestionPaper();
+            try {
 
 
-        /*
-         * Start timer ONLY NOW.
-         */
+                let query =
+                    supabaseClient
+                        .from("exams")
+                        .select("*")
+                        .eq(
+                            "status",
+                            "published"
+                        );
 
-        timerInterval =
-            setInterval(function () {
 
-                if (remainingSeconds > 0) {
+                if (examId) {
 
-                    remainingSeconds--;
-
-                    updateTimer();
-
-                } else {
-
-                    finishExam();
+                    query =
+                        query.eq(
+                            "id",
+                            examId
+                        );
 
                 }
 
-            }, 1000);
 
-});
-
-
-/* =========================================
-   UPDATE TIMER
-   ========================================= */
-
-function updateTimer() {
-
-    const timer =
-        document.getElementById("timer");
+                query =
+                    query
+                        .order(
+                            "created_at",
+                            {
+                                ascending: false
+                            }
+                        )
+                        .limit(1);
 
 
-    const hours =
-        Math.floor(
-            remainingSeconds / 3600
+
+                const {
+                    data,
+                    error
+                } = await query;
+
+
+
+                if (error) {
+
+                    console.error(error);
+
+                    titleElement.textContent =
+                        "❌ Could not load exam";
+
+                    messageElement.style.color =
+                        "red";
+
+                    messageElement.textContent =
+                        error.message;
+
+                    return;
+
+                }
+
+
+
+                if (
+                    !data ||
+                    data.length === 0
+                ) {
+
+                    titleElement.textContent =
+                        "📭 No Published Exam";
+
+                    messageElement.style.color =
+                        "#555";
+
+                    messageElement.textContent =
+                        "There is currently no published examination.";
+
+                    return;
+
+                }
+
+
+
+                exam = data[0];
+
+
+                displayExam();
+
+
+            }
+            catch (error) {
+
+                console.error(error);
+
+                titleElement.textContent =
+                    "❌ Error";
+
+                messageElement.style.color =
+                    "red";
+
+                messageElement.textContent =
+                    error.message;
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           DISPLAY EXAM
+        ========================================= */
+
+        function displayExam() {
+
+
+            document.getElementById(
+                "examTitle"
+            ).textContent =
+                "📝 " + exam.title;
+
+
+
+            document.getElementById(
+                "examSubject"
+            ).textContent =
+                exam.subject ||
+                "Not specified";
+
+
+
+            document.getElementById(
+                "examDate"
+            ).textContent =
+                exam.exam_date ||
+                "Not specified";
+
+
+
+            document.getElementById(
+                "examDuration"
+            ).textContent =
+                formatDuration(
+                    exam.duration_minutes
+                );
+
+
+
+            document.getElementById(
+                "totalMarks"
+            ).textContent =
+                exam.total_marks ||
+                75;
+
+
+
+            document.getElementById(
+                "examInstructions"
+            ).textContent =
+                exam.instructions ||
+                "Read all questions carefully before starting the examination.";
+
+
+
+            document.getElementById(
+                "examContent"
+            ).style.display =
+                "block";
+
+
+
+            remainingSeconds =
+                Number(
+                    exam.duration_minutes
+                ) * 60;
+
+
+
+            updateTimer();
+
+
+
+            /*
+             * Convert question paper
+             * data into an array.
+             */
+
+            questionPages =
+                normalizeQuestionPages(
+                    exam.question_paper_url
+                );
+
+
+
+            console.log(
+                "Question paper pages:",
+                questionPages
+            );
+
+
+        }
+
+
+
+        /* =========================================
+           NORMALIZE QUESTION PAPER
+        ========================================= */
+
+        function normalizeQuestionPages(value) {
+
+
+            if (!value) {
+
+                return [];
+
+            }
+
+
+            /*
+             * Already an array
+             */
+
+            if (Array.isArray(value)) {
+
+                return value
+                    .filter(Boolean);
+
+            }
+
+
+            /*
+             * Supabase may return
+             * JSON array as string.
+             */
+
+            if (
+                typeof value === "string"
+            ) {
+
+                const trimmed =
+                    value.trim();
+
+
+                /*
+                 * Try JSON
+                 */
+
+                if (
+                    trimmed.startsWith("[") &&
+                    trimmed.endsWith("]")
+                ) {
+
+                    try {
+
+                        const parsed =
+                            JSON.parse(
+                                trimmed
+                            );
+
+
+                        if (
+                            Array.isArray(parsed)
+                        ) {
+
+                            return parsed
+                                .filter(Boolean);
+
+                        }
+
+                    }
+                    catch (error) {
+
+                        console.log(
+                            "Not JSON array"
+                        );
+
+                    }
+
+                }
+
+
+                /*
+                 * If comma separated
+                 */
+
+                if (
+                    trimmed.includes(",")
+                ) {
+
+                    return trimmed
+                        .split(",")
+                        .map(
+                            item =>
+                                item.trim()
+                        )
+                        .filter(Boolean);
+
+                }
+
+
+                /*
+                 * Old single URL
+                 */
+
+                return [trimmed];
+
+            }
+
+
+            return [];
+
+        }
+
+
+
+        /* =========================================
+           FORMAT DURATION
+        ========================================= */
+
+        function formatDuration(minutes) {
+
+
+            minutes =
+                Number(minutes);
+
+
+
+            if (minutes === 30)
+                return "30 Minutes";
+
+
+            if (minutes === 45)
+                return "45 Minutes";
+
+
+            if (minutes === 60)
+                return "1 Hour";
+
+
+            if (minutes === 90)
+                return "1 Hour 30 Minutes";
+
+
+            if (minutes === 120)
+                return "2 Hours";
+
+
+            if (minutes === 150)
+                return "2 Hours 30 Minutes";
+
+
+            if (minutes === 180)
+                return "3 Hours";
+
+
+
+            const hours =
+                Math.floor(
+                    minutes / 60
+                );
+
+
+            const mins =
+                minutes % 60;
+
+
+
+            if (hours > 0) {
+
+                return (
+                    hours +
+                    " Hour" +
+                    (
+                        hours > 1
+                            ? "s "
+                            : " "
+                    ) +
+                    mins +
+                    " Minutes"
+                );
+
+            }
+
+
+
+            return minutes +
+                " Minutes";
+
+        }
+
+
+
+        /* =========================================
+           START EXAM
+        ========================================= */
+
+        document
+            .getElementById(
+                "startExamButton"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+
+                    if (examStarted) {
+
+                        return;
+
+                    }
+
+
+                    if (!exam) {
+
+                        alert(
+                            "Exam is still loading."
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (
+                        questionPages.length === 0
+                    ) {
+
+                        alert(
+                            "❌ Question paper is not available."
+                        );
+
+                        return;
+
+                    }
+
+
+                    examStarted = true;
+
+
+
+                    const button =
+                        document.getElementById(
+                            "startExamButton"
+                        );
+
+
+
+                    button.disabled =
+                        true;
+
+
+
+                    button.textContent =
+                        "🟢 Exam Started";
+
+
+
+                    /*
+                     * Show question paper
+                     */
+
+                    showQuestionPaper();
+
+
+
+                    /*
+                     * Start timer
+                     */
+
+                    timerInterval =
+                        setInterval(
+                            function () {
+
+
+                                if (
+                                    remainingSeconds > 0
+                                ) {
+
+                                    remainingSeconds--;
+
+                                    updateTimer();
+
+                                }
+                                else {
+
+                                    finishExam();
+
+                                }
+
+                            },
+                            1000
+                        );
+
+                }
+            );
+
+
+
+        /* =========================================
+           UPDATE TIMER
+        ========================================= */
+
+        function updateTimer() {
+
+
+            const timer =
+                document.getElementById(
+                    "timer"
+                );
+
+
+            const hours =
+                Math.floor(
+                    remainingSeconds / 3600
+                );
+
+
+            const minutes =
+                Math.floor(
+                    (
+                        remainingSeconds %
+                        3600
+                    ) / 60
+                );
+
+
+            const seconds =
+                remainingSeconds % 60;
+
+
+
+            timer.textContent =
+
+                String(hours)
+                    .padStart(2, "0") +
+
+                ":" +
+
+                String(minutes)
+                    .padStart(2, "0") +
+
+                ":" +
+
+                String(seconds)
+                    .padStart(2, "0");
+
+
+
+            if (
+                remainingSeconds <= 300
+            ) {
+
+                timer.style.color =
+                    "red";
+
+            }
+            else {
+
+                timer.style.color =
+                    "#1565c0";
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           SHOW QUESTION PAPER
+        ========================================= */
+
+        function showQuestionPaper() {
+
+
+            const area =
+                document.getElementById(
+                    "questionPaperArea"
+                );
+
+
+            area.style.display =
+                "block";
+
+
+
+            /*
+             * Reset page
+             */
+
+            currentPage = 0;
+
+
+
+            /*
+             * Check if PDF
+             */
+
+            if (
+                questionPages.length === 1 &&
+                isPDF(questionPages[0])
+            ) {
+
+                showPDF(
+                    questionPages[0]
+                );
+
+                return;
+
+            }
+
+
+
+            /*
+             * Images
+             */
+
+            showImageSlideshow();
+
+        }
+
+
+
+        /* =========================================
+           CHECK PDF
+        ========================================= */
+
+        function isPDF(url) {
+
+            if (!url) {
+
+                return false;
+
+            }
+
+
+            return url
+                .toLowerCase()
+                .split("?")[0]
+                .endsWith(".pdf");
+
+        }
+
+
+
+        /* =========================================
+           SHOW PDF
+        ========================================= */
+
+        function showPDF(url) {
+
+
+            document
+                .getElementById(
+                    "currentPageImage"
+                )
+                .style.display =
+                "none";
+
+
+            document
+                .getElementById(
+                    "pdfViewer"
+                )
+                .style.display =
+                "block";
+
+
+            document
+                .getElementById(
+                    "pdfViewer"
+                )
+                .src =
+                url;
+
+
+
+            document
+                .getElementById(
+                    "previousButton"
+                )
+                .style.display =
+                "none";
+
+
+            document
+                .getElementById(
+                    "nextButton"
+                )
+                .style.display =
+                "none";
+
+
+            document
+                .getElementById(
+                    "autoSlideButton"
+                )
+                .style.display =
+                "none";
+
+
+            document
+                .getElementById(
+                    "thumbnailContainer"
+                )
+                .style.display =
+                "none";
+
+
+            document
+                .getElementById(
+                    "pageCounter"
+                )
+                .textContent =
+                "PDF Question Paper";
+
+        }
+
+
+
+        /* =========================================
+           SHOW IMAGE SLIDESHOW
+        ========================================= */
+
+        function showImageSlideshow() {
+
+
+            document
+                .getElementById(
+                    "pdfViewer"
+                )
+                .style.display =
+                "none";
+
+
+            document
+                .getElementById(
+                    "currentPageImage"
+                )
+                .style.display =
+                "block";
+
+
+            document
+                .getElementById(
+                    "previousButton"
+                )
+                .style.display =
+                "inline-block";
+
+
+            document
+                .getElementById(
+                    "nextButton"
+                )
+                .style.display =
+                "inline-block";
+
+
+            document
+                .getElementById(
+                    "autoSlideButton"
+                )
+                .style.display =
+                "inline-block";
+
+
+            document
+                .getElementById(
+                    "thumbnailContainer"
+                )
+                .style.display =
+                "flex";
+
+
+
+            createThumbnails();
+
+
+            showPage(
+                0
+            );
+
+        }
+
+
+
+        /* =========================================
+           SHOW PAGE
+        ========================================= */
+
+        function showPage(index) {
+
+
+            if (
+                questionPages.length === 0
+            ) {
+
+                return;
+
+            }
+
+
+
+            /*
+             * Circular navigation
+             */
+
+            if (
+                index < 0
+            ) {
+
+                index =
+                    questionPages.length - 1;
+
+            }
+
+
+            if (
+                index >= questionPages.length
+            ) {
+
+                index = 0;
+
+            }
+
+
+
+            currentPage =
+                index;
+
+
+
+            const image =
+                document.getElementById(
+                    "currentPageImage"
+                );
+
+
+            image.src =
+                questionPages[
+                    currentPage
+                ];
+
+
+
+            /*
+             * Page counter
+             */
+
+            document.getElementById(
+                "pageCounter"
+            ).textContent =
+
+                "Page " +
+                (currentPage + 1) +
+                " of " +
+                questionPages.length;
+
+
+
+            /*
+             * Disable buttons at ends
+             */
+
+            document.getElementById(
+                "previousButton"
+            ).disabled =
+                currentPage === 0;
+
+
+
+            document.getElementById(
+                "nextButton"
+            ).disabled =
+                currentPage ===
+                questionPages.length - 1;
+
+
+
+            /*
+             * Active thumbnail
+             */
+
+            const thumbnails =
+                document.querySelectorAll(
+                    ".thumbnail"
+                );
+
+
+            thumbnails.forEach(
+                function (
+                    thumbnail,
+                    index
+                ) {
+
+                    if (
+                        index === currentPage
+                    ) {
+
+                        thumbnail.classList.add(
+                            "active"
+                        );
+
+                    }
+                    else {
+
+                        thumbnail.classList.remove(
+                            "active"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+
+        /* =========================================
+           CREATE THUMBNAILS
+        ========================================= */
+
+        function createThumbnails() {
+
+
+            const container =
+                document.getElementById(
+                    "thumbnailContainer"
+                );
+
+
+            container.innerHTML =
+                "";
+
+
+
+            questionPages.forEach(
+                function (
+                    url,
+                    index
+                ) {
+
+
+                    const image =
+                        document.createElement(
+                            "img"
+                        );
+
+
+                    image.src =
+                        url;
+
+
+                    image.className =
+                        "thumbnail";
+
+
+                    image.alt =
+                        "Page " +
+                        (index + 1);
+
+
+
+                    image.title =
+                        "Page " +
+                        (index + 1);
+
+
+
+                    image.addEventListener(
+                        "click",
+                        function () {
+
+                            stopSlideshow();
+
+                            showPage(
+                                index
+                            );
+
+                        }
+                    );
+
+
+
+                    container.appendChild(
+                        image
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* =========================================
+           PREVIOUS
+        ========================================= */
+
+        document
+            .getElementById(
+                "previousButton"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+                    stopSlideshow();
+
+                    showPage(
+                        currentPage - 1
+                    );
+
+                }
+            );
+
+
+
+        /* =========================================
+           NEXT
+        ========================================= */
+
+        document
+            .getElementById(
+                "nextButton"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+                    stopSlideshow();
+
+                    showPage(
+                        currentPage + 1
+                    );
+
+                }
+            );
+
+
+
+        /* =========================================
+           AUTO SLIDESHOW
+        ========================================= */
+
+        document
+            .getElementById(
+                "autoSlideButton"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+
+                    if (
+                        slideshowRunning
+                    ) {
+
+                        stopSlideshow();
+
+                    }
+                    else {
+
+                        startSlideshow();
+
+                    }
+
+                }
+            );
+
+
+
+        /* =========================================
+           START SLIDESHOW
+        ========================================= */
+
+        function startSlideshow() {
+
+
+            if (
+                questionPages.length <= 1
+            ) {
+
+                return;
+
+            }
+
+
+            slideshowRunning =
+                true;
+
+
+
+            document
+                .getElementById(
+                    "autoSlideButton"
+                )
+                .textContent =
+                "⏸ Stop Slideshow";
+
+
+
+            slideshowInterval =
+                setInterval(
+                    function () {
+
+
+                        if (
+                            currentPage <
+                            questionPages.length - 1
+                        ) {
+
+                            showPage(
+                                currentPage + 1
+                            );
+
+                        }
+                        else {
+
+                            /*
+                             * Return to first page
+                             */
+
+                            showPage(
+                                0
+                            );
+
+                        }
+
+                    },
+                    5000
+                );
+
+        }
+
+
+
+        /* =========================================
+           STOP SLIDESHOW
+        ========================================= */
+
+        function stopSlideshow() {
+
+
+            slideshowRunning =
+                false;
+
+
+
+            clearInterval(
+                slideshowInterval
+            );
+
+
+
+            slideshowInterval =
+                null;
+
+
+
+            document
+                .getElementById(
+                    "autoSlideButton"
+                )
+                .textContent =
+                "▶ Start Slideshow";
+
+        }
+
+
+
+        /* =========================================
+           FINISH EXAM
+        ========================================= */
+
+        function finishExam() {
+
+
+            clearInterval(
+                timerInterval
+            );
+
+
+            stopSlideshow();
+
+
+
+            remainingSeconds =
+                0;
+
+
+            updateTimer();
+
+
+
+            document
+                .getElementById(
+                    "startExamButton"
+                )
+                .disabled =
+                true;
+
+
+
+            document
+                .getElementById(
+                    "startExamButton"
+                )
+                .textContent =
+                "⛔ Exam Finished";
+
+
+
+            alert(
+                "⏰ Examination time is over."
+            );
+
+        }
+
+
+
+        /* =========================================
+           KEYBOARD NAVIGATION
+        ========================================= */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+
+                if (!examStarted) {
+
+                    return;
+
+                }
+
+
+                /*
+                 * Left arrow
+                 */
+
+                if (
+                    event.key === "ArrowLeft"
+                ) {
+
+                    stopSlideshow();
+
+                    showPage(
+                        currentPage - 1
+                    );
+
+                }
+
+
+                /*
+                 * Right arrow
+                 */
+
+                if (
+                    event.key === "ArrowRight"
+                ) {
+
+                    stopSlideshow();
+
+                    showPage(
+                        currentPage + 1
+                    );
+
+                }
+
+            }
         );
 
 
-    const minutes =
-        Math.floor(
-            (remainingSeconds % 3600) / 60
-        );
 
+        /* =========================================
+           LOAD
+        ========================================= */
 
-    const seconds =
-        remainingSeconds % 60;
+        loadExam();
 
-
-    timer.textContent =
-
-        String(hours).padStart(2, "0") +
-        ":" +
-
-        String(minutes).padStart(2, "0") +
-        ":" +
-
-        String(seconds).padStart(2, "0");
-
-
-    /*
-     * Warning when 5 minutes remain.
-     */
-
-    if (remainingSeconds <= 300) {
-
-        timer.style.color = "red";
-
-    }
-
-}
-
-
-/* =========================================
-   SHOW QUESTION PAPER
-   ========================================= */
-
-function showQuestionPaper() {
-
-    const area =
-        document.getElementById(
-            "questionPaperArea"
-        );
-
-
-    const container =
-        document.getElementById(
-            "questionPaperContainer"
-        );
-
-
-    const url =
-        exam.question_paper_url;
-
-
-    const lowerUrl =
-        url.toLowerCase();
-
-
-    /*
-     * PDF
-     */
-
-    if (lowerUrl.includes(".pdf")) {
-
-        container.innerHTML =
-
-            `<iframe
-                src="${url}"
-                title="Question Paper">
-            </iframe>`;
-
-    }
-
-
-    /*
-     * IMAGE
-     */
-
-    else {
-
-        container.innerHTML =
-
-            `<img
-                src="${url}"
-                alt="Question Paper">`;
-
-    }
-
-
-    area.style.display =
-        "block";
-
-}
-
-
-/* =========================================
-   FINISH EXAM
-   ========================================= */
-
-function finishExam() {
-
-    clearInterval(timerInterval);
-
-
-    remainingSeconds = 0;
-
-    updateTimer();
-
-
-    document.getElementById(
-        "startExamButton"
-    ).disabled = true;
-
-
-    document.getElementById(
-        "startExamButton"
-    ).textContent =
-        "⛔ Exam Finished";
-
-
-    alert(
-        "⏰ Examination time is over."
-    );
-
-}
-
-
-/* =========================================
-   LOAD
-   ========================================= */
-
-loadExam();
-
-</script>
+    </script>
 
 </body>
+
 </html>
