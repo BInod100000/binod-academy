@@ -332,38 +332,63 @@
             </div>
 
 
-            <!-- ========================= -->
-            <!-- QUESTION PAPER -->
-            <!-- ========================= -->
+        <!-- ========================= -->
+<!-- QUESTION PAPER -->
+<!-- ========================= -->
 
-            <div class="question-paper-box">
+<div class="question-paper-box">
 
-                <h2>
-                    📄 Question Paper
-                </h2>
+    <h2>
+        📄 Question Paper
+    </h2>
 
-                <p>
-                    Upload the question paper for this examination.
-                </p>
+    <p>
+        Upload all question-paper pages together.
+    </p>
 
-                <input
-    type="file"
-    id="questionPaper"
-    accept=".jpg,.jpeg,.png,.pdf"
-    multiple
->
+    <input
+        type="file"
+        id="questionPaper"
+        name="questionPaper"
+        accept=".jpg,.jpeg,.png,.pdf"
+        multiple
+    >
 
-                <p
-                    style="
-                        font-size:15px;
-                        color:#666;
-                    "
-                >
-                    Accepted formats:
-                    PDF, JPG, JPEG, PNG
-                </p>
+    <!-- SHOW SELECTED FILES -->
+    <div
+        id="selectedFiles"
+        style="
+            margin-top:20px;
+            text-align:left;
+            background:white;
+            padding:15px;
+            border-radius:10px;
+        "
+    >
+        <strong>📄 No files selected yet.</strong>
+    </div>
 
-            </div>
+    <p
+        style="
+            font-size:15px;
+            color:#666;
+            margin-top:15px;
+        "
+    >
+        Accepted formats:
+        PDF, JPG, JPEG, PNG
+    </p>
+
+    <p
+        style="
+            font-size:15px;
+            color:#1565c0;
+        "
+    >
+        💡 You can select multiple pages at once.
+    </p>
+
+</div>
 
 
             <!-- ========================= -->
