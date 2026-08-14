@@ -18,11 +18,10 @@ async function login() {
         return;
     }
 
-    const enteredId =
-        studentId.value
-            .trim()
-            .replace(/\s+/g, "")
-            .toUpperCase();
+    const enteredId = studentId.value
+        .trim()
+        .replace(/\s+/g, "")
+        .toUpperCase();
 
     const enteredPassword = password.value;
 
@@ -32,27 +31,32 @@ async function login() {
         return;
     }
 
-    const {
-        data,
-        error: supabaseError
-    } = await supabaseClient
-        .from("students")
-        .select("*")
-        .eq("student_id", enteredId)
-        .eq("password", enteredPassword)
-        .maybeSingle();
+    const { data, error: supabaseError } =
+        await supabaseClient
+            .from("students")
+            .select("*")
+            .eq("student_id", enteredId)
+            .eq("password", enteredPassword)
+            .maybeSingle();
 
     if (supabaseError) {
-        console.error("Student login error:", supabaseError);
+
+        console.error(
+            "Student login error:",
+            supabaseError
+        );
 
         error.textContent =
             "❌ Database error. Please try again.";
+
         return;
     }
 
     if (!data) {
+
         error.textContent =
             "❌ Student ID or Password is incorrect.";
+
         return;
     }
 
@@ -81,9 +85,11 @@ async function teacherLogin() {
         document.getElementById("teacherError");
 
     if (!teacherId || !password || !error) {
+
         console.error(
             "Teacher login elements not found."
         );
+
         return;
     }
 
@@ -99,22 +105,23 @@ async function teacherLogin() {
         enteredTeacherId === "" ||
         enteredPassword === ""
     ) {
+
         error.textContent =
             "❌ Please enter Teacher ID and Password.";
+
         return;
     }
 
-    const {
-        data,
-        error: supabaseError
-    } = await supabaseClient
-        .from("teachers")
-        .select("teacher_id, name")
-        .eq("teacher_id", enteredTeacherId)
-        .eq("password", enteredPassword)
-        .maybeSingle();
+    const { data, error: supabaseError } =
+        await supabaseClient
+            .from("teachers")
+            .select("teacher_id, name")
+            .eq("teacher_id", enteredTeacherId)
+            .eq("password", enteredPassword)
+            .maybeSingle();
 
     if (supabaseError) {
+
         console.error(
             "Teacher login error:",
             supabaseError
@@ -122,12 +129,15 @@ async function teacherLogin() {
 
         error.textContent =
             "❌ Database error. Please try again.";
+
         return;
     }
 
     if (!data) {
+
         error.textContent =
             "❌ Invalid Teacher ID or Password.";
+
         return;
     }
 
@@ -141,7 +151,8 @@ async function teacherLogin() {
         data.name
     );
 
-    window.location.href = "teacher.html";
+    window.location.href =
+        "teacher.html";
 }
 
 
@@ -169,9 +180,11 @@ async function registerStudent() {
         !confirmPasswordElement ||
         !error
     ) {
+
         console.error(
             "Registration elements not found."
         );
+
         return;
     }
 
@@ -185,8 +198,10 @@ async function registerStudent() {
         confirmPasswordElement.value;
 
     if (studentName === "") {
+
         error.textContent =
             "❌ Please enter your full name.";
+
         return;
     }
 
@@ -194,14 +209,18 @@ async function registerStudent() {
         password === "" ||
         confirmPassword === ""
     ) {
+
         error.textContent =
             "❌ Please enter your password twice.";
+
         return;
     }
 
     if (password !== confirmPassword) {
+
         error.textContent =
             "❌ Passwords do not match.";
+
         return;
     }
 
@@ -213,43 +232,53 @@ async function registerStudent() {
     const {
         data: existingStudent,
         error: checkError
-    } = await supabaseClient
-        .from("students")
-        .select("student_id")
-        .eq("student_id", studentId)
-        .maybeSingle();
+    } =
+        await supabaseClient
+            .from("students")
+            .select("student_id")
+            .eq("student_id", studentId)
+            .maybeSingle();
 
     if (checkError) {
-        console.error(checkError);
+
+        console.error(
+            checkError
+        );
 
         error.textContent =
             "❌ Database error. Please try again.";
+
         return;
     }
 
     if (existingStudent) {
+
         error.textContent =
             "❌ This student is already registered.";
+
         return;
     }
 
-    const {
-        error: insertError
-    } = await supabaseClient
-        .from("students")
-        .insert([
-            {
-                student_id: studentId,
-                name: studentName.toUpperCase(),
-                password: password
-            }
-        ]);
+    const { error: insertError } =
+        await supabaseClient
+            .from("students")
+            .insert([
+                {
+                    student_id: studentId,
+                    name: studentName.toUpperCase(),
+                    password: password
+                }
+            ]);
 
     if (insertError) {
-        console.error(insertError);
+
+        console.error(
+            insertError
+        );
 
         error.textContent =
             "❌ Registration failed. Please try again.";
+
         return;
     }
 
@@ -265,8 +294,81 @@ async function registerStudent() {
 
 
 // =====================================
+// SHOW SELECTED QUESTION PAPER FILES
+// =====================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const questionPaper =
+            document.getElementById(
+                "questionPaper"
+            );
+
+        const selectedFiles =
+            document.getElementById(
+                "selectedFiles"
+            );
+
+        if (
+            !questionPaper ||
+            !selectedFiles
+        ) {
+            return;
+        }
+
+        questionPaper.addEventListener(
+            "change",
+            function () {
+
+                const files =
+                    Array.from(
+                        questionPaper.files
+                    );
+
+                if (files.length === 0) {
+
+                    selectedFiles.innerHTML =
+                        "<strong>📄 No files selected yet.</strong>";
+
+                    return;
+                }
+
+                let html =
+                    "<strong>📄 " +
+                    files.length +
+                    " file(s) selected:</strong>";
+
+                html +=
+                    "<ol style='margin-top:10px;'>";
+
+                files.forEach(
+                    function (file, index) {
+
+                        html +=
+                            "<li style='margin-bottom:8px;'>" +
+                            "Page " +
+                            (index + 1) +
+                            ": " +
+                            escapeHtml(file.name) +
+                            "</li>";
+
+                    }
+                );
+
+                html += "</ol>";
+
+                selectedFiles.innerHTML =
+                    html;
+            }
+        );
+    }
+);
+
+
+// =====================================
 // CREATE / SAVE EXAM
-// MULTIPLE QUESTION PAPER FILES
 // =====================================
 
 async function saveExam() {
@@ -276,25 +378,39 @@ async function saveExam() {
     );
 
     const examTitle =
-        document.getElementById("examTitle");
+        document.getElementById(
+            "examTitle"
+        );
 
     const examSubject =
-        document.getElementById("examSubject");
+        document.getElementById(
+            "examSubject"
+        );
 
     const examDate =
-        document.getElementById("examDate");
+        document.getElementById(
+            "examDate"
+        );
 
     const examDuration =
-        document.getElementById("examDuration");
+        document.getElementById(
+            "examDuration"
+        );
 
     const totalMarks =
-        document.getElementById("totalMarks");
+        document.getElementById(
+            "totalMarks"
+        );
 
     const questionPaper =
-        document.getElementById("questionPaper");
+        document.getElementById(
+            "questionPaper"
+        );
 
     const examMessage =
-        document.getElementById("examMessage");
+        document.getElementById(
+            "examMessage"
+        );
 
 
     // =====================================
@@ -310,9 +426,11 @@ async function saveExam() {
         !questionPaper ||
         !examMessage
     ) {
+
         console.error(
             "Create Exam elements not found."
         );
+
         return;
     }
 
@@ -331,19 +449,29 @@ async function saveExam() {
         examDate.value;
 
     const duration =
-        Number(examDuration.value);
+        Number(
+            examDuration.value
+        );
 
     const marks =
-        Number(totalMarks.value);
+        Number(
+            totalMarks.value
+        );
 
 
-    // IMPORTANT:
-    // Get ALL selected files
+    // =====================================
+    // GET ALL SELECTED FILES
+    // =====================================
 
     const files =
         Array.from(
             questionPaper.files
         );
+
+    console.log(
+        "Number of selected files:",
+        files.length
+    );
 
 
     // =====================================
@@ -352,11 +480,10 @@ async function saveExam() {
 
     if (title === "") {
 
-        examMessage.style.color =
-            "red";
-
-        examMessage.textContent =
-            "❌ Please enter the exam name.";
+        showExamError(
+            examMessage,
+            "❌ Please enter the exam name."
+        );
 
         return;
     }
@@ -364,11 +491,10 @@ async function saveExam() {
 
     if (subject === "") {
 
-        examMessage.style.color =
-            "red";
-
-        examMessage.textContent =
-            "❌ Please select a subject.";
+        showExamError(
+            examMessage,
+            "❌ Please select a subject."
+        );
 
         return;
     }
@@ -376,11 +502,10 @@ async function saveExam() {
 
     if (date === "") {
 
-        examMessage.style.color =
-            "red";
-
-        examMessage.textContent =
-            "❌ Please select the exam date.";
+        showExamError(
+            examMessage,
+            "❌ Please select the exam date."
+        );
 
         return;
     }
@@ -392,11 +517,10 @@ async function saveExam() {
         duration > 180
     ) {
 
-        examMessage.style.color =
-            "red";
-
-        examMessage.textContent =
-            "❌ Exam duration must be between 30 minutes and 3 hours.";
+        showExamError(
+            examMessage,
+            "❌ Exam duration must be between 30 minutes and 3 hours."
+        );
 
         return;
     }
@@ -404,11 +528,10 @@ async function saveExam() {
 
     if (marks !== 75) {
 
-        examMessage.style.color =
-            "red";
-
-        examMessage.textContent =
-            "❌ Total marks must be 75.";
+        showExamError(
+            examMessage,
+            "❌ Total marks must be 75."
+        );
 
         return;
     }
@@ -420,20 +543,13 @@ async function saveExam() {
 
     if (files.length === 0) {
 
-        examMessage.style.color =
-            "red";
-
-        examMessage.textContent =
-            "❌ Please upload at least one question-paper file.";
+        showExamError(
+            examMessage,
+            "❌ Please select at least one question-paper file."
+        );
 
         return;
     }
-
-
-    console.log(
-        "Number of selected files:",
-        files.length
-    );
 
 
     // =====================================
@@ -475,13 +591,12 @@ async function saveExam() {
             )
         ) {
 
-            examMessage.style.color =
-                "red";
-
-            examMessage.textContent =
+            showExamError(
+                examMessage,
                 "❌ Invalid file: " +
                 file.name +
-                ". Only PDF, JPG, JPEG and PNG are allowed.";
+                ". Only PDF, JPG, JPEG and PNG are allowed."
+            );
 
             return;
         }
@@ -491,22 +606,20 @@ async function saveExam() {
             file.size > maxSize
         ) {
 
-            examMessage.style.color =
-                "red";
-
-            examMessage.textContent =
+            showExamError(
+                examMessage,
                 "❌ File too large: " +
                 file.name +
-                ". Maximum size is 50 MB per file.";
+                ". Maximum size is 50 MB per file."
+            );
 
             return;
         }
-
     }
 
 
     // =====================================
-    // FIXED INSTRUCTIONS
+    // FIXED EXAM INSTRUCTIONS
     // =====================================
 
     const fixedInstructions = `
@@ -518,33 +631,23 @@ and give your best effort. Believe in yourself! 🌟
 
 📜 Examination Rules:
 
-1. The examination duration is the duration
-   selected by the teacher, with a maximum
-   of 3 hours.
+1. The examination duration is the duration selected by the teacher, with a maximum of 3 hours.
 
-2. The timer starts only after the student
-   clicks START EXAM NOW.
+2. The timer starts only after the student clicks START EXAM NOW.
 
-3. The timer cannot be paused once the
-   examination starts.
+3. The timer cannot be paused once the examination starts.
 
-4. Questions will appear only after the
-   examination starts.
+4. Questions will appear only after the examination starts.
 
-5. Students should write their answers
-   clearly on their answer sheets.
+5. Students should write their answers clearly on their answer sheets.
 
-6. Students must upload their answer-sheet
-   photos before the examination ends.
+6. Students must upload their answer-sheet photos before the examination ends.
 
-7. When the timer reaches 00:00:00,
-   the examination closes automatically.
+7. When the timer reaches 00:00:00, the examination closes automatically.
 
-8. Submission after the examination
-   deadline will not be accepted.
+8. Submission after the examination deadline will not be accepted.
 
-9. Students should make sure their internet
-   connection is stable while submitting.
+9. Students should make sure their internet connection is stable while submitting.
 
 🍀 All the best!
 Give it your best effort! ❤️
@@ -562,18 +665,15 @@ Give it your best effort! ❤️
 
     const uploadedPaths = [];
 
-
     try {
 
         // =====================================
-        // STEP 1
-        // CREATE EXAM
+        // STEP 1 - CREATE EXAM
         // =====================================
 
         console.log(
             "Step 1: Creating exam..."
         );
-
 
         const {
             data: examData,
@@ -603,12 +703,11 @@ Give it your best effort! ❤️
                 examError
             );
 
-            examMessage.style.color =
-                "red";
-
-            examMessage.textContent =
+            showExamError(
+                examMessage,
                 "❌ Exam could not be saved: " +
-                examError.message;
+                examError.message
+            );
 
             return;
         }
@@ -625,8 +724,7 @@ Give it your best effort! ❤️
 
 
         // =====================================
-        // STEP 2
-        // CREATE SAFE TITLE
+        // STEP 2 - SAFE TITLE
         // =====================================
 
         const safeTitle =
@@ -643,8 +741,7 @@ Give it your best effort! ❤️
 
 
         // =====================================
-        // STEP 3
-        // UPLOAD ALL FILES
+        // STEP 3 - UPLOAD ALL FILES
         // =====================================
 
         const uploadedUrls = [];
@@ -694,7 +791,7 @@ Give it your best effort! ❤️
 
 
             // =====================================
-            // UPLOAD FILE
+            // UPLOAD
             // =====================================
 
             const {
@@ -703,19 +800,16 @@ Give it your best effort! ❤️
             } =
                 await supabaseClient
                     .storage
-                    .from("question-papers")
+                    .from(
+                        "question-papers"
+                    )
                     .upload(
                         filePath,
                         file,
                         {
-                            cacheControl:
-                                "3600",
-
-                            upsert:
-                                false,
-
-                            contentType:
-                                file.type
+                            cacheControl: "3600",
+                            upsert: false,
+                            contentType: file.type
                         }
                     );
 
@@ -777,13 +871,11 @@ Give it your best effort! ❤️
                 "Public URL:",
                 publicUrl
             );
-
         }
 
 
         // =====================================
-        // STEP 4
-        // SAVE ALL URLS IN EXAM
+        // STEP 4 - SAVE URLS
         // =====================================
 
         examMessage.textContent =
@@ -797,12 +889,9 @@ Give it your best effort! ❤️
                 .from("exams")
                 .update({
 
-                    // Multiple files
                     question_paper_urls:
                         uploadedUrls,
 
-                    // Keep first file in old column
-                    // for compatibility
                     question_paper_url:
                         uploadedUrls[0]
 
@@ -836,7 +925,7 @@ Give it your best effort! ❤️
         );
 
         console.log(
-            "Question paper URLs:",
+            "Uploaded URLs:",
             uploadedUrls
         );
 
@@ -879,6 +968,18 @@ Give it your best effort! ❤️
         totalMarks.value = 75;
 
         questionPaper.value = "";
+
+
+        const selectedFiles =
+            document.getElementById(
+                "selectedFiles"
+            );
+
+        if (selectedFiles) {
+
+            selectedFiles.innerHTML =
+                "<strong>📄 No files selected yet.</strong>";
+        }
 
 
         // =====================================
@@ -931,9 +1032,7 @@ Give it your best effort! ❤️
                     "Storage cleanup error:",
                     storageError
                 );
-
             }
-
         }
 
 
@@ -961,18 +1060,15 @@ Give it your best effort! ❤️
                     "Exam cleanup error:",
                     deleteError
                 );
-
             }
-
         }
 
 
-        examMessage.style.color =
-            "red";
-
-        examMessage.textContent =
+        showExamError(
+            examMessage,
             "❌ Exam could not be completed: " +
-            error.message;
+            error.message
+        );
     }
 }
 
@@ -993,9 +1089,7 @@ document.addEventListener(
         if (examList) {
 
             loadExams();
-
         }
-
     }
 );
 
@@ -1099,14 +1193,11 @@ async function loadExams() {
             card.className =
                 "card";
 
-
             card.style.width =
                 "90%";
 
-
             card.style.maxWidth =
                 "700px";
-
 
             card.style.textAlign =
                 "left";
@@ -1134,7 +1225,6 @@ async function loadExams() {
 
                 statusText =
                     "🟡 DRAFT";
-
             }
 
 
@@ -1144,7 +1234,6 @@ async function loadExams() {
 
             let questionPaperButton =
                 "";
-
 
             let questionPaperUrls =
                 [];
@@ -1158,7 +1247,6 @@ async function loadExams() {
 
                 questionPaperUrls =
                     exam.question_paper_urls;
-
             }
 
 
@@ -1210,7 +1298,6 @@ async function loadExams() {
                     </a>
                     `;
 
-
             } else {
 
                 questionPaperButton =
@@ -1219,12 +1306,11 @@ async function loadExams() {
                         ⚠️ No question paper uploaded
                     </p>
                     `;
-
             }
 
 
             // =====================================
-            // CARD
+            // CARD HTML
             // =====================================
 
             card.innerHTML =
@@ -1272,8 +1358,7 @@ async function loadExams() {
                 <br><br>
 
                 ${
-                    exam.status ===
-                    "published"
+                    exam.status === "published"
 
                     ?
 
@@ -1303,13 +1388,12 @@ async function loadExams() {
                     🗑️ Delete
                 </button>
 
-            `;
+                `;
 
 
             examList.appendChild(
                 card
             );
-
         }
     );
 }
@@ -1375,9 +1459,7 @@ async function publishExam(
     }
 
 
-    const {
-        error
-    } =
+    const { error } =
         await supabaseClient
             .from("exams")
             .update({
@@ -1434,9 +1516,7 @@ async function unpublishExam(
     }
 
 
-    const {
-        error
-    } =
+    const { error } =
         await supabaseClient
             .from("exams")
             .update({
@@ -1561,14 +1641,13 @@ async function deleteExam(
 
 
     // =====================================
-    // DELETE QUESTION PAPER FILES
+    // GET FILE PATHS
     // =====================================
 
     const filesToDelete =
         [];
 
 
-    // Multiple files
     if (
         Array.isArray(
             exam.question_paper_urls
@@ -1593,16 +1672,16 @@ async function deleteExam(
                     filesToDelete.push(
                         filePath
                     );
-
                 }
-
             }
         );
-
     }
 
 
-    // Old single-file system
+    // =====================================
+    // OLD SINGLE FILE
+    // =====================================
+
     if (
         exam.question_paper_url
     ) {
@@ -1623,14 +1702,12 @@ async function deleteExam(
             filesToDelete.push(
                 oldPath
             );
-
         }
-
     }
 
 
     // =====================================
-    // REMOVE STORAGE FILES
+    // DELETE STORAGE FILES
     // =====================================
 
     if (
@@ -1658,7 +1735,6 @@ async function deleteExam(
                     "Storage delete error:",
                     storageError
                 );
-
             }
 
         } catch (
@@ -1669,9 +1745,7 @@ async function deleteExam(
                 "Storage delete error:",
                 storageError
             );
-
         }
-
     }
 
 
@@ -1712,7 +1786,6 @@ function getStorageFilePath(
     ) {
 
         return null;
-
     }
 
 
@@ -1720,18 +1793,41 @@ function getStorageFilePath(
         index + marker.length
     );
 }
+
+
 // =====================================
-// SAFELY DISPLAY TEXT
+// EXAM ERROR MESSAGE
 // =====================================
 
-function escapeHtml(text) {
+function showExamError(
+    element,
+    message
+) {
+
+    element.style.color =
+        "red";
+
+    element.textContent =
+        message;
+}
+
+
+// =====================================
+// ESCAPE HTML
+// =====================================
+
+function escapeHtml(
+    text
+) {
 
     if (
         text === null ||
         text === undefined
     ) {
+
         return "";
     }
+
 
     return String(text)
         .replace(
@@ -1755,96 +1851,3 @@ function escapeHtml(text) {
             "&#039;"
         );
 }
-
-
-// =====================================
-// SHOW ALL SELECTED QUESTION PAPER FILES
-// =====================================
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        const questionPaper =
-            document.getElementById(
-                "questionPaper"
-            );
-
-        const selectedFiles =
-            document.getElementById(
-                "selectedFiles"
-            );
-
-        // If this page does not have these elements,
-        // simply do nothing.
-
-        if (
-            !questionPaper ||
-            !selectedFiles
-        ) {
-            return;
-        }
-
-
-        questionPaper.addEventListener(
-            "change",
-            function () {
-
-                const files =
-                    Array.from(
-                        questionPaper.files
-                    );
-
-
-                if (
-                    files.length === 0
-                ) {
-
-                    selectedFiles.innerHTML =
-                        "<strong>📄 No files selected yet.</strong>";
-
-                    return;
-                }
-
-
-                let html =
-                    "<strong>📄 " +
-                    files.length +
-                    " file(s) selected:</strong>";
-
-
-                html +=
-                    "<ol style='margin-top:10px;'>";
-
-
-                files.forEach(
-                    function (
-                        file,
-                        index
-                    ) {
-
-                        html +=
-                            "<li style='margin-bottom:8px;'>" +
-                            "Page " +
-                            (index + 1) +
-                            ": " +
-                            escapeHtml(
-                                file.name
-                            ) +
-                            "</li>";
-
-                    }
-                );
-
-
-                html += "</ol>";
-
-
-                selectedFiles.innerHTML =
-                    html;
-
-            }
-        );
-
-    }
-);
