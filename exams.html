@@ -2,52 +2,461 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Binod Academy - Exams</title>
-    <link rel="stylesheet" href="style.css">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Binod Academy - Exams</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+    <style>
+
+        .exam-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .exam-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.10);
+            text-align: center;
+        }
+
+        .exam-card h3 {
+            color: #1565c0;
+            margin-bottom: 15px;
+        }
+
+        .exam-card p {
+            margin: 8px 0;
+            font-size: 17px;
+        }
+
+        .exam-button {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 12px 25px;
+            background: #1565c0;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 17px;
+        }
+
+        .exam-button:hover {
+            background: #0d47a1;
+        }
+
+        #loading {
+            font-size: 18px;
+            margin: 30px;
+        }
+
+        #noExams {
+            display: none;
+            font-size: 18px;
+            margin: 30px;
+        }
+
+        #errorMessage {
+            display: none;
+            color: red;
+            font-weight: bold;
+            margin: 30px;
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
 <h1>🎓 Binod Academy</h1>
 
+
 <nav>
-    <a href="index.html">🏠 Home</a>
-    <a href="notes.html">📚 Notes</a>
-    <a href="exams.html">📝 Exams</a>
-    <a href="results.html">📊 Results</a>
-    <a href="contact.html">📞 Contact</a>
-    <a href="login.html">🔐 Login</a>
+
+    <a href="index.html">
+        🏠 Home
+    </a>
+
+    <a href="notes.html">
+        📚 Notes
+    </a>
+
+    <a href="exams.html">
+        📝 Exams
+    </a>
+
+    <a href="results.html">
+        📊 Results
+    </a>
+
+    <a href="contact.html">
+        📞 Contact
+    </a>
+
+    <a href="login.html">
+        🔐 Login
+    </a>
+
 </nav>
+
+
 <section>
 
-<h2>📝 Online Exams</h2>
+    <h2>📝 Online Exams</h2>
 
-<p>Select an exam to begin.</p>
+    <p>
+        Select an available examination to begin.
+    </p>
 
-<div class="subjects">
 
-<div class="card">
-📘 Mathematics Exam
-</div>
+    <!-- Loading message -->
 
-<div class="card">
-🔬 Science Exam
-</div>
+    <div id="loading">
+        ⏳ Loading exams...
+    </div>
 
-<div class="card">
-📐 Optional Mathematics Exam
-</div>
 
-<div class="card">
-📖 English Exam
-</div>
+    <!-- Exams will appear here -->
 
-</div>
+    <div id="examList"
+         class="exam-list">
+    </div>
+
+
+    <!-- No exams -->
+
+    <div id="noExams">
+
+        📭
+        <br><br>
+
+        No published examinations are available right now.
+
+    </div>
+
+
+    <!-- Error -->
+
+    <div id="errorMessage"></div>
+
 
 </section>
 
-</body>
-</html>
 
+<!-- =====================================
+     SUPABASE
+===================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
+
+
+<script src="supabase-config.js">
+</script>
+
+
+<script>
+
+
+/* =====================================
+   LOAD PUBLISHED EXAMS
+===================================== */
+
+async function loadExams() {
+
+    const loading =
+        document.getElementById("loading");
+
+    const examList =
+        document.getElementById("examList");
+
+    const noExams =
+        document.getElementById("noExams");
+
+    const errorMessage =
+        document.getElementById("errorMessage");
+
+
+    try {
+
+
+        /* ===============================
+           GET EXAMS FROM SUPABASE
+        =============================== */
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+
+            .from("exams")
+
+            .select("*")
+
+            .eq("status", "published")
+
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
+
+
+        /* ===============================
+           ERROR
+        =============================== */
+
+        if (error) {
+
+            console.error(
+                "Supabase error:",
+                error
+            );
+
+            loading.style.display =
+                "none";
+
+            errorMessage.style.display =
+                "block";
+
+            errorMessage.textContent =
+                "❌ Could not load exams: "
+                + error.message;
+
+            return;
+        }
+
+
+        /* ===============================
+           NO EXAMS
+        =============================== */
+
+        if (!data || data.length === 0) {
+
+            loading.style.display =
+                "none";
+
+            noExams.style.display =
+                "block";
+
+            return;
+        }
+
+
+        /* ===============================
+           EXAMS FOUND
+        =============================== */
+
+        loading.style.display =
+            "none";
+
+
+        examList.innerHTML = "";
+
+
+        data.forEach(function(exam) {
+
+
+            /* ===============================
+               CREATE CARD
+            =============================== */
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "exam-card";
+
+
+            /* ===============================
+               DURATION
+            =============================== */
+
+            const duration =
+                formatDuration(
+                    exam.duration_minutes
+                );
+
+
+            /* ===============================
+               CREATE HTML
+            =============================== */
+
+            card.innerHTML = `
+
+                <h3>
+                    📝 ${escapeHtml(
+                        exam.title || "Untitled Exam"
+                    )}
+                </h3>
+
+
+                <p>
+                    📚
+                    <strong>Subject:</strong>
+                    ${escapeHtml(
+                        exam.subject || "Not specified"
+                    )}
+                </p>
+
+
+                <p>
+                    📅
+                    <strong>Date:</strong>
+                    ${escapeHtml(
+                        exam.exam_date || "Not specified"
+                    )}
+                </p>
+
+
+                <p>
+                    ⏱️
+                    <strong>Duration:</strong>
+                    ${duration}
+                </p>
+
+
+                <p>
+                    📊
+                    <strong>Total Marks:</strong>
+                    ${exam.total_marks || 0}
+                </p>
+
+
+                <a
+                    class="exam-button"
+                    href="exam.html?id=${encodeURIComponent(exam.id)}">
+
+                    ▶️ View Exam
+
+                </a>
+
+            `;
+
+
+            examList.appendChild(card);
+
+        });
+
+    }
+
+
+    catch (error) {
+
+        console.error(error);
+
+
+        loading.style.display =
+            "none";
+
+
+        errorMessage.style.display =
+            "block";
+
+
+        errorMessage.textContent =
+            "❌ Something went wrong while loading exams.";
+
+    }
+
+}
+
+
+/* =====================================
+   FORMAT DURATION
+===================================== */
+
+function formatDuration(minutes) {
+
+    minutes =
+        Number(minutes);
+
+
+    if (!minutes || minutes <= 0) {
+
+        return "Not specified";
+
+    }
+
+
+    if (minutes < 60) {
+
+        return minutes +
+            " Minutes";
+
+    }
+
+
+    const hours =
+        Math.floor(
+            minutes / 60
+        );
+
+
+    const remainingMinutes =
+        minutes % 60;
+
+
+    if (remainingMinutes === 0) {
+
+        return hours +
+            (hours === 1
+                ? " Hour"
+                : " Hours");
+
+    }
+
+
+    return hours +
+        (hours === 1
+            ? " Hour "
+            : " Hours ") +
+        remainingMinutes +
+        " Minutes";
+
+}
+
+
+/* =====================================
+   SECURITY / HTML ESCAPE
+===================================== */
+
+function escapeHtml(value) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        value;
+
+    return div.innerHTML;
+
+}
+
+
+/* =====================================
+   START
+===================================== */
+
+loadExams();
+
+
+</script>
+
+
+</body>
+
+</html>
