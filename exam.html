@@ -12,15 +12,12 @@
 
     <title>Binod Academy - Exam</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+    <link rel="stylesheet" href="style.css">
 
     <style>
 
         .exam-container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 30px auto;
         }
 
@@ -28,7 +25,7 @@
             background: white;
             padding: 35px;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.10);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
         }
 
         .exam-title {
@@ -68,97 +65,77 @@
 
         #questionPaperArea {
             display: none;
-            margin-top: 30px;
+            margin-top: 35px;
         }
 
         .question-paper-box {
             background: #f5f7fb;
-            padding: 20px;
+            padding: 25px;
             border-radius: 15px;
-            border: 1px solid #ddd;
         }
 
-        .page-counter {
-            text-align: center;
+        .question-paper-title {
+            color: #1565c0;
+            margin-bottom: 10px;
+        }
+
+        #pageNumber {
             font-size: 22px;
             font-weight: bold;
-            margin-bottom: 20px;
-            color: #1565c0;
+            margin: 15px 0;
+        }
+
+        #questionPaperImage {
+            display: block;
+            width: 100%;
+            max-width: 900px;
+            max-height: 750px;
+            object-fit: contain;
+            margin: 20px auto;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            background: white;
         }
 
         .slideshow-controls {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 12px;
+            gap: 20px;
             flex-wrap: wrap;
-            margin-bottom: 20px;
+            margin-top: 20px;
         }
 
         .slide-button {
             border: none;
-            color: white;
-            padding: 13px 22px;
-            font-size: 17px;
+            padding: 14px 25px;
             border-radius: 8px;
+            font-size: 18px;
             cursor: pointer;
+            color: white;
         }
 
-        .previous-button {
+        #previousButton {
             background: #777;
         }
 
-        .previous-button:hover {
-            background: #555;
-        }
-
-        .next-button {
+        #nextButton {
             background: #1565c0;
         }
 
-        .next-button:hover {
-            background: #0d47a1;
-        }
-
-        .slideshow-button {
+        #slideshowButton {
             background: #2e7d32;
         }
 
-        .slideshow-button:hover {
-            background: #1b5e20;
+        .slide-button:disabled {
+            background: #bbb !important;
+            cursor: not-allowed;
         }
 
-        .stop-button {
-            background: #d32f2f;
-        }
-
-        .stop-button:hover {
-            background: #b71c1c;
-        }
-
-        .question-image-wrapper {
-            background: white;
-            padding: 10px;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        #questionPageImage {
-            max-width: 100%;
-            max-height: 800px;
-            width: auto;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            border-radius: 10px;
-            border: 2px solid #ddd;
-        }
-
-        #questionPdf {
-            width: 100%;
-            height: 750px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
+        .message {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
         }
 
         .instructions {
@@ -168,13 +145,6 @@
             text-align: left;
             line-height: 1.7;
             margin-top: 25px;
-            white-space: pre-line;
-        }
-
-        .message {
-            font-size: 18px;
-            font-weight: bold;
-            margin: 20px 0;
         }
 
         .back-button {
@@ -183,15 +153,8 @@
             text-decoration: none;
         }
 
-        .loading-message {
-            text-align: center;
-            font-size: 18px;
-            padding: 30px;
-        }
-
         .error-message {
             color: red;
-            text-align: center;
             font-weight: bold;
             padding: 20px;
         }
@@ -207,19 +170,16 @@
             }
 
             #timer {
-                font-size: 27px;
+                font-size: 26px;
             }
 
-            #startExamButton {
-                width: 100%;
+            #questionPaperImage {
+                max-height: 600px;
             }
 
             .slide-button {
                 width: 100%;
-            }
-
-            #questionPageImage {
-                max-height: 650px;
+                max-width: 300px;
             }
 
         }
@@ -236,29 +196,17 @@
 
     <nav>
 
-        <a href="index.html">
-            🏠 Home
-        </a>
+        <a href="index.html">🏠 Home</a>
 
-        <a href="exams.html">
-            📝 Exams
-        </a>
+        <a href="exams.html">📝 Exams</a>
 
-        <a href="notes.html">
-            📚 Notes
-        </a>
+        <a href="notes.html">📚 Notes</a>
 
-        <a href="results.html">
-            📊 Results
-        </a>
+        <a href="results.html">📊 Results</a>
 
-        <a href="contact.html">
-            📞 Contact
-        </a>
+        <a href="contact.html">📞 Contact</a>
 
-        <a href="login.html">
-            🔐 Login
-        </a>
+        <a href="login.html">🔐 Login</a>
 
     </nav>
 
@@ -266,6 +214,7 @@
     <section class="exam-container">
 
         <div class="exam-card">
+
 
             <h2
                 id="examTitle"
@@ -283,8 +232,9 @@
 
             <div
                 id="examContent"
-                style="display: none;"
+                style="display:none;"
             >
+
 
                 <div class="exam-info">
 
@@ -330,12 +280,15 @@
 
 
                 <p>
-                    Read all instructions carefully before starting.
+                    Read all instructions carefully
+                    before starting.
                 </p>
 
 
                 <button id="startExamButton">
+
                     ▶️ Start Exam
+
                 </button>
 
 
@@ -348,38 +301,30 @@
 
                 <div id="questionPaperArea">
 
-                    <h2>
-                        📄 Question Paper
-                    </h2>
-
-
                     <div class="question-paper-box">
 
-                        <!-- PAGE COUNTER -->
+                        <h2 class="question-paper-title">
+                            📄 Question Paper
+                        </h2>
 
-                        <div class="page-counter">
 
-                            Page
-                            <span id="currentPageNumber">
-                                1
-                            </span>
-
-                            of
-
-                            <span id="totalPageNumber">
-                                1
-                            </span>
-
+                        <div id="pageNumber">
+                            Page 0 of 0
                         </div>
 
 
-                        <!-- CONTROLS -->
+                        <img
+                            id="questionPaperImage"
+                            src=""
+                            alt="Question Paper"
+                        >
+
 
                         <div class="slideshow-controls">
 
                             <button
-                                id="previousPage"
-                                class="slide-button previous-button"
+                                id="previousButton"
+                                class="slide-button"
                             >
                                 ◀ Previous
                             </button>
@@ -387,62 +332,25 @@
 
                             <button
                                 id="slideshowButton"
-                                class="slide-button slideshow-button"
+                                class="slide-button"
                             >
                                 ▶ Start Slideshow
                             </button>
 
 
                             <button
-                                id="nextPage"
-                                class="slide-button next-button"
+                                id="nextButton"
+                                class="slide-button"
                             >
                                 Next ▶
                             </button>
 
                         </div>
 
-
-                        <!-- IMAGE -->
-
-                        <div
-                            id="imageContainer"
-                            class="question-image-wrapper"
-                        >
-
-                            <img
-                                id="questionPageImage"
-                                src=""
-                                alt="Question Paper"
-                            >
-
-                        </div>
-
-
-                        <!-- PDF -->
-
-                        <div
-                            id="pdfContainer"
-                            style="display: none;"
-                        >
-
-                            <iframe
-                                id="questionPdf"
-                                title="Question Paper PDF"
-                            ></iframe>
-
-                        </div>
-
-
-                        <div
-                            id="paperError"
-                            class="error-message"
-                            style="display: none;"
-                        ></div>
-
                     </div>
 
                 </div>
+
 
             </div>
 
@@ -453,6 +361,7 @@
             >
                 ← Back to Exams
             </a>
+
 
         </div>
 
@@ -468,11 +377,17 @@
 
     <script>
 
-        /* =========================================
+        /* =====================================================
            GLOBAL VARIABLES
-        ========================================= */
+        ===================================================== */
 
         let exam = null;
+
+        let questionPaperPages = [];
+
+        let currentPage = 0;
+
+        let slideshowInterval = null;
 
         let remainingSeconds = 0;
 
@@ -480,41 +395,29 @@
 
         let examStarted = false;
 
-        let questionPages = [];
 
-        let currentPage = 0;
-
-        let slideshowInterval = null;
-
-
-        /* =========================================
-           GET EXAM ID FROM URL
-        ========================================= */
+        /* =====================================================
+           GET EXAM ID
+        ===================================================== */
 
         const urlParams =
-            new URLSearchParams(
-                window.location.search
-            );
+            new URLSearchParams(window.location.search);
 
         const examId =
             urlParams.get("id");
 
 
-        /* =========================================
+        /* =====================================================
            LOAD EXAM
-        ========================================= */
+        ===================================================== */
 
         async function loadExam() {
 
             const titleElement =
-                document.getElementById(
-                    "examTitle"
-                );
+                document.getElementById("examTitle");
 
             const messageElement =
-                document.getElementById(
-                    "examMessage"
-                );
+                document.getElementById("examMessage");
 
 
             try {
@@ -529,22 +432,16 @@
                 if (examId) {
 
                     query =
-                        query.eq(
-                            "id",
-                            examId
-                        );
+                        query.eq("id", examId);
 
                 }
 
 
                 query =
                     query
-                        .order(
-                            "created_at",
-                            {
-                                ascending: false
-                            }
-                        )
+                        .order("created_at", {
+                            ascending: false
+                        })
                         .limit(1);
 
 
@@ -556,10 +453,7 @@
 
                 if (error) {
 
-                    console.error(
-                        "SUPABASE ERROR:",
-                        error
-                    );
+                    console.error(error);
 
                     titleElement.textContent =
                         "❌ Could not load exam";
@@ -571,58 +465,39 @@
                         error.message;
 
                     return;
+
                 }
 
 
-                if (
-                    !data ||
-                    data.length === 0
-                ) {
+                if (!data || data.length === 0) {
 
                     titleElement.textContent =
                         "📭 No Published Exam";
-
-                    messageElement.style.color =
-                        "#555";
 
                     messageElement.textContent =
                         "There is currently no published examination.";
 
                     return;
+
                 }
 
 
                 exam = data[0];
 
 
-                /*
-                    IMPORTANT DEBUG INFORMATION
-                */
-
                 console.log(
-                    "FULL EXAM DATA:",
+                    "Exam loaded:",
                     exam
                 );
 
 
-                /*
-                    Find all question-paper pages
-                */
-
-                prepareQuestionPages();
-
-
-                console.log(
-                    "QUESTION PAPER PAGES:",
-                    questionPages
-                );
+                prepareQuestionPaperPages();
 
 
                 displayExam();
 
-            }
 
-            catch (error) {
+            } catch (error) {
 
                 console.error(error);
 
@@ -640,184 +515,111 @@
         }
 
 
-        /* =========================================
-           PREPARE QUESTION PAPER PAGES
-        ========================================= */
+        /* =====================================================
+           GET ALL QUESTION PAPER PAGES
+        ===================================================== */
 
-        function prepareQuestionPages() {
+        function prepareQuestionPaperPages() {
 
-            questionPages = [];
+            questionPaperPages = [];
 
 
             /*
-                POSSIBLE FIELD 1
+             * FIRST:
+             * Try question_paper_urls
+             */
 
-                question_paper_urls
-            */
+            if (exam.question_paper_urls) {
 
-            if (
-                exam.question_paper_urls
-            ) {
+                let urls =
+                    exam.question_paper_urls;
 
-                addQuestionPaperValue(
-                    exam.question_paper_urls
-                );
+
+                /*
+                 * If Supabase returns JSONB
+                 * as an actual array
+                 */
+
+                if (Array.isArray(urls)) {
+
+                    questionPaperPages =
+                        urls.filter(Boolean);
+
+                }
+
+
+                /*
+                 * If JSONB is returned as string
+                 */
+
+                else if (
+                    typeof urls === "string"
+                ) {
+
+                    try {
+
+                        const parsed =
+                            JSON.parse(urls);
+
+                        if (Array.isArray(parsed)) {
+
+                            questionPaperPages =
+                                parsed.filter(Boolean);
+
+                        }
+
+                    } catch (error) {
+
+                        console.error(
+                            "Could not parse question_paper_urls",
+                            error
+                        );
+
+                    }
+
+                }
 
             }
 
 
             /*
-                POSSIBLE FIELD 2
-
-                question_paper_url
-            */
+             * FALLBACK:
+             * Old question_paper_url
+             */
 
             if (
-                questionPages.length === 0 &&
+                questionPaperPages.length === 0 &&
                 exam.question_paper_url
             ) {
 
-                addQuestionPaperValue(
-                    exam.question_paper_url
-                );
-
-            }
-
-
-            /*
-                POSSIBLE FIELD 3
-
-                question_papers
-            */
-
-            if (
-                questionPages.length === 0 &&
-                exam.question_papers
-            ) {
-
-                addQuestionPaperValue(
-                    exam.question_papers
-                );
-
-            }
-
-
-            /*
-                REMOVE DUPLICATES
-            */
-
-            questionPages =
-                [...new Set(
-                    questionPages
-                        .filter(
-                            url =>
-                                url &&
-                                typeof url === "string"
-                        )
-                        .map(
-                            url =>
-                                url.trim()
-                        )
-                )];
-
-        }
-
-
-        /* =========================================
-           ADD QUESTION PAPER VALUE
-        ========================================= */
-
-        function addQuestionPaperValue(value) {
-
-            if (!value) {
-                return;
-            }
-
-
-            /*
-                ARRAY
-            */
-
-            if (Array.isArray(value)) {
-
-                value.forEach(
-                    item => {
-
-                        addQuestionPaperValue(
-                            item
-                        );
-
-                    }
-                );
-
-                return;
-            }
-
-
-            /*
-                STRING
-            */
-
-            if (
-                typeof value ===
-                "string"
-            ) {
-
-                const trimmed =
-                    value.trim();
-
-
                 /*
-                    JSON ARRAY
-
-                    Example:
-
-                    [
-                      "url1",
-                      "url2",
-                      "url3"
-                    ]
-                */
+                 * Sometimes old field
+                 * may contain JSON array
+                 */
 
                 if (
-                    trimmed.startsWith("[") &&
-                    trimmed.endsWith("]")
+                    typeof exam.question_paper_url ===
+                    "string" &&
+                    exam.question_paper_url.trim().startsWith("[")
                 ) {
 
                     try {
 
                         const parsed =
                             JSON.parse(
-                                trimmed
+                                exam.question_paper_url
                             );
 
+                        if (Array.isArray(parsed)) {
 
-                        if (
-                            Array.isArray(
-                                parsed
-                            )
-                        ) {
+                            questionPaperPages =
+                                parsed.filter(Boolean);
 
-                            parsed.forEach(
-                                item => {
-
-                                    addQuestionPaperValue(
-                                        item
-                                    );
-
-                                }
-                            );
-
-                            return;
                         }
 
-                    }
+                    } catch (error) {
 
-                    catch (error) {
-
-                        console.log(
-                            "Not JSON array."
-                        );
+                        console.error(error);
 
                     }
 
@@ -825,101 +627,33 @@
 
 
                 /*
-                    JSON OBJECT
-                */
+                 * Otherwise it is one URL.
+                 */
 
                 if (
-                    trimmed.startsWith("{") &&
-                    trimmed.endsWith("}")
+                    questionPaperPages.length === 0
                 ) {
 
-                    try {
-
-                        const parsed =
-                            JSON.parse(
-                                trimmed
-                            );
-
-
-                        if (
-                            parsed
-                        ) {
-
-                            /*
-                                Try common properties
-                            */
-
-                            if (
-                                parsed.url
-                            ) {
-
-                                addQuestionPaperValue(
-                                    parsed.url
-                                );
-
-                            }
-
-                            if (
-                                parsed.urls
-                            ) {
-
-                                addQuestionPaperValue(
-                                    parsed.urls
-                                );
-
-                            }
-
-                            if (
-                                parsed.pages
-                            ) {
-
-                                addQuestionPaperValue(
-                                    parsed.pages
-                                );
-
-                            }
-
-                            return;
-                        }
-
-                    }
-
-                    catch (error) {
-
-                        console.log(
-                            "Not JSON object."
-                        );
-
-                    }
-
-                }
-
-
-                /*
-                    If normal URL,
-                    add it.
-                */
-
-                if (
-                    trimmed.startsWith(
-                        "http"
-                    )
-                ) {
-
-                    questionPages.push(
-                        trimmed
-                    );
+                    questionPaperPages = [
+                        exam.question_paper_url
+                    ];
 
                 }
 
             }
 
+
+            console.log(
+                "Question paper pages:",
+                questionPaperPages
+            );
+
         }
 
 
-        /* =========================================
+        /* =====================================================
            DISPLAY EXAM
-        ========================================= */
+        ===================================================== */
 
         function displayExam() {
 
@@ -932,15 +666,13 @@
             document.getElementById(
                 "examSubject"
             ).textContent =
-                exam.subject ||
-                "Not specified";
+                exam.subject || "Not specified";
 
 
             document.getElementById(
                 "examDate"
             ).textContent =
-                exam.exam_date ||
-                "Not specified";
+                exam.exam_date || "Not specified";
 
 
             document.getElementById(
@@ -954,8 +686,7 @@
             document.getElementById(
                 "totalMarks"
             ).textContent =
-                exam.total_marks ||
-                75;
+                exam.total_marks || 75;
 
 
             document.getElementById(
@@ -971,10 +702,6 @@
                 "block";
 
 
-            /*
-                TIMER
-            */
-
             remainingSeconds =
                 Number(
                     exam.duration_minutes
@@ -984,68 +711,59 @@
             updateTimer();
 
 
-            /*
-                QUESTION PAPER CHECK
-            */
-
             if (
-                questionPages.length === 0
+                questionPaperPages.length === 0
             ) {
 
-                console.error(
-                    "NO QUESTION PAPER URL FOUND."
-                );
+                document.getElementById(
+                    "examMessage"
+                ).innerHTML =
+                    "<span class='error-message'>⚠️ Question paper is not available.</span>";
 
             }
 
         }
 
 
-        /* =========================================
+        /* =====================================================
            FORMAT DURATION
-        ========================================= */
+        ===================================================== */
 
-        function formatDuration(
-            minutes
-        ) {
+        function formatDuration(minutes) {
 
-            minutes =
-                Number(minutes);
+            minutes = Number(minutes);
 
 
-            if (minutes === 30) {
+            if (minutes === 30)
                 return "30 Minutes";
-            }
 
-            if (minutes === 45) {
+
+            if (minutes === 45)
                 return "45 Minutes";
-            }
 
-            if (minutes === 60) {
+
+            if (minutes === 60)
                 return "1 Hour";
-            }
 
-            if (minutes === 90) {
+
+            if (minutes === 90)
                 return "1 Hour 30 Minutes";
-            }
 
-            if (minutes === 120) {
+
+            if (minutes === 120)
                 return "2 Hours";
-            }
 
-            if (minutes === 150) {
+
+            if (minutes === 150)
                 return "2 Hours 30 Minutes";
-            }
 
-            if (minutes === 180) {
+
+            if (minutes === 180)
                 return "3 Hours";
-            }
 
 
             const hours =
-                Math.floor(
-                    minutes / 60
-                );
+                Math.floor(minutes / 60);
 
 
             const mins =
@@ -1056,11 +774,8 @@
 
                 return (
                     hours +
-                    (
-                        hours > 1
-                            ? " Hours "
-                            : " Hour "
-                    ) +
+                    " Hour" +
+                    (hours > 1 ? "s " : " ") +
                     mins +
                     " Minutes"
                 );
@@ -1068,22 +783,17 @@
             }
 
 
-            return (
-                minutes +
-                " Minutes"
-            );
+            return minutes + " Minutes";
 
         }
 
 
-        /* =========================================
+        /* =====================================================
            START EXAM
-        ========================================= */
+        ===================================================== */
 
         document
-            .getElementById(
-                "startExamButton"
-            )
+            .getElementById("startExamButton")
             .addEventListener(
                 "click",
                 function () {
@@ -1100,11 +810,12 @@
                         );
 
                         return;
+
                     }
 
 
                     if (
-                        questionPages.length === 0
+                        questionPaperPages.length === 0
                     ) {
 
                         alert(
@@ -1112,6 +823,7 @@
                         );
 
                         return;
+
                     }
 
 
@@ -1126,37 +838,35 @@
 
                     button.disabled = true;
 
+
                     button.textContent =
                         "🟢 Exam Started";
 
 
                     /*
-                        SHOW PAPER
-                    */
+                     * Show first page
+                     */
 
                     showQuestionPaper();
 
 
                     /*
-                        START TIMER
-                    */
+                     * Start timer
+                     */
 
                     timerInterval =
                         setInterval(
                             function () {
 
                                 if (
-                                    remainingSeconds >
-                                    0
+                                    remainingSeconds > 0
                                 ) {
 
                                     remainingSeconds--;
 
                                     updateTimer();
 
-                                }
-
-                                else {
+                                } else {
 
                                     finishExam();
 
@@ -1170,9 +880,9 @@
             );
 
 
-        /* =========================================
+        /* =====================================================
            UPDATE TIMER
-        ========================================= */
+        ===================================================== */
 
         function updateTimer() {
 
@@ -1184,34 +894,26 @@
 
             const hours =
                 Math.floor(
-                    remainingSeconds /
-                    3600
+                    remainingSeconds / 3600
                 );
 
 
             const minutes =
                 Math.floor(
-                    (
-                        remainingSeconds %
-                        3600
-                    ) / 60
+                    (remainingSeconds % 3600) / 60
                 );
 
 
             const seconds =
-                remainingSeconds %
-                60;
+                remainingSeconds % 60;
 
 
             timer.textContent =
-                String(hours)
-                    .padStart(2, "0") +
+                String(hours).padStart(2, "0") +
                 ":" +
-                String(minutes)
-                    .padStart(2, "0") +
+                String(minutes).padStart(2, "0") +
                 ":" +
-                String(seconds)
-                    .padStart(2, "0");
+                String(seconds).padStart(2, "0");
 
 
             if (
@@ -1223,19 +925,12 @@
 
             }
 
-            else {
-
-                timer.style.color =
-                    "black";
-
-            }
-
         }
 
 
-        /* =========================================
+        /* =====================================================
            SHOW QUESTION PAPER
-        ========================================= */
+        ===================================================== */
 
         function showQuestionPaper() {
 
@@ -1249,487 +944,233 @@
                 "block";
 
 
-            if (
-                questionPages.length === 0
-            ) {
-
-                showPaperError(
-                    "❌ No question-paper pages were found."
-                );
-
-                return;
-            }
+            currentPage = 0;
 
 
-            /*
-                CREATE SLIDESHOW
-            */
+            displayCurrentPage();
 
-            showPage(
-                currentPage
-            );
 
         }
 
 
-        /* =========================================
-           SHOW PAGE
-        ========================================= */
+        /* =====================================================
+           DISPLAY CURRENT PAGE
+        ===================================================== */
 
-        function showPage(
-            pageIndex
-        ) {
+        function displayCurrentPage() {
 
             if (
-                questionPages.length === 0
+                questionPaperPages.length === 0
             ) {
+
                 return;
-            }
-
-
-            if (
-                pageIndex < 0
-            ) {
-
-                pageIndex =
-                    questionPages.length - 1;
 
             }
 
 
-            if (
-                pageIndex >=
-                questionPages.length
-            ) {
-
-                pageIndex = 0;
-
-            }
+            const image =
+                document.getElementById(
+                    "questionPaperImage"
+                );
 
 
-            currentPage =
-                pageIndex;
+            const pageNumber =
+                document.getElementById(
+                    "pageNumber"
+                );
 
 
-            const url =
-                questionPages[
-                    currentPage
-                ];
+            image.src =
+                questionPaperPages[currentPage];
 
 
-            console.log(
-                "SHOWING PAGE:",
-                currentPage + 1,
-                url
+            pageNumber.textContent =
+                "Page " +
+                (currentPage + 1) +
+                " of " +
+                questionPaperPages.length;
+
+
+            /*
+             * Previous button
+             */
+
+            document.getElementById(
+                "previousButton"
+            ).disabled =
+                currentPage === 0;
+
+
+            /*
+             * Next button
+             */
+
+            document.getElementById(
+                "nextButton"
+            ).disabled =
+                currentPage ===
+                questionPaperPages.length - 1;
+
+        }
+
+
+        /* =====================================================
+           NEXT PAGE
+        ===================================================== */
+
+        document
+            .getElementById("nextButton")
+            .addEventListener(
+                "click",
+                function () {
+
+                    if (
+                        currentPage <
+                        questionPaperPages.length - 1
+                    ) {
+
+                        currentPage++;
+
+                        displayCurrentPage();
+
+                    }
+
+                }
             );
 
 
-            document.getElementById(
-                "currentPageNumber"
-            ).textContent =
-                currentPage + 1;
+        /* =====================================================
+           PREVIOUS PAGE
+        ===================================================== */
+
+        document
+            .getElementById("previousButton")
+            .addEventListener(
+                "click",
+                function () {
+
+                    if (
+                        currentPage > 0
+                    ) {
+
+                        currentPage--;
+
+                        displayCurrentPage();
+
+                    }
+
+                }
+            );
 
 
-            document.getElementById(
-                "totalPageNumber"
-            ).textContent =
-                questionPages.length;
+        /* =====================================================
+           START / STOP SLIDESHOW
+        ===================================================== */
 
+        document
+            .getElementById("slideshowButton")
+            .addEventListener(
+                "click",
+                function () {
 
-            /*
-                PDF
-            */
-
-            if (
-                url
-                    .toLowerCase()
-                    .includes(".pdf")
-            ) {
-
-                document.getElementById(
-                    "imageContainer"
-                ).style.display =
-                    "none";
-
-
-                document.getElementById(
-                    "pdfContainer"
-                ).style.display =
-                    "block";
-
-
-                document.getElementById(
-                    "questionPdf"
-                ).src =
-                    url;
-
-            }
-
-
-            /*
-                IMAGE
-            */
-
-            else {
-
-                document.getElementById(
-                    "pdfContainer"
-                ).style.display =
-                    "none";
-
-
-                document.getElementById(
-                    "imageContainer"
-                ).style.display =
-                    "block";
-
-
-                const image =
-                    document.getElementById(
-                        "questionPageImage"
-                    );
-
-
-                image.src = url;
-
-
-                image.alt =
-                    "Question Paper Page " +
-                    (
-                        currentPage + 1
-                    );
-
-
-                image.onerror =
-                    function () {
-
-                        showPaperError(
-                            "❌ Could not load this question-paper page."
+                    const button =
+                        document.getElementById(
+                            "slideshowButton"
                         );
 
-                    };
 
+                    /*
+                     * Stop slideshow
+                     */
 
-                image.onload =
-                    function () {
+                    if (slideshowInterval) {
 
-                        hidePaperError();
+                        clearInterval(
+                            slideshowInterval
+                        );
 
-                    };
+                        slideshowInterval =
+                            null;
 
-            }
+                        button.textContent =
+                            "▶ Start Slideshow";
 
+                        button.style.background =
+                            "#2e7d32";
 
-            updateNavigation();
+                        return;
 
-        }
+                    }
 
 
-        /* =========================================
-           NEXT PAGE
-        ========================================= */
+                    /*
+                     * Don't start if only one page
+                     */
 
-        function nextPage() {
+                    if (
+                        questionPaperPages.length <= 1
+                    ) {
 
-            if (
-                questionPages.length <= 1
-            ) {
-                return;
-            }
+                        alert(
+                            "Only one question-paper page is available."
+                        );
 
+                        return;
 
-            let next =
-                currentPage + 1;
+                    }
 
 
-            if (
-                next >=
-                questionPages.length
-            ) {
+                    /*
+                     * Start slideshow
+                     */
 
-                next = 0;
+                    button.textContent =
+                        "⏸ Stop Slideshow";
 
-            }
+                    button.style.background =
+                        "#d32f2f";
 
 
-            showPage(next);
+                    slideshowInterval =
+                        setInterval(
+                            function () {
 
-        }
+                                currentPage++;
 
 
-        /* =========================================
-           PREVIOUS PAGE
-        ========================================= */
+                                /*
+                                 * Return to first page
+                                 */
 
-        function previousPage() {
+                                if (
+                                    currentPage >=
+                                    questionPaperPages.length
+                                ) {
 
-            if (
-                questionPages.length <= 1
-            ) {
-                return;
-            }
+                                    currentPage = 0;
 
+                                }
 
-            let previous =
-                currentPage - 1;
 
+                                displayCurrentPage();
 
-            if (
-                previous < 0
-            ) {
+                            },
+                            5000
+                        );
 
-                previous =
-                    questionPages.length - 1;
-
-            }
-
-
-            showPage(previous);
-
-        }
-
-
-        /* =========================================
-           NAVIGATION BUTTONS
-        ========================================= */
-
-        function updateNavigation() {
-
-            const previous =
-                document.getElementById(
-                    "previousPage"
-                );
-
-
-            const next =
-                document.getElementById(
-                    "nextPage"
-                );
-
-
-            if (
-                questionPages.length <= 1
-            ) {
-
-                previous.style.display =
-                    "none";
-
-                next.style.display =
-                    "none";
-
-            }
-
-            else {
-
-                previous.style.display =
-                    "inline-block";
-
-                next.style.display =
-                    "inline-block";
-
-            }
-
-        }
-
-
-        /* =========================================
-           START / STOP SLIDESHOW
-        ========================================= */
-
-        function toggleSlideshow() {
-
-            const button =
-                document.getElementById(
-                    "slideshowButton"
-                );
-
-
-            /*
-                STOP
-            */
-
-            if (
-                slideshowInterval
-            ) {
-
-                clearInterval(
-                    slideshowInterval
-                );
-
-
-                slideshowInterval =
-                    null;
-
-
-                button.textContent =
-                    "▶ Start Slideshow";
-
-
-                button.classList.remove(
-                    "stop-button"
-                );
-
-
-                button.classList.add(
-                    "slideshow-button"
-                );
-
-
-                return;
-            }
-
-
-            /*
-                START
-            */
-
-            if (
-                questionPages.length <= 1
-            ) {
-
-                alert(
-                    "Only one question-paper page is available."
-                );
-
-                return;
-            }
-
-
-            button.textContent =
-                "⏸ Stop Slideshow";
-
-
-            button.classList.remove(
-                "slideshow-button"
+                }
             );
 
 
-            button.classList.add(
-                "stop-button"
-            );
-
-
-            /*
-                Change every 5 seconds
-            */
-
-            slideshowInterval =
-                setInterval(
-                    function () {
-
-                        nextPage();
-
-                    },
-                    5000
-                );
-
-        }
-
-
-        /* =========================================
-           BUTTON EVENTS
-        ========================================= */
-
-        document
-            .getElementById(
-                "previousPage"
-            )
-            .addEventListener(
-                "click",
-                previousPage
-            );
-
-
-        document
-            .getElementById(
-                "nextPage"
-            )
-            .addEventListener(
-                "click",
-                nextPage
-            );
-
-
-        document
-            .getElementById(
-                "slideshowButton"
-            )
-            .addEventListener(
-                "click",
-                toggleSlideshow
-            );
-
-
-        /* =========================================
-           PAPER ERROR
-        ========================================= */
-
-        function showPaperError(
-            message
-        ) {
-
-            const error =
-                document.getElementById(
-                    "paperError"
-                );
-
-
-            error.textContent =
-                message;
-
-
-            error.style.display =
-                "block";
-
-        }
-
-
-        function hidePaperError() {
-
-            const error =
-                document.getElementById(
-                    "paperError"
-                );
-
-
-            error.style.display =
-                "none";
-
-        }
-
-
-        /* =========================================
+        /* =====================================================
            FINISH EXAM
-        ========================================= */
+        ===================================================== */
 
         function finishExam() {
 
-            if (
+            clearInterval(
                 timerInterval
-            ) {
-
-                clearInterval(
-                    timerInterval
-                );
-
-                timerInterval =
-                    null;
-
-            }
-
-
-            if (
-                slideshowInterval
-            ) {
-
-                clearInterval(
-                    slideshowInterval
-                );
-
-                slideshowInterval =
-                    null;
-
-            }
+            );
 
 
             remainingSeconds = 0;
@@ -1738,30 +1179,25 @@
             updateTimer();
 
 
-            const button =
-                document.getElementById(
-                    "startExamButton"
-                );
+            document.getElementById(
+                "startExamButton"
+            ).disabled = true;
 
 
-            button.disabled =
-                true;
-
-
-            button.textContent =
+            document.getElementById(
+                "startExamButton"
+            ).textContent =
                 "⛔ Exam Finished";
 
 
-            const slideButton =
-                document.getElementById(
-                    "slideshowButton"
+            if (slideshowInterval) {
+
+                clearInterval(
+                    slideshowInterval
                 );
 
-
-            if (slideButton) {
-
-                slideButton.disabled =
-                    true;
+                slideshowInterval =
+                    null;
 
             }
 
@@ -1773,9 +1209,9 @@
         }
 
 
-        /* =========================================
+        /* =====================================================
            LOAD EXAM
-        ========================================= */
+        ===================================================== */
 
         loadExam();
 
