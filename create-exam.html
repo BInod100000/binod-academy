@@ -345,15 +345,33 @@
     <p>
         Upload all question-paper pages together.
     </p>
+<input
+    type="file"
+    id="questionPaper"
+    accept=".jpg,.jpeg,.png,.pdf"
+    multiple
+>
 
-    <input
-        type="file"
-        id="questionPaper"
-        name="questionPaper"
-        accept=".jpg,.jpeg,.png,.pdf"
-        multiple
-    >
+<div
+    id="selectedFiles"
+    style="
+        margin-top:15px;
+        text-align:left;
+        font-size:16px;
+    "
+>
+    <strong>📄 No files selected yet.</strong>
+</div>
 
+<p
+    style="
+        font-size:15px;
+        color:#666;
+    "
+>
+    Accepted formats:
+    PDF, JPG, JPEG, PNG
+</p>
     <!-- SHOW SELECTED FILES -->
     <div
         id="selectedFiles"
