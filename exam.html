@@ -2,16 +2,25 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Binod Academy - Exam</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
     <style>
+
         /* =====================================================
-           EXAM PAGE
+           EXAM CONTAINER
         ===================================================== */
 
         .exam-container {
@@ -24,7 +33,7 @@
             background: white;
             padding: 35px;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.10);
         }
 
         .exam-title {
@@ -37,6 +46,7 @@
             line-height: 1.8;
         }
 
+
         /* =====================================================
            TIMER
         ===================================================== */
@@ -47,6 +57,7 @@
             margin: 25px 0;
             text-align: center;
         }
+
 
         /* =====================================================
            START BUTTON
@@ -71,8 +82,9 @@
             cursor: not-allowed;
         }
 
+
         /* =====================================================
-           QUESTION PAPER
+           QUESTION PAPER AREA
         ===================================================== */
 
         #questionPaperArea {
@@ -98,6 +110,11 @@
             margin: 15px 0;
         }
 
+
+        /* =====================================================
+           QUESTION PAPER IMAGE
+        ===================================================== */
+
         #questionPaperImage {
             display: block;
             width: 100%;
@@ -109,7 +126,17 @@
             border: 2px solid #ddd;
             background: white;
             cursor: pointer;
+            transition: transform 0.15s ease;
         }
+
+        #questionPaperImage:hover {
+            transform: scale(1.01);
+        }
+
+
+        /* =====================================================
+           PDF
+        ===================================================== */
 
         #questionPaperPdf {
             width: 100%;
@@ -119,8 +146,9 @@
             background: white;
         }
 
+
         /* =====================================================
-           NORMAL BUTTONS
+           NORMAL PAGE CONTROLS
         ===================================================== */
 
         .page-controls {
@@ -155,8 +183,13 @@
             background: #2e7d32;
         }
 
+        .slideshow-button:hover {
+            background: #1b5e20;
+        }
+
+
         /* =====================================================
-           TRUE FULLSCREEN VIEWER
+           FULLSCREEN VIEWER
         ===================================================== */
 
         #fullscreenViewer {
@@ -168,7 +201,7 @@
             width: 100vw;
             height: 100vh;
 
-            background: #000;
+            background: white;
 
             z-index: 999999;
 
@@ -177,165 +210,35 @@
             flex-direction: column;
         }
 
-        /*
-           When browser fullscreen is active,
-           make absolutely sure the viewer fills it.
-        */
-
-        #fullscreenViewer:fullscreen {
-            width: 100vw;
-            height: 100vh;
-            background: #000;
-        }
 
         /* =====================================================
-           FULLSCREEN IMAGE AREA
-
-           NO TOP BAR
-           NO BOTTOM BAR
-
-           The paper gets the entire screen.
-        ===================================================== */
-
-        .fullscreen-image-area {
-            position: absolute;
-
-            inset: 0;
-
-            width: 100%;
-            height: 100%;
-
-            display: flex;
-
-            justify-content: center;
-            align-items: center;
-
-            overflow: auto;
-
-            background: #000;
-
-            padding: 0;
-
-            box-sizing: border-box;
-
-            touch-action: pan-x pan-y pinch-zoom;
-        }
-
-        /* =====================================================
-           FULLSCREEN QUESTION PAPER
-
-           Maximum possible screen size
-        ===================================================== */
-
-        #fullscreenImage {
-            display: block;
-
-            width: auto;
-            height: auto;
-
-            max-width: 100vw;
-            max-height: 100vh;
-
-            object-fit: contain;
-
-            user-select: none;
-            -webkit-user-drag: none;
-
-            cursor: pointer;
-
-            transform-origin: center center;
-
-            transition: transform 0.15s ease;
-        }
-
-        /*
-           Zoomed image can become larger than screen
-           and can therefore be scrolled.
-        */
-
-        #fullscreenImage.zoomed {
-            max-width: none;
-            max-height: none;
-        }
-
-        /* =====================================================
-           FULLSCREEN PDF
-        ===================================================== */
-
-        #fullscreenPdf {
-            width: 100vw;
-            height: 100vh;
-
-            border: none;
-
-            background: white;
-        }
-
-        /* =====================================================
-           HIDDEN / VISIBLE CONTROLS
-        ===================================================== */
-
-        /*
-           Controls are HIDDEN when fullscreen opens.
-        */
-
-        .fullscreen-ui {
-            opacity: 0;
-
-            pointer-events: none;
-
-            transition: opacity 0.2s ease;
-        }
-
-        /*
-           Controls appear after clicking the paper.
-        */
-
-        #fullscreenViewer.controls-visible .fullscreen-ui {
-            opacity: 1;
-
-            pointer-events: auto;
-        }
-
-        /* =====================================================
-           TOP CONTROL BAR
+           FULLSCREEN TOP BAR
         ===================================================== */
 
         .fullscreen-topbar {
-            position: absolute;
-
-            top: 0;
-            left: 0;
-
             width: 100%;
-
-            min-height: 70px;
+            min-height: 60px;
 
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
 
             padding: 10px 20px;
 
             box-sizing: border-box;
 
-            background: linear-gradient(
-                to bottom,
-                rgba(0,0,0,0.75),
-                rgba(0,0,0,0)
-            );
+            background: white;
 
-            color: white;
+            color: #111;
 
-            z-index: 1000001;
+            border-bottom: 1px solid #ddd;
         }
 
         #fullscreenPageCounter {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
         }
+
 
         /* =====================================================
            CLOSE BUTTON
@@ -348,12 +251,12 @@
 
             color: white;
 
-            width: 55px;
-            height: 55px;
+            width: 50px;
+            height: 50px;
 
             border-radius: 50%;
 
-            font-size: 30px;
+            font-size: 28px;
 
             cursor: pointer;
         }
@@ -362,19 +265,85 @@
             background: #b71c1c;
         }
 
+
+        /* =====================================================
+           FULLSCREEN IMAGE AREA
+        ===================================================== */
+
+        .fullscreen-image-area {
+            flex: 1;
+
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            overflow: auto;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+            background: white;
+
+            touch-action: pan-x pan-y pinch-zoom;
+        }
+
+
+        /* =====================================================
+           FULLSCREEN IMAGE
+        ===================================================== */
+
+        #fullscreenImage {
+            display: block;
+
+            width: auto;
+            height: auto;
+
+            max-width: 100%;
+            max-height: 100%;
+
+            object-fit: contain;
+
+            user-select: none;
+
+            -webkit-user-drag: none;
+
+            transition: transform 0.2s ease;
+
+            cursor: zoom-in;
+        }
+
+        #fullscreenImage:active {
+            cursor: grabbing;
+        }
+
+
+        /* =====================================================
+           FULLSCREEN PDF
+        ===================================================== */
+
+        #fullscreenPdf {
+            width: 100%;
+            height: 100%;
+
+            border: none;
+
+            background: white;
+        }
+
+
         /* =====================================================
            FULLSCREEN BOTTOM CONTROLS
         ===================================================== */
 
         .fullscreen-controls {
-            position: absolute;
-
-            bottom: 0;
-            left: 0;
+            min-height: 75px;
 
             width: 100%;
-
-            min-height: 80px;
 
             display: flex;
 
@@ -390,13 +359,9 @@
 
             box-sizing: border-box;
 
-            background: linear-gradient(
-                to top,
-                rgba(0,0,0,0.85),
-                rgba(0,0,0,0)
-            );
+            background: white;
 
-            z-index: 1000001;
+            border-top: 1px solid #ddd;
         }
 
         .fullscreen-button {
@@ -420,7 +385,7 @@
         }
 
         .fullscreen-button:disabled {
-            background: #666;
+            background: #aaa;
             cursor: not-allowed;
         }
 
@@ -432,8 +397,9 @@
             background: #4a148c;
         }
 
+
         /* =====================================================
-           MESSAGE / INSTRUCTIONS
+           MESSAGE
         ===================================================== */
 
         .message {
@@ -442,15 +408,31 @@
             margin: 20px 0;
         }
 
+
+        /* =====================================================
+           INSTRUCTIONS
+        ===================================================== */
+
         .instructions {
             background: #f5f7fb;
+
             padding: 20px;
+
             border-radius: 10px;
+
             text-align: left;
+
             line-height: 1.7;
+
             margin-top: 25px;
+
             white-space: pre-line;
         }
+
+
+        /* =====================================================
+           BACK BUTTON
+        ===================================================== */
 
         .back-button {
             display: inline-block;
@@ -458,72 +440,228 @@
             text-decoration: none;
         }
 
+
         /* =====================================================
            MOBILE
+           LAPTOP/DESKTOP REMAINS UNCHANGED
         ===================================================== */
 
         @media (max-width: 768px) {
 
+            .exam-container {
+                margin: 15px auto;
+                padding: 0 10px;
+            }
+
             .exam-card {
-                padding: 20px;
+                padding: 18px;
+            }
+
+            .exam-title {
+                font-size: 23px;
+                line-height: 1.3;
             }
 
             .exam-info {
-                font-size: 16px;
+                font-size: 15px;
+                line-height: 1.55;
+            }
+
+            .exam-info p {
+                margin: 5px 0;
             }
 
             #timer {
                 font-size: 27px;
+                margin: 18px 0;
             }
+
+            #startExamButton {
+                padding: 12px 22px;
+                font-size: 17px;
+            }
+
+
+            /* -----------------------------
+               MOBILE INSTRUCTIONS
+            ----------------------------- */
+
+            .instructions {
+                padding: 14px;
+
+                margin-top: 18px;
+
+                font-size: 14px;
+
+                line-height: 1.45;
+            }
+
+            .instructions strong {
+                display: block;
+
+                font-size: 18px;
+
+                line-height: 1.3;
+
+                margin-bottom: 8px;
+            }
+
+            .instructions p {
+                font-size: 14px;
+
+                line-height: 1.45;
+
+                margin: 8px 0;
+            }
+
+
+            /* -----------------------------
+               QUESTION PAPER
+            ----------------------------- */
 
             #questionPaperImage {
                 max-height: 600px;
             }
 
+            .question-paper-box {
+                padding: 15px;
+            }
+
+            .question-paper-title {
+                font-size: 21px;
+            }
+
+            #pageCounter {
+                font-size: 17px;
+                margin: 10px 0;
+            }
+
+
+            /* -----------------------------
+               NORMAL BUTTONS
+            ----------------------------- */
+
+            .page-controls {
+                gap: 8px;
+                margin-top: 15px;
+            }
+
             .page-button {
-                font-size: 15px;
-                padding: 11px 16px;
+                font-size: 14px;
+                padding: 10px 13px;
+            }
+
+
+            /* -----------------------------
+               FULLSCREEN
+            ----------------------------- */
+
+            .fullscreen-topbar {
+                min-height: 52px;
+
+                padding: 6px 10px;
             }
 
             #fullscreenPageCounter {
-                font-size: 16px;
+                font-size: 15px;
             }
 
             #closeFullscreen {
-                width: 45px;
-                height: 45px;
-                font-size: 24px;
+                width: 40px;
+                height: 40px;
+
+                font-size: 22px;
             }
 
-            .fullscreen-button {
-                padding: 10px 13px;
-                font-size: 14px;
+            .fullscreen-image-area {
+                padding: 0;
+            }
+
+            #fullscreenImage {
+                max-width: 100vw;
+                max-height: 100%;
             }
 
             .fullscreen-controls {
-                gap: 7px;
-                padding: 8px 5px;
-            }
-        }
+                min-height: 62px;
 
-        @media (max-width: 420px) {
+                gap: 6px;
+
+                padding: 7px 4px;
+            }
 
             .fullscreen-button {
-                padding: 9px 10px;
+                padding: 9px 11px;
+
                 font-size: 13px;
             }
 
-            #fullscreenPageCounter {
+        }
+
+
+        /* =====================================================
+           VERY SMALL MOBILE
+        ===================================================== */
+
+        @media (max-width: 420px) {
+
+            .exam-card {
+                padding: 14px;
+            }
+
+            .exam-title {
+                font-size: 21px;
+            }
+
+            .exam-info {
                 font-size: 14px;
+            }
+
+            #timer {
+                font-size: 25px;
+            }
+
+            .instructions {
+                padding: 12px;
+
+                font-size: 13px;
+
+                line-height: 1.4;
+            }
+
+            .instructions strong {
+                font-size: 17px;
+            }
+
+            .instructions p {
+                font-size: 13px;
+
+                line-height: 1.4;
+            }
+
+            .question-paper-title {
+                font-size: 19px;
+            }
+
+            .page-button {
+                font-size: 13px;
+                padding: 9px 11px;
+            }
+
+            .fullscreen-button {
+                padding: 8px 9px;
+                font-size: 12px;
             }
 
         }
 
     </style>
+
 </head>
 
 
 <body>
+
 
     <!-- =====================================================
          HEADER
@@ -532,12 +670,14 @@
     <h1>🎓 Binod Academy</h1>
 
     <nav>
+
         <a href="index.html">🏠 Home</a>
         <a href="exams.html">📝 Exams</a>
         <a href="notes.html">📚 Notes</a>
         <a href="results.html">📊 Results</a>
         <a href="contact.html">📞 Contact</a>
         <a href="login.html">🔐 Login</a>
+
     </nav>
 
 
@@ -549,38 +689,58 @@
 
         <div class="exam-card">
 
-            <h2 id="examTitle">
+            <h2
+                id="examTitle"
+                class="exam-title"
+            >
                 ⏳ Loading exam...
             </h2>
 
-            <div id="examMessage" class="message"></div>
 
-            <div id="examContent" style="display:none;">
+            <div
+                id="examMessage"
+                class="message"
+            ></div>
+
+
+            <div
+                id="examContent"
+                style="display:none;"
+            >
+
+
+                <!-- EXAM INFORMATION -->
 
                 <div class="exam-info">
 
                     <p>
-                        📚 <strong>Subject:</strong>
+                        📚
+                        <strong>Subject:</strong>
                         <span id="examSubject"></span>
                     </p>
 
                     <p>
-                        📅 <strong>Exam Date:</strong>
+                        📅
+                        <strong>Exam Date:</strong>
                         <span id="examDate"></span>
                     </p>
 
                     <p>
-                        ⏱️ <strong>Duration:</strong>
+                        ⏱️
+                        <strong>Duration:</strong>
                         <span id="examDuration"></span>
                     </p>
 
                     <p>
-                        📊 <strong>Total Marks:</strong>
+                        📊
+                        <strong>Total Marks:</strong>
                         <span id="totalMarks"></span>
                     </p>
 
                 </div>
 
+
+                <!-- INSTRUCTIONS -->
 
                 <div class="instructions">
 
@@ -592,17 +752,23 @@
 
                 </div>
 
+
                 <br>
+
 
                 <p>
                     Read all instructions carefully before starting.
                 </p>
 
 
+                <!-- START EXAM -->
+
                 <button id="startExamButton">
                     ▶️ Start Exam
                 </button>
 
+
+                <!-- TIMER -->
 
                 <p id="timer">
                     00:00:00
@@ -672,7 +838,7 @@
                             "
                         >
                             💡 Click the question paper to open
-                            full screen.
+                            it in full-screen view.
                         </p>
 
                     </div>
@@ -695,35 +861,13 @@
 
 
     <!-- =====================================================
-         TRUE FULLSCREEN VIEWER
+         FULLSCREEN VIEWER
     ===================================================== -->
 
     <div id="fullscreenViewer">
 
 
-        <!-- IMAGE AREA -->
-
-        <div class="fullscreen-image-area">
-
-            <img
-                id="fullscreenImage"
-                src=""
-                alt="Full Screen Question Paper"
-            >
-
-
-            <iframe
-                id="fullscreenPdf"
-                style="display:none;"
-                title="Full Screen Question Paper PDF"
-            ></iframe>
-
-        </div>
-
-
-        <!-- TOP CONTROLS -->
-
-        <div class="fullscreen-topbar fullscreen-ui">
+        <div class="fullscreen-topbar">
 
             <span id="fullscreenPageCounter">
                 Page 1 of 1
@@ -736,9 +880,24 @@
         </div>
 
 
-        <!-- BOTTOM CONTROLS -->
+        <div class="fullscreen-image-area">
 
-        <div class="fullscreen-controls fullscreen-ui">
+            <img
+                id="fullscreenImage"
+                src=""
+                alt="Full Screen Question Paper"
+            >
+
+            <iframe
+                id="fullscreenPdf"
+                style="display:none;"
+                title="Full Screen Question Paper PDF"
+            ></iframe>
+
+        </div>
+
+
+        <div class="fullscreen-controls">
 
             <button
                 id="fullscreenPrevious"
@@ -789,11 +948,11 @@
     <script src="supabase-config.js"></script>
 
 
-    <script>
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
 
-        /* =====================================================
-           VARIABLES
-        ===================================================== */
+    <script>
 
         let exam = null;
 
@@ -813,15 +972,15 @@
 
         let zoomLevel = 1;
 
-        let controlsVisible = false;
-
 
         /* =====================================================
-           EXAM ID
+           GET EXAM ID
         ===================================================== */
 
         const urlParams =
-            new URLSearchParams(window.location.search);
+            new URLSearchParams(
+                window.location.search
+            );
 
         const examId =
             urlParams.get("id");
@@ -908,7 +1067,10 @@
 
 
                 if (examId) {
-                    query = query.eq("id", examId);
+
+                    query =
+                        query.eq("id", examId);
+
                 }
 
 
@@ -943,10 +1105,14 @@
                         error.message;
 
                     return;
+
                 }
 
 
-                if (!data || data.length === 0) {
+                if (
+                    !data ||
+                    data.length === 0
+                ) {
 
                     examTitle.textContent =
                         "📭 No Published Exam";
@@ -955,20 +1121,18 @@
                         "There is currently no published examination.";
 
                     return;
+
                 }
 
 
                 exam = data[0];
 
-                console.log("Exam loaded:", exam);
-
                 loadQuestionPaperPages();
 
                 displayExam();
 
-            }
 
-            catch (error) {
+            } catch (error) {
 
                 console.error(error);
 
@@ -980,27 +1144,34 @@
 
                 examMessage.textContent =
                     error.message;
+
             }
+
         }
 
 
         /* =====================================================
-           LOAD ALL QUESTION PAPER PAGES
+           LOAD QUESTION PAPER PAGES
         ===================================================== */
 
         function loadQuestionPaperPages() {
 
             questionPaperPages = [];
 
+
             const possibleFields = [
+
                 "question_paper_urls",
                 "question_papers",
                 "question_paper_files",
                 "question_paper_url"
+
             ];
 
 
-            for (const field of possibleFields) {
+            for (
+                const field of possibleFields
+            ) {
 
                 if (
                     exam[field] !== undefined &&
@@ -1010,33 +1181,37 @@
                     addQuestionPaperValue(
                         exam[field]
                     );
+
                 }
 
 
                 if (
                     questionPaperPages.length > 0
                 ) {
+
                     break;
+
                 }
+
             }
 
 
             questionPaperPages =
                 questionPaperPages.filter(
-                    function(value, index, array) {
+                    function (
+                        value,
+                        index,
+                        array
+                    ) {
 
                         return (
-                            array.indexOf(value) === index
+                            array.indexOf(value) ===
+                            index
                         );
 
                     }
                 );
 
-
-            console.log(
-                "Question paper pages:",
-                questionPaperPages
-            );
         }
 
 
@@ -1054,7 +1229,7 @@
             if (Array.isArray(value)) {
 
                 value.forEach(
-                    function(item) {
+                    function (item) {
 
                         addQuestionPaperValue(item);
 
@@ -1062,10 +1237,13 @@
                 );
 
                 return;
+
             }
 
 
-            if (typeof value === "object") {
+            if (
+                typeof value === "object"
+            ) {
 
                 if (value.url) {
 
@@ -1073,40 +1251,38 @@
                         value.url
                     );
 
-                }
-
-                else if (value.publicUrl) {
+                } else if (value.publicUrl) {
 
                     addQuestionPaperValue(
                         value.publicUrl
                     );
 
-                }
-
-                else if (value.path) {
+                } else if (value.path) {
 
                     addQuestionPaperValue(
                         value.path
                     );
 
-                }
-
-                else {
+                } else {
 
                     Object.values(value).forEach(
-                        function(item) {
+                        function (item) {
 
                             addQuestionPaperValue(item);
 
                         }
                     );
+
                 }
 
                 return;
+
             }
 
 
-            if (typeof value === "string") {
+            if (
+                typeof value === "string"
+            ) {
 
                 const trimmed =
                     value.trim();
@@ -1122,6 +1298,7 @@
                     const parsed =
                         JSON.parse(trimmed);
 
+
                     if (
                         Array.isArray(parsed) ||
                         typeof parsed === "object"
@@ -1132,21 +1309,21 @@
                         );
 
                         return;
+
                     }
 
-                }
-
-                catch (error) {
-                    /* normal URL */
+                } catch (error) {
                 }
 
 
-                if (trimmed.includes(",")) {
+                if (
+                    trimmed.includes(",")
+                ) {
 
                     trimmed
                         .split(",")
                         .forEach(
-                            function(part) {
+                            function (part) {
 
                                 addQuestionPaperValue(
                                     part
@@ -1156,13 +1333,16 @@
                         );
 
                     return;
+
                 }
 
 
                 questionPaperPages.push(
                     trimmed
                 );
+
             }
+
         }
 
 
@@ -1173,19 +1353,25 @@
         function displayExam() {
 
             examTitle.textContent =
-                "📝 " + (exam.title || "Examination");
+                "📝 " +
+                (
+                    exam.title ||
+                    "Examination"
+                );
 
 
             document.getElementById(
                 "examSubject"
             ).textContent =
-                exam.subject || "Not specified";
+                exam.subject ||
+                "Not specified";
 
 
             document.getElementById(
                 "examDate"
             ).textContent =
-                exam.exam_date || "Not specified";
+                exam.exam_date ||
+                "Not specified";
 
 
             document.getElementById(
@@ -1199,7 +1385,8 @@
             document.getElementById(
                 "totalMarks"
             ).textContent =
-                exam.total_marks || 75;
+                exam.total_marks ||
+                75;
 
 
             document.getElementById(
@@ -1216,10 +1403,13 @@
 
 
             remainingSeconds =
-                Number(exam.duration_minutes) * 60;
+                Number(
+                    exam.duration_minutes
+                ) * 60;
 
 
             updateTimer();
+
         }
 
 
@@ -1229,42 +1419,41 @@
 
         function formatDuration(minutes) {
 
-            minutes = Number(minutes);
-
-            if (minutes === 30) return "30 Minutes";
-
-            if (minutes === 45) return "45 Minutes";
-
-            if (minutes === 60) return "1 Hour";
-
-            if (minutes === 90) return "1 Hour 30 Minutes";
-
-            if (minutes === 120) return "2 Hours";
-
-            if (minutes === 150) return "2 Hours 30 Minutes";
-
-            if (minutes === 180) return "3 Hours";
+            minutes =
+                Number(minutes);
 
 
-            const hours =
-                Math.floor(minutes / 60);
+            if (minutes === 30) {
+                return "30 Minutes";
+            }
 
-            const mins =
-                minutes % 60;
+            if (minutes === 45) {
+                return "45 Minutes";
+            }
 
+            if (minutes === 60) {
+                return "1 Hour";
+            }
 
-            if (hours > 0) {
+            if (minutes === 90) {
+                return "1 Hour 30 Minutes";
+            }
 
-                return (
-                    hours +
-                    (hours > 1 ? " Hours " : " Hour ") +
-                    mins +
-                    " Minutes"
-                );
+            if (minutes === 120) {
+                return "2 Hours";
+            }
+
+            if (minutes === 150) {
+                return "2 Hours 30 Minutes";
+            }
+
+            if (minutes === 180) {
+                return "3 Hours";
             }
 
 
             return minutes + " Minutes";
+
         }
 
 
@@ -1274,7 +1463,7 @@
 
         startExamButton.addEventListener(
             "click",
-            function() {
+            function () {
 
                 if (examStarted) {
                     return;
@@ -1288,6 +1477,7 @@
                     );
 
                     return;
+
                 }
 
 
@@ -1300,12 +1490,16 @@
                     );
 
                     return;
+
                 }
 
 
                 examStarted = true;
 
-                startExamButton.disabled = true;
+
+                startExamButton.disabled =
+                    true;
+
 
                 startExamButton.textContent =
                     "🟢 Exam Started";
@@ -1316,7 +1510,7 @@
 
                 timerInterval =
                     setInterval(
-                        function() {
+                        function () {
 
                             if (
                                 remainingSeconds > 0
@@ -1326,9 +1520,7 @@
 
                                 updateTimer();
 
-                            }
-
-                            else {
+                            } else {
 
                                 finishExam();
 
@@ -1337,6 +1529,7 @@
                         },
                         1000
                     );
+
             }
         );
 
@@ -1348,7 +1541,9 @@
         function updateTimer() {
 
             const timer =
-                document.getElementById("timer");
+                document.getElementById(
+                    "timer"
+                );
 
 
             const hours =
@@ -1370,6 +1565,7 @@
 
 
             timer.textContent =
+
                 String(hours).padStart(2, "0") +
                 ":" +
                 String(minutes).padStart(2, "0") +
@@ -1377,10 +1573,15 @@
                 String(seconds).padStart(2, "0");
 
 
-            if (remainingSeconds <= 300) {
+            if (
+                remainingSeconds <= 300
+            ) {
 
-                timer.style.color = "red";
+                timer.style.color =
+                    "red";
+
             }
+
         }
 
 
@@ -1396,11 +1597,12 @@
             currentPage = 0;
 
             displayCurrentPage();
+
         }
 
 
         /* =====================================================
-           NORMAL QUESTION PAPER
+           DISPLAY NORMAL PAGE
         ===================================================== */
 
         function displayCurrentPage() {
@@ -1413,7 +1615,9 @@
 
 
             const url =
-                questionPaperPages[currentPage];
+                questionPaperPages[
+                    currentPage
+                ];
 
 
             const lowerUrl =
@@ -1427,7 +1631,9 @@
                 questionPaperPages.length;
 
 
-            if (lowerUrl.includes(".pdf")) {
+            if (
+                lowerUrl.includes(".pdf")
+            ) {
 
                 questionPaperImage.style.display =
                     "none";
@@ -1438,9 +1644,7 @@
                 questionPaperPdf.src =
                     url;
 
-            }
-
-            else {
+            } else {
 
                 questionPaperPdf.style.display =
                     "none";
@@ -1450,31 +1654,39 @@
 
                 questionPaperImage.src =
                     url;
+
             }
 
 
             updateNormalButtons();
+
         }
 
+
+        /* =====================================================
+           NORMAL BUTTONS
+        ===================================================== */
 
         function updateNormalButtons() {
 
             previousButton.disabled =
                 currentPage === 0;
 
+
             nextButton.disabled =
                 currentPage ===
                 questionPaperPages.length - 1;
+
         }
 
 
         /* =====================================================
-           NORMAL NEXT
+           NEXT
         ===================================================== */
 
         nextButton.addEventListener(
             "click",
-            function() {
+            function () {
 
                 if (
                     currentPage <
@@ -1484,44 +1696,46 @@
                     currentPage++;
 
                     displayCurrentPage();
+
                 }
+
             }
         );
 
 
         /* =====================================================
-           NORMAL PREVIOUS
+           PREVIOUS
         ===================================================== */
 
         previousButton.addEventListener(
             "click",
-            function() {
+            function () {
 
-                if (currentPage > 0) {
+                if (
+                    currentPage > 0
+                ) {
 
                     currentPage--;
 
                     displayCurrentPage();
+
                 }
+
             }
         );
 
 
         /* =====================================================
-           OPEN TRUE FULLSCREEN
+           OPEN FULLSCREEN
         ===================================================== */
 
         questionPaperImage.addEventListener(
             "click",
-            function() {
-
-                openFullscreenViewer();
-
-            }
+            openFullscreenViewer
         );
 
 
-        async function openFullscreenViewer() {
+        function openFullscreenViewer() {
 
             if (
                 questionPaperPages.length === 0
@@ -1530,17 +1744,7 @@
             }
 
 
-            stopSlideshow();
-
-
             zoomLevel = 1;
-
-            controlsVisible = false;
-
-
-            fullscreenViewer
-                .classList
-                .remove("controls-visible");
 
 
             fullscreenViewer.style.display =
@@ -1554,71 +1758,19 @@
             displayFullscreenPage();
 
 
-            /*
-             * TRUE BROWSER FULLSCREEN
-             */
+            if (
+                fullscreenViewer.requestFullscreen
+            ) {
 
-            try {
-
-                if (
-                    fullscreenViewer.requestFullscreen
-                ) {
-
-                    await fullscreenViewer.requestFullscreen();
-
-                }
+                fullscreenViewer
+                    .requestFullscreen()
+                    .catch(
+                        function () {}
+                    );
 
             }
 
-            catch (error) {
-
-                console.log(
-                    "Fullscreen API unavailable:",
-                    error
-                );
-            }
         }
-
-
-        /* =====================================================
-           CLICK PAPER = SHOW / HIDE CONTROLS
-        ===================================================== */
-
-        fullscreenImage.addEventListener(
-            "click",
-            function(event) {
-
-                /*
-                 * If zoomed, don't toggle controls
-                 * accidentally while interacting.
-                 */
-
-                if (zoomLevel > 1) {
-                    return;
-                }
-
-
-                controlsVisible =
-                    !controlsVisible;
-
-
-                if (controlsVisible) {
-
-                    fullscreenViewer
-                        .classList
-                        .add("controls-visible");
-
-                }
-
-                else {
-
-                    fullscreenViewer
-                        .classList
-                        .remove("controls-visible");
-                }
-
-            }
-        );
 
 
         /* =====================================================
@@ -1627,13 +1779,7 @@
 
         closeFullscreen.addEventListener(
             "click",
-            function(event) {
-
-                event.stopPropagation();
-
-                closeFullscreenViewer();
-
-            }
+            closeFullscreenViewer
         );
 
 
@@ -1646,30 +1792,26 @@
                 "none";
 
 
-            fullscreenViewer
-                .classList
-                .remove("controls-visible");
-
-
-            controlsVisible = false;
-
-
             document.body.style.overflow =
                 "";
 
 
-            if (document.fullscreenElement) {
+            if (
+                document.fullscreenElement
+            ) {
 
                 document.exitFullscreen()
                     .catch(
-                        function() {}
+                        function () {}
                     );
+
             }
+
         }
 
 
         /* =====================================================
-           FULLSCREEN PAGE
+           DISPLAY FULLSCREEN PAGE
         ===================================================== */
 
         function displayFullscreenPage() {
@@ -1682,7 +1824,9 @@
 
 
             const url =
-                questionPaperPages[currentPage];
+                questionPaperPages[
+                    currentPage
+                ];
 
 
             const lowerUrl =
@@ -1696,7 +1840,9 @@
                 questionPaperPages.length;
 
 
-            if (lowerUrl.includes(".pdf")) {
+            if (
+                lowerUrl.includes(".pdf")
+            ) {
 
                 fullscreenImage.style.display =
                     "none";
@@ -1707,9 +1853,7 @@
                 fullscreenPdf.src =
                     url;
 
-            }
-
-            else {
+            } else {
 
                 fullscreenPdf.style.display =
                     "none";
@@ -1721,6 +1865,7 @@
                     url;
 
                 applyZoom();
+
             }
 
 
@@ -1731,6 +1876,7 @@
             fullscreenNext.disabled =
                 currentPage ===
                 questionPaperPages.length - 1;
+
         }
 
 
@@ -1740,10 +1886,7 @@
 
         fullscreenNext.addEventListener(
             "click",
-            function(event) {
-
-                event.stopPropagation();
-
+            function () {
 
                 if (
                     currentPage <
@@ -1757,7 +1900,9 @@
                     displayCurrentPage();
 
                     displayFullscreenPage();
+
                 }
+
             }
         );
 
@@ -1768,12 +1913,11 @@
 
         fullscreenPrevious.addEventListener(
             "click",
-            function(event) {
+            function () {
 
-                event.stopPropagation();
-
-
-                if (currentPage > 0) {
+                if (
+                    currentPage > 0
+                ) {
 
                     currentPage--;
 
@@ -1782,7 +1926,9 @@
                     displayCurrentPage();
 
                     displayFullscreenPage();
+
                 }
+
             }
         );
 
@@ -1793,17 +1939,18 @@
 
         zoomIn.addEventListener(
             "click",
-            function(event) {
-
-                event.stopPropagation();
+            function () {
 
                 zoomLevel += 0.25;
 
-                if (zoomLevel > 4) {
-                    zoomLevel = 4;
+
+                if (zoomLevel > 3) {
+                    zoomLevel = 3;
                 }
 
+
                 applyZoom();
+
             }
         );
 
@@ -1814,17 +1961,18 @@
 
         zoomOut.addEventListener(
             "click",
-            function(event) {
-
-                event.stopPropagation();
+            function () {
 
                 zoomLevel -= 0.25;
+
 
                 if (zoomLevel < 0.5) {
                     zoomLevel = 0.5;
                 }
 
+
                 applyZoom();
+
             }
         );
 
@@ -1835,13 +1983,12 @@
 
         zoomReset.addEventListener(
             "click",
-            function(event) {
-
-                event.stopPropagation();
+            function () {
 
                 zoomLevel = 1;
 
                 applyZoom();
+
             }
         );
 
@@ -1852,26 +1999,11 @@
 
         function applyZoom() {
 
-            if (zoomLevel > 1) {
-
-                fullscreenImage.classList.add(
-                    "zoomed"
-                );
-
-            }
-
-            else {
-
-                fullscreenImage.classList.remove(
-                    "zoomed"
-                );
-            }
-
-
             fullscreenImage.style.transform =
                 "scale(" +
                 zoomLevel +
                 ")";
+
         }
 
 
@@ -1881,19 +2013,18 @@
 
         slideshowButton.addEventListener(
             "click",
-            function() {
+            function () {
 
                 if (slideshowRunning) {
 
                     stopSlideshow();
 
-                }
-
-                else {
+                } else {
 
                     startSlideshow();
 
                 }
+
             }
         );
 
@@ -1916,7 +2047,7 @@
 
             slideshowInterval =
                 setInterval(
-                    function() {
+                    function () {
 
                         if (
                             currentPage <
@@ -1925,11 +2056,10 @@
 
                             currentPage++;
 
-                        }
-
-                        else {
+                        } else {
 
                             currentPage = 0;
+
                         }
 
 
@@ -1938,6 +2068,7 @@
                     },
                     5000
                 );
+
         }
 
 
@@ -1951,11 +2082,13 @@
             );
 
 
-            slideshowInterval = null;
+            slideshowInterval =
+                null;
 
 
             slideshowButton.textContent =
                 "▶ Start Slideshow";
+
         }
 
 
@@ -1965,9 +2098,11 @@
 
         document.addEventListener(
             "keydown",
-            function(event) {
+            function (event) {
 
-                if (event.key === "Escape") {
+                if (
+                    event.key === "Escape"
+                ) {
 
                     if (
                         fullscreenViewer.style.display ===
@@ -1975,9 +2110,11 @@
                     ) {
 
                         closeFullscreenViewer();
+
                     }
 
                     return;
+
                 }
 
 
@@ -1989,22 +2126,29 @@
                 }
 
 
-                if (event.key === "ArrowRight") {
+                if (
+                    event.key === "ArrowRight"
+                ) {
 
                     fullscreenNext.click();
+
                 }
 
 
-                if (event.key === "ArrowLeft") {
+                if (
+                    event.key === "ArrowLeft"
+                ) {
 
                     fullscreenPrevious.click();
+
                 }
+
             }
         );
 
 
         /* =====================================================
-           SWIPE
+           MOBILE SWIPE
         ===================================================== */
 
         let touchStartX = 0;
@@ -2014,7 +2158,7 @@
 
         fullscreenImage.addEventListener(
             "touchstart",
-            function(event) {
+            function (event) {
 
                 touchStartX =
                     event.changedTouches[0].screenX;
@@ -2028,7 +2172,7 @@
 
         fullscreenImage.addEventListener(
             "touchend",
-            function(event) {
+            function (event) {
 
                 touchEndX =
                     event.changedTouches[0].screenX;
@@ -2045,19 +2189,24 @@
         function handleSwipe() {
 
             const difference =
-                touchEndX - touchStartX;
+                touchEndX -
+                touchStartX;
 
 
-            if (difference < -60) {
+            if (
+                difference < -60
+            ) {
 
                 fullscreenNext.click();
 
-            }
-
-            else if (difference > 60) {
+            } else if (
+                difference > 60
+            ) {
 
                 fullscreenPrevious.click();
+
             }
+
         }
 
 
@@ -2091,41 +2240,8 @@
             alert(
                 "⏰ Examination time is over."
             );
+
         }
-
-
-        /* =====================================================
-           BROWSER FULLSCREEN CHANGE
-        ===================================================== */
-
-        document.addEventListener(
-            "fullscreenchange",
-            function() {
-
-                /*
-                 * If user presses browser/system
-                 * fullscreen exit, close our viewer too.
-                 */
-
-                if (
-                    !document.fullscreenElement &&
-                    fullscreenViewer.style.display === "flex"
-                ) {
-
-                    fullscreenViewer.style.display =
-                        "none";
-
-                    fullscreenViewer
-                        .classList
-                        .remove("controls-visible");
-
-                    controlsVisible = false;
-
-                    document.body.style.overflow =
-                        "";
-                }
-            }
-        );
 
 
         /* =====================================================
