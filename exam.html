@@ -9,138 +9,228 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 * {
     box-sizing: border-box;
 }
 
-html,
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
-    padding: 0;
     font-family: Arial, sans-serif;
-    background: #f5f7fb;
-    color: #222;
+    background: #f4f7fb;
+    color: #1f2937;
 }
 
 /* ================= HEADER ================= */
 
 header {
-    background: white;
+    background: #ffffff;
     padding: 28px 20px;
     text-align: center;
-    border-bottom: 1px solid #e3e7ed;
+    border-bottom: 1px solid #e5e7eb;
 }
 
 header h1 {
     margin: 0;
     color: #1565c0;
     font-size: 38px;
+    font-weight: 700;
 }
 
 header p {
     margin: 8px 0 0;
-    color: #666;
+    color: #6b7280;
     font-size: 18px;
 }
 
-/* ================= MAIN ================= */
+/* ================= CONTAINER ================= */
 
 .container {
-    width: min(1200px, 94%);
-    margin: 30px auto 50px;
+    width: min(1250px, 94%);
+    margin: 28px auto 60px;
+}
+
+/* ================= COMMON CARD ================= */
+
+.card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
 }
 
 /* ================= LOADING ================= */
 
-.loading-box,
-.error-box {
-    background: white;
-    border-radius: 20px;
-    padding: 60px 25px;
+.loading-box {
+    padding: 70px 25px;
     text-align: center;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.07);
 }
 
 .loading-box h2 {
+    margin: 0 0 10px;
     color: #1565c0;
 }
 
+.loading-box p {
+    color: #6b7280;
+}
+
+/* ================= ERROR ================= */
+
+.error-box {
+    padding: 65px 25px;
+    text-align: center;
+}
+
 .error-box h2 {
+    margin: 0 0 15px;
     color: #d32f2f;
+    font-size: 30px;
 }
 
 .error-box p {
+    color: #555;
     font-size: 17px;
+    line-height: 1.6;
 }
 
 /* ================= EXAM HEADER ================= */
 
 .exam-header {
-    background: white;
-    border-radius: 20px;
-    padding: 22px 25px;
-    margin-bottom: 20px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.07);
-
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 25px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
 }
 
-.exam-title-area h2 {
-    margin: 0 0 8px;
+.exam-info {
+    flex: 1;
+}
+
+.exam-info h2 {
+    margin: 0 0 10px;
     color: #1565c0;
-    font-size: 26px;
+    font-size: 28px;
 }
 
-.exam-title-area p {
+.exam-meta {
     margin: 0;
-    color: #666;
+    color: #6b7280;
+    font-size: 16px;
+}
+
+.exam-meta strong {
+    color: #222;
 }
 
 /* ================= TIMER ================= */
 
 .timer-box {
+    min-width: 210px;
     background: #1565c0;
     color: white;
-    min-width: 180px;
     text-align: center;
-    padding: 13px 22px;
+    padding: 15px 22px;
     border-radius: 16px;
-    box-shadow: 0 6px 18px rgba(21,101,192,0.25);
+    box-shadow: 0 6px 18px rgba(21, 101, 192, 0.25);
 }
 
 .timer-label {
     display: block;
     font-size: 14px;
-    margin-bottom: 4px;
     opacity: 0.9;
+    margin-bottom: 5px;
 }
 
 #timer {
     font-size: 30px;
-    font-weight: bold;
+    font-weight: 700;
     letter-spacing: 1px;
 }
 
-/* ================= PAPER AREA ================= */
+/* ================= START SCREEN ================= */
 
-.paper-container {
-    background: white;
-    border-radius: 20px;
-    padding: 18px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.07);
-    overflow: hidden;
+.start-screen {
+    padding: 55px 25px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.paper-title {
-    text-align: center;
-    margin: 5px 0 18px;
+.start-icon {
+    font-size: 55px;
+    margin-bottom: 12px;
+}
+
+.start-screen h2 {
+    margin: 0 0 12px;
     color: #1565c0;
-    font-size: 21px;
+    font-size: 30px;
+}
+
+.start-screen p {
+    max-width: 650px;
+    margin: 0 auto;
+    color: #666;
+    line-height: 1.7;
+    font-size: 17px;
+}
+
+.start-btn {
+    margin-top: 28px;
+    border: none;
+    background: #1565c0;
+    color: white;
+    padding: 16px 38px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(21, 101, 192, 0.25);
+    transition: 0.2s;
+}
+
+.start-btn:hover {
+    background: #0d47a1;
+    transform: translateY(-1px);
+}
+
+.start-btn:active {
+    transform: translateY(0);
+}
+
+/* ================= PAPER CARD ================= */
+
+.paper-container {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.paper-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+    padding: 0 5px;
+}
+
+.paper-heading h3 {
+    margin: 0;
+    color: #1565c0;
+    font-size: 22px;
+}
+
+.paper-count {
+    background: #eef5ff;
+    color: #1565c0;
+    padding: 7px 13px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
 }
 
 /* ================= PAPER PAGES ================= */
@@ -148,168 +238,140 @@ header p {
 .paper-pages {
     display: flex;
     flex-direction: column;
-    gap: 18px;
     align-items: center;
+    gap: 24px;
 }
 
 .paper-page {
     width: 100%;
     text-align: center;
-    position: relative;
 }
 
-.paper-page img {
+.paper-image-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.paper-image {
     display: block;
     width: 100%;
-    max-width: 1100px;
+    max-width: 1150px;
     height: auto;
     margin: 0 auto;
-    border-radius: 8px;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.12);
-}
-
-/* PDF */
-
-.paper-page iframe {
-    width: 100%;
-    height: 900px;
-    border: none;
     border-radius: 10px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+    cursor: zoom-in;
+    background: white;
 }
 
-/* Page number */
+.paper-image:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+}
+
+.zoom-hint {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    background: rgba(0, 0, 0, 0.72);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    pointer-events: none;
+}
 
 .page-number {
     display: inline-block;
-    margin: 10px auto 0;
+    margin-top: 10px;
     padding: 7px 14px;
-    background: #eef4fc;
+    background: #eef5ff;
     color: #1565c0;
     border-radius: 20px;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 13px;
+    font-weight: 700;
 }
 
-/* ================= FULLSCREEN IMAGE VIEW ================= */
+/* ================= PDF ================= */
 
-.image-wrapper {
-    position: relative;
-    cursor: zoom-in;
-}
-
-.image-wrapper::after {
-    content: "🔍 Click image to view fullscreen";
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    background: rgba(0,0,0,0.7);
-    color: white;
-    padding: 7px 11px;
-    border-radius: 8px;
-    font-size: 12px;
-}
-
-/* ================= START SCREEN ================= */
-
-.start-screen {
-    background: white;
-    border-radius: 20px;
-    padding: 45px 25px;
-    text-align: center;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.07);
-    margin-bottom: 20px;
-}
-
-.start-screen h2 {
-    margin-top: 0;
-    color: #1565c0;
-    font-size: 30px;
-}
-
-.start-screen p {
-    color: #666;
-    font-size: 17px;
-    line-height: 1.6;
-}
-
-.start-btn {
-    border: none;
-    background: #1565c0;
-    color: white;
-    padding: 15px 35px;
+.pdf-wrapper {
+    width: 100%;
+    background: #f8fafc;
     border-radius: 12px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 15px;
-    box-shadow: 0 6px 18px rgba(21,101,192,0.25);
+    overflow: hidden;
 }
 
-.start-btn:hover {
-    background: #0d47a1;
+.pdf-frame {
+    width: 100%;
+    height: 900px;
+    border: none;
+    display: block;
 }
 
 /* ================= CONTROL PANEL ================= */
 
 .exam-controls {
-    margin-top: 20px;
-    background: white;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.07);
-
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 15px;
     flex-wrap: wrap;
+    padding: 22px;
 }
 
 .status-box {
-    padding: 13px 22px;
+    padding: 13px 20px;
     background: #e8f5e9;
     color: #2e7d32;
     border-radius: 12px;
-    font-weight: bold;
-    font-size: 16px;
+    font-weight: 700;
+}
+
+.status-box.finished {
+    background: #ffebee;
+    color: #c62828;
 }
 
 .back-btn {
     border: none;
-    background: #f0f2f5;
+    background: #f1f3f5;
     color: #222;
     padding: 13px 24px;
     border-radius: 12px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
 }
 
 .back-btn:hover {
-    background: #e0e3e8;
+    background: #e2e5e9;
 }
 
-/* ================= FULLSCREEN MODAL ================= */
+/* ================= FULLSCREEN VIEWER ================= */
 
 .fullscreen-viewer {
-    display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.96);
-    z-index: 9999;
+    background: rgba(0, 0, 0, 0.96);
+    z-index: 99999;
+    display: none;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 70px 70px 40px;
 }
 
 .fullscreen-viewer.active {
     display: flex;
 }
 
-.fullscreen-viewer img {
-    max-width: 96vw;
-    max-height: 94vh;
+.fullscreen-image {
+    max-width: 94vw;
+    max-height: 82vh;
+    width: auto;
+    height: auto;
     object-fit: contain;
+    border-radius: 5px;
 }
 
 .close-viewer {
@@ -322,8 +384,46 @@ header p {
     border-radius: 50%;
     background: white;
     color: #222;
-    font-size: 28px;
+    font-size: 30px;
     cursor: pointer;
+    z-index: 100001;
+}
+
+.viewer-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 18px;
+}
+
+.viewer-btn {
+    border: none;
+    background: white;
+    color: #222;
+    padding: 11px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.viewer-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.viewer-page {
+    color: white;
+    font-weight: 700;
+    min-width: 90px;
+    text-align: center;
+}
+
+/* ================= HIDDEN ================= */
+
+.hidden {
+    display: none !important;
 }
 
 /* ================= MOBILE ================= */
@@ -343,19 +443,22 @@ header p {
     }
 
     .container {
-        width: 94%;
-        margin: 18px auto 35px;
+        width: 95%;
+        margin: 16px auto 35px;
     }
 
     .exam-header {
-        padding: 18px;
         flex-direction: column;
-        align-items: stretch;
+        padding: 20px 16px;
         text-align: center;
     }
 
-    .exam-title-area h2 {
-        font-size: 22px;
+    .exam-info h2 {
+        font-size: 23px;
+    }
+
+    .exam-meta {
+        line-height: 1.7;
     }
 
     .timer-box {
@@ -366,34 +469,56 @@ header p {
         font-size: 27px;
     }
 
+    .start-screen {
+        padding: 40px 18px;
+    }
+
+    .start-screen h2 {
+        font-size: 25px;
+    }
+
+    .start-screen p {
+        font-size: 15px;
+    }
+
+    .start-btn {
+        width: 100%;
+        max-width: 320px;
+    }
+
     .paper-container {
-        padding: 8px;
+        padding: 10px;
         border-radius: 15px;
     }
 
-    .paper-title {
-        font-size: 18px;
+    .paper-heading {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .paper-heading h3 {
+        font-size: 19px;
     }
 
     .paper-pages {
-        gap: 10px;
+        gap: 14px;
     }
 
-    .paper-page img {
+    .paper-image {
         border-radius: 5px;
     }
 
-    .paper-page iframe {
-        height: 75vh;
-    }
-
-    .image-wrapper::after {
+    .zoom-hint {
         display: none;
     }
 
+    .pdf-frame {
+        height: 75vh;
+    }
+
     .exam-controls {
-        padding: 15px;
         flex-direction: column;
+        padding: 16px;
     }
 
     .status-box,
@@ -402,22 +527,23 @@ header p {
         text-align: center;
     }
 
-    .start-screen {
-        padding: 35px 18px;
+    .fullscreen-viewer {
+        padding: 65px 10px 25px;
     }
 
-    .start-screen h2 {
-        font-size: 25px;
+    .fullscreen-image {
+        max-width: 98vw;
+        max-height: 78vh;
     }
 
+    .viewer-controls {
+        gap: 8px;
+    }
+
+    .viewer-btn {
+        padding: 10px 14px;
+    }
 }
-
-/* ================= HIDDEN ================= */
-
-.hidden {
-    display: none !important;
-}
-
 </style>
 </head>
 
@@ -428,18 +554,16 @@ header p {
     <p>Online Examination Portal</p>
 </header>
 
-
 <div class="container">
 
     <!-- LOADING -->
-    <div id="loadingBox" class="loading-box">
+    <div id="loadingBox" class="card loading-box">
         <h2>⏳ Loading Examination...</h2>
-        <p>Please wait.</p>
+        <p>Please wait while we prepare your examination.</p>
     </div>
 
-
     <!-- ERROR -->
-    <div id="errorBox" class="error-box hidden">
+    <div id="errorBox" class="card error-box hidden">
         <h2>❌ Unable to Load Examination</h2>
         <p id="errorMessage"></p>
 
@@ -448,27 +572,27 @@ header p {
         </button>
     </div>
 
-
-    <!-- EXAM CONTENT -->
+    <!-- EXAM -->
     <div id="examContent" class="hidden">
 
-        <!-- EXAM INFORMATION -->
-        <div class="exam-header">
+        <!-- EXAM HEADER -->
+        <div class="card exam-header">
 
-            <div class="exam-title-area">
+            <div class="exam-info">
                 <h2 id="examTitle">Examination</h2>
 
-                <p>
+                <p class="exam-meta">
                     📊 Total Marks:
                     <strong id="totalMarks">0</strong>
+
                     &nbsp; | &nbsp;
+
                     ⏱️ Duration:
                     <strong id="duration">0</strong> minutes
                 </p>
             </div>
 
             <div class="timer-box">
-
                 <span class="timer-label">
                     Time Remaining
                 </span>
@@ -476,23 +600,21 @@ header p {
                 <span id="timer">
                     00:00:00
                 </span>
-
             </div>
 
         </div>
 
-
         <!-- START SCREEN -->
+        <div id="startScreen" class="card start-screen">
 
-        <div id="startScreen" class="start-screen">
+            <div class="start-icon">📝</div>
 
-            <h2>📝 Ready to Start?</h2>
+            <h2>Ready to Start?</h2>
 
             <p>
-                Read the question paper carefully before answering.
-                <br>
-                Your examination timer will begin only after you click
-                <strong>Start Exam</strong>.
+                Make sure you are ready before starting.
+                Your examination timer will begin
+                <strong>only after you click Start Exam.</strong>
             </p>
 
             <button id="startButton" class="start-btn">
@@ -501,26 +623,27 @@ header p {
 
         </div>
 
-
         <!-- QUESTION PAPER -->
+        <div id="paperContainer" class="card paper-container hidden">
 
-        <div id="paperContainer" class="paper-container hidden">
+            <div class="paper-heading">
 
-            <div class="paper-title">
-                📄 Question Paper
+                <h3>📄 Question Paper</h3>
+
+                <div id="paperCount" class="paper-count">
+                    0 Pages
+                </div>
+
             </div>
 
-            <div id="paperPages" class="paper-pages">
-            </div>
+            <div id="paperPages" class="paper-pages"></div>
 
         </div>
 
-
         <!-- CONTROLS -->
+        <div id="examControls" class="card exam-controls hidden">
 
-        <div id="examControls" class="exam-controls hidden">
-
-            <div class="status-box">
+            <div id="statusBox" class="status-box">
                 🟢 Examination in Progress
             </div>
 
@@ -531,11 +654,9 @@ header p {
         </div>
 
     </div>
-
 </div>
 
-
-<!-- FULLSCREEN IMAGE VIEWER -->
+<!-- FULLSCREEN VIEWER -->
 
 <div id="fullscreenViewer" class="fullscreen-viewer">
 
@@ -545,7 +666,35 @@ header p {
         ×
     </button>
 
-    <img id="fullscreenImage" src="" alt="Question Paper">
+    <img
+        id="fullscreenImage"
+        class="fullscreen-image"
+        src=""
+        alt="Question Paper">
+
+    <div class="viewer-controls">
+
+        <button
+            id="previousPage"
+            class="viewer-btn"
+            onclick="previousImage()">
+            ← Previous
+        </button>
+
+        <div
+            id="viewerPage"
+            class="viewer-page">
+            1 / 1
+        </div>
+
+        <button
+            id="nextPage"
+            class="viewer-btn"
+            onclick="nextImage()">
+            Next →
+        </button>
+
+    </div>
 
 </div>
 
@@ -581,16 +730,20 @@ let timerInterval = null;
 
 let remainingSeconds = 0;
 
+let paperURLs = [];
+
+let currentImageIndex = 0;
+
 
 /* =========================================================
    GET EXAM ID
    ========================================================= */
 
-const params = new URLSearchParams(
-    window.location.search
-);
+const params =
+    new URLSearchParams(window.location.search);
 
-const examId = params.get("id");
+const examId =
+    params.get("id");
 
 
 /* =========================================================
@@ -633,8 +786,29 @@ const paperContainer =
 const paperPages =
     document.getElementById("paperPages");
 
+const paperCount =
+    document.getElementById("paperCount");
+
 const examControls =
     document.getElementById("examControls");
+
+const statusBox =
+    document.getElementById("statusBox");
+
+const fullscreenViewer =
+    document.getElementById("fullscreenViewer");
+
+const fullscreenImage =
+    document.getElementById("fullscreenImage");
+
+const viewerPage =
+    document.getElementById("viewerPage");
+
+const previousPage =
+    document.getElementById("previousPage");
+
+const nextPage =
+    document.getElementById("nextPage");
 
 
 /* =========================================================
@@ -668,21 +842,21 @@ async function loadExam() {
         return;
     }
 
-
     try {
 
-        const { data, error } =
+        const result =
             await supabaseClient
                 .from("exams")
                 .select("*")
                 .eq("id", examId)
                 .single();
 
+        const data = result.data;
+        const error = result.error;
 
         if (error) {
             throw error;
         }
-
 
         if (!data) {
 
@@ -693,8 +867,9 @@ async function loadExam() {
             return;
         }
 
-
         exam = data;
+
+        console.log("EXAM DATA:", exam);
 
 
         /* =========================
@@ -706,47 +881,53 @@ async function loadExam() {
             exam.name ||
             "Untitled Examination";
 
-
         totalMarks.textContent =
             exam.total_marks ??
+            exam.totalMarks ??
             exam.marks ??
             0;
 
-
         const examDuration =
-            exam.duration ??
             exam.duration_minutes ??
+            exam.duration ??
+            exam.exam_duration ??
             180;
-
 
         duration.textContent =
             examDuration;
 
-
         remainingSeconds =
             Number(examDuration) * 60;
-
 
         updateTimer();
 
 
         /* =========================
-           QUESTION PAPER
+           FIND PAPERS
            ========================= */
 
-        const paperURLs =
+        paperURLs =
             getQuestionPaperURLs(exam);
+
+        console.log(
+            "QUESTION PAPER URLS:",
+            paperURLs
+        );
 
 
         if (paperURLs.length === 0) {
 
             showError(
-                "No question paper was found for this examination."
+                "No question paper was found for this examination. Please check the question-paper file/URL saved in the Supabase exams table."
             );
 
             return;
         }
 
+
+        /* =========================
+           RENDER PAPERS
+           ========================= */
 
         renderQuestionPapers(paperURLs);
 
@@ -755,8 +936,9 @@ async function loadExam() {
 
         examContent.classList.remove("hidden");
 
+    }
 
-    } catch (error) {
+    catch (error) {
 
         console.error(
             "Exam loading error:",
@@ -765,97 +947,166 @@ async function loadExam() {
 
         showError(
             "Unable to load this examination: " +
-            error.message
+            (error.message || "Unknown error")
         );
-
     }
-
 }
 
 
 /* =========================================================
-   FIND QUESTION PAPER URLS
+   EXTRACT QUESTION PAPER URLS
    ========================================================= */
 
 function getQuestionPaperURLs(examData) {
 
-    /*
-     * This checks several possible column names.
-     * Therefore the code is more tolerant of your
-     * existing Supabase table.
-     */
+    const foundURLs = [];
 
-    const possibleFields = [
+
+    /* -----------------------------------------
+       Known field names first
+       ----------------------------------------- */
+
+    const preferredFields = [
 
         "question_paper_urls",
-
         "question_paper_url",
-
         "question_paper",
-
         "paper_urls",
-
         "paper_url",
-
         "file_urls",
-
         "file_url",
-
-        "pdf_url"
+        "pdf_url",
+        "questionPaperUrls",
+        "questionPaperUrl",
+        "questionPaper",
+        "paperUrls",
+        "paperUrl",
+        "fileUrls",
+        "fileUrl",
+        "pdfUrl"
 
     ];
 
 
-    let value = null;
-
-
-    for (const field of possibleFields) {
+    for (const field of preferredFields) {
 
         if (
-            examData[field] !== undefined &&
-            examData[field] !== null &&
-            examData[field] !== ""
+            Object.prototype.hasOwnProperty.call(
+                examData,
+                field
+            )
         ) {
 
-            value = examData[field];
-
-            break;
+            collectURLs(
+                examData[field],
+                foundURLs
+            );
         }
-
     }
 
 
-    if (!value) {
-        return [];
+    /* -----------------------------------------
+       If nothing found, inspect every column.
+       This makes the code tolerant of different
+       Supabase column names.
+       ----------------------------------------- */
+
+    if (foundURLs.length === 0) {
+
+        for (const key of Object.keys(examData)) {
+
+            const lower =
+                key.toLowerCase();
+
+            if (
+                lower.includes("paper") ||
+                lower.includes("pdf") ||
+                lower.includes("file") ||
+                lower.includes("question")
+            ) {
+
+                collectURLs(
+                    examData[key],
+                    foundURLs
+                );
+            }
+        }
     }
 
 
-    /* Already an array */
+    /* -----------------------------------------
+       Remove duplicates
+       ----------------------------------------- */
+
+    return [
+        ...new Set(
+            foundURLs
+                .map(url => String(url).trim())
+                .filter(url => isValidURL(url))
+        )
+    ];
+}
+
+
+/* =========================================================
+   COLLECT URLS RECURSIVELY
+   ========================================================= */
+
+function collectURLs(value, output) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+        return;
+    }
+
+
+    /* Array */
 
     if (Array.isArray(value)) {
 
-        return value
-            .flat()
-            .filter(Boolean)
-            .map(String);
+        value.forEach(item => {
+
+            collectURLs(
+                item,
+                output
+            );
+
+        });
+
+        return;
     }
 
 
-    /* Object containing URLs */
+    /* Object */
 
     if (
-        typeof value === "object" &&
-        value !== null
+        typeof value === "object"
     ) {
 
-        return Object.values(value)
-            .flat()
-            .filter(Boolean)
-            .map(String);
+        Object.values(value).forEach(item => {
+
+            collectURLs(
+                item,
+                output
+            );
+
+        });
+
+        return;
     }
 
 
-    let text = String(value).trim();
+    /* String */
+
+    const text =
+        String(value).trim();
+
+
+    if (!text) {
+        return;
+    }
 
 
     /* Try JSON */
@@ -865,41 +1116,64 @@ function getQuestionPaperURLs(examData) {
         const parsed =
             JSON.parse(text);
 
+        if (
+            parsed !== text
+        ) {
 
-        if (Array.isArray(parsed)) {
+            collectURLs(
+                parsed,
+                output
+            );
 
-            return parsed
-                .flat()
-                .filter(Boolean)
-                .map(String);
+            return;
         }
 
-    } catch (e) {
-        /* Not JSON — continue */
+    }
+
+    catch (e) {
+        /* Not JSON */
     }
 
 
-    /*
-     * If several URLs were stored separated by
-     * commas or new lines.
-     */
+    /* Split multiple URLs */
 
-    if (
-        text.includes("\n") ||
-        text.includes(",")
-    ) {
+    const pieces =
+        text.split(/[\n,\r]+/);
 
-        return text
-            .split(/[\n,]+/)
-            .map(url => url.trim())
-            .filter(Boolean);
+
+    pieces.forEach(piece => {
+
+        const url =
+            piece.trim();
+
+        if (
+            isValidURL(url)
+        ) {
+
+            output.push(url);
+        }
+
+    });
+}
+
+
+/* =========================================================
+   VALID URL CHECK
+   ========================================================= */
+
+function isValidURL(value) {
+
+    if (!value) {
+        return false;
     }
 
+    const text =
+        String(value).trim();
 
-    /* Single URL */
-
-    return [text];
-
+    return (
+        text.startsWith("http://") ||
+        text.startsWith("https://")
+    );
 }
 
 
@@ -910,6 +1184,10 @@ function getQuestionPaperURLs(examData) {
 function renderQuestionPapers(urls) {
 
     paperPages.innerHTML = "";
+
+    paperCount.textContent =
+        urls.length +
+        (urls.length === 1 ? " Page" : " Pages");
 
 
     urls.forEach(
@@ -922,37 +1200,53 @@ function renderQuestionPapers(urls) {
                 "paper-page";
 
 
-            const cleanURL =
-                String(url).trim();
+            const lowerURL =
+                url.toLowerCase();
 
 
-            /*
-             * PDF
-             */
+            /* =========================
+               PDF
+               ========================= */
 
             if (
-                cleanURL
-                    .toLowerCase()
-                    .includes(".pdf")
+                lowerURL.includes(".pdf") ||
+                lowerURL.includes("application/pdf")
             ) {
+
+                const wrapper =
+                    document.createElement("div");
+
+                wrapper.className =
+                    "pdf-wrapper";
+
 
                 const iframe =
                     document.createElement("iframe");
 
+                iframe.className =
+                    "pdf-frame";
+
                 iframe.src =
-                    cleanURL;
+                    url;
 
                 iframe.title =
                     "Question Paper PDF";
 
-                page.appendChild(iframe);
+
+                wrapper.appendChild(
+                    iframe
+                );
+
+                page.appendChild(
+                    wrapper
+                );
 
             }
 
 
-            /*
-             * IMAGE
-             */
+            /* =========================
+               IMAGE
+               ========================= */
 
             else {
 
@@ -960,14 +1254,17 @@ function renderQuestionPapers(urls) {
                     document.createElement("div");
 
                 wrapper.className =
-                    "image-wrapper";
+                    "paper-image-wrapper";
 
 
                 const img =
                     document.createElement("img");
 
+                img.className =
+                    "paper-image";
+
                 img.src =
-                    cleanURL;
+                    url;
 
                 img.alt =
                     "Question Paper Page " +
@@ -979,7 +1276,7 @@ function renderQuestionPapers(urls) {
                     function() {
 
                         openFullscreen(
-                            cleanURL
+                            index
                         );
 
                     }
@@ -989,31 +1286,57 @@ function renderQuestionPapers(urls) {
                 img.onerror =
                     function() {
 
-                        page.innerHTML = `
-                            <div class="error-box">
-                                <h3>❌ Unable to display page ${index + 1}</h3>
-                                <p>
-                                    The question paper image could not be loaded.
-                                </p>
-                            </div>
+                        wrapper.innerHTML = "";
+
+                        const error =
+                            document.createElement("div");
+
+                        error.className =
+                            "error-box";
+
+                        error.innerHTML = `
+                            <h2>❌ Page ${index + 1} Could Not Load</h2>
+                            <p>
+                                This question-paper image could not be displayed.
+                                Please check the Supabase Storage URL.
+                            </p>
                         `;
 
+                        wrapper.appendChild(
+                            error
+                        );
                     };
 
 
                 wrapper.appendChild(img);
 
-                page.appendChild(wrapper);
 
+                /* Zoom message */
+
+                const hint =
+                    document.createElement("div");
+
+                hint.className =
+                    "zoom-hint";
+
+                hint.textContent =
+                    "🔍 Click to view fullscreen";
+
+
+                wrapper.appendChild(
+                    hint
+                );
+
+
+                page.appendChild(
+                    wrapper
+                );
             }
 
 
-            /*
-             * PAGE NUMBER
-             *
-             * Only show it when there are
-             * multiple pages.
-             */
+            /* =========================
+               PAGE NUMBER
+               ========================= */
 
             if (urls.length > 1) {
 
@@ -1032,15 +1355,15 @@ function renderQuestionPapers(urls) {
                 page.appendChild(
                     pageNumber
                 );
-
             }
 
 
-            paperPages.appendChild(page);
+            paperPages.appendChild(
+                page
+            );
 
         }
     );
-
 }
 
 
@@ -1056,47 +1379,41 @@ startButton.addEventListener(
             return;
         }
 
-
         examStarted = true;
 
 
-        /*
-         * Hide the start screen completely.
-         */
+        /* Disable button immediately */
+
+        startButton.disabled = true;
+
+
+        /* Hide start screen */
 
         startScreen.classList.add(
             "hidden"
         );
 
 
-        /*
-         * Show question paper.
-         */
+        /* Show paper */
 
         paperContainer.classList.remove(
             "hidden"
         );
 
 
-        /*
-         * Show clean control panel.
-         */
+        /* Show controls */
 
         examControls.classList.remove(
             "hidden"
         );
 
 
-        /*
-         * Start timer.
-         */
+        /* Start timer */
 
         startTimer();
 
 
-        /*
-         * Scroll smoothly to paper.
-         */
+        /* Scroll to paper */
 
         setTimeout(
             function() {
@@ -1107,9 +1424,8 @@ startButton.addEventListener(
                 });
 
             },
-            100
+            150
         );
-
     }
 );
 
@@ -1123,7 +1439,6 @@ function startTimer() {
     clearInterval(
         timerInterval
     );
-
 
     updateTimer();
 
@@ -1140,8 +1455,16 @@ function startTimer() {
                         timerInterval
                     );
 
-                    timer.textContent =
-                        "00:00:00";
+                    remainingSeconds = 0;
+
+                    updateTimer();
+
+                    statusBox.textContent =
+                        "🔴 Examination Time Over";
+
+                    statusBox.classList.add(
+                        "finished"
+                    );
 
                     alert(
                         "⏰ Your examination time is over."
@@ -1153,14 +1476,11 @@ function startTimer() {
 
                 remainingSeconds--;
 
-
                 updateTimer();
-
 
             },
             1000
         );
-
 }
 
 
@@ -1190,7 +1510,6 @@ function updateTimer() {
         String(minutes).padStart(2, "0") +
         ":" +
         String(seconds).padStart(2, "0");
-
 }
 
 
@@ -1198,25 +1517,91 @@ function updateTimer() {
    FULLSCREEN IMAGE
    ========================================================= */
 
-function openFullscreen(url) {
+function openFullscreen(index) {
 
-    const viewer =
-        document.getElementById(
-            "fullscreenViewer"
-        );
+    currentImageIndex =
+        index;
 
-    const image =
-        document.getElementById(
-            "fullscreenImage"
-        );
+    updateFullscreenViewer();
 
-
-    image.src = url;
-
-    viewer.classList.add(
+    fullscreenViewer.classList.add(
         "active"
     );
 
+    document.body.style.overflow =
+        "hidden";
+}
+
+
+/* =========================================================
+   UPDATE FULLSCREEN VIEWER
+   ========================================================= */
+
+function updateFullscreenViewer() {
+
+    const url =
+        paperURLs[currentImageIndex];
+
+
+    if (!url) {
+        return;
+    }
+
+
+    fullscreenImage.src =
+        url;
+
+
+    viewerPage.textContent =
+        (currentImageIndex + 1) +
+        " / " +
+        paperURLs.length;
+
+
+    previousPage.disabled =
+        currentImageIndex === 0;
+
+
+    nextPage.disabled =
+        currentImageIndex ===
+        paperURLs.length - 1;
+}
+
+
+/* =========================================================
+   PREVIOUS IMAGE
+   ========================================================= */
+
+function previousImage() {
+
+    if (
+        currentImageIndex <= 0
+    ) {
+        return;
+    }
+
+    currentImageIndex--;
+
+    updateFullscreenViewer();
+}
+
+
+/* =========================================================
+   NEXT IMAGE
+   ========================================================= */
+
+function nextImage() {
+
+    if (
+        currentImageIndex >=
+        paperURLs.length - 1
+    ) {
+        return;
+    }
+
+    currentImageIndex++;
+
+    updateFullscreenViewer();
 }
 
 
@@ -1226,20 +1611,19 @@ function openFullscreen(url) {
 
 function closeFullscreen() {
 
-    const viewer =
-        document.getElementById(
-            "fullscreenViewer"
-        );
-
-    viewer.classList.remove(
+    fullscreenViewer.classList.remove(
         "active"
     );
 
+    fullscreenImage.src = "";
+
+    document.body.style.overflow =
+        "";
 }
 
 
 /* =========================================================
-   ESC KEY
+   KEYBOARD CONTROLS
    ========================================================= */
 
 document.addEventListener(
@@ -1247,10 +1631,37 @@ document.addEventListener(
     function(event) {
 
         if (
+            !fullscreenViewer.classList.contains(
+                "active"
+            )
+        ) {
+            return;
+        }
+
+
+        if (
             event.key === "Escape"
         ) {
 
             closeFullscreen();
+
+        }
+
+
+        if (
+            event.key === "ArrowLeft"
+        ) {
+
+            previousImage();
+
+        }
+
+
+        if (
+            event.key === "ArrowRight"
+        ) {
+
+            nextImage();
 
         }
 
@@ -1270,7 +1681,6 @@ function goBack() {
 
     window.location.href =
         "exams.html";
-
 }
 
 
