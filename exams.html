@@ -161,7 +161,9 @@ header p {
 
 <div class="container">
 
-    <h2 class="page-title">📝 Available Examinations</h2>
+    <h2 class="page-title">
+        📝 Available Examinations
+    </h2>
 
     <div id="examList">
         <div class="loading">
@@ -174,16 +176,21 @@ header p {
 <script>
 
 /* =========================================================
-   SUPABASE CONFIGURATION
+   SUPABASE
    ========================================================= */
 
-const SUPABASE_URL = "https://zapjcweouiohabrmymqq.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_LzpPYJfrnh604E-guWCezA_mzZjaS6x";
+const SUPABASE_URL =
+    "https://zapjcweouiohabrmymqq.supabase.co";
 
-const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
+const SUPABASE_ANON_KEY =
+    "sb_publishable_LzpPYJfrnh604E-guWCezA_mzZjaS6x";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
 
 /* =========================================================
    LOAD EXAMS
@@ -191,24 +198,26 @@ const supabaseClient = window.supabase.createClient(
 
 async function loadExams() {
 
-    const examList = document.getElementById("examList");
-
-    examList.innerHTML = `
-        <div class="loading">
-            ⏳ Loading examinations...
-        </div>
-    `;
+    const examList =
+        document.getElementById("examList");
 
     try {
 
-        const { data: exams, error } = await supabaseClient
+        const {
+            data: exams,
+            error
+        } = await supabaseClient
             .from("exams")
             .select("*")
-            .order("created_at", { ascending: false });
+            .order("created_at", {
+                ascending: false
+            });
+
 
         if (error) {
             throw error;
         }
+
 
         if (!exams || exams.length === 0) {
 
@@ -222,47 +231,50 @@ async function loadExams() {
             return;
         }
 
+
         examList.innerHTML = "";
+
 
         exams.forEach(exam => {
 
-            /*
-             * IMPORTANT:
-             * We use exam.id here.
-             *
-             * This is the REAL Supabase UUID.
-             *
-             * We DO NOT use serial numbers such as 21.
-             */
-
+            /* REAL SUPABASE UUID */
             const examId = exam.id;
+
 
             const title =
                 exam.title ||
                 exam.name ||
                 "Untitled Examination";
 
+
             const duration =
                 exam.duration ||
                 exam.duration_minutes ||
                 30;
+
 
             const totalMarks =
                 exam.total_marks ||
                 exam.marks ||
                 0;
 
-            const card = document.createElement("div");
+
+            const card =
+                document.createElement("div");
 
             card.className = "exam-card";
 
+
             card.innerHTML = `
 
-                <h2>📚 ${escapeHTML(title)}</h2>
+                <h2>
+                    📚 ${escapeHTML(title)}
+                </h2>
 
                 <div class="exam-info">
                     ⏱️ <strong>Duration:</strong>
-                    ${escapeHTML(String(duration))} Minutes
+                    ${escapeHTML(String(duration))}
+                    Minutes
                 </div>
 
                 <div class="exam-info">
@@ -276,29 +288,52 @@ async function loadExams() {
 
             `;
 
-            const button = card.querySelector(".start-btn");
 
-            button.addEventListener("click", function() {
+            const button =
+                card.querySelector(".start-btn");
 
-                startExam(examId);
 
-            });
+            button.addEventListener(
+                "click",
+                function() {
+
+                    startExam(examId);
+
+                }
+            );
+
 
             examList.appendChild(card);
 
         });
 
+
     } catch (error) {
 
-        console.error("Error loading exams:", error);
+        console.error(
+            "Error loading exams:",
+            error
+        );
+
 
         examList.innerHTML = `
+
             <div class="error">
-                <h3>❌ Could not load examinations</h3>
-                <p>${escapeHTML(error.message)}</p>
+
+                <h3>
+                    ❌ Could not load examinations
+                </h3>
+
+                <p>
+                    ${escapeHTML(error.message)}
+                </p>
+
             </div>
+
         `;
+
     }
+
 }
 
 
@@ -308,49 +343,91 @@ async function loadExams() {
 
 function startExam(examId) {
 
-    /*
-     * STOP if there is no ID.
-     */
+    console.log(
+        "Selected Exam ID:",
+        examId
+    );
+
+
+    /* CHECK ID */
 
     if (!examId) {
 
-        alert("❌ Exam ID is missing.");
+        alert(
+            "❌ This examination does not have a valid ID."
+        );
 
         return;
     }
 
 
     /*
-     * This is the important fix.
-     *
-     * The actual UUID from Supabase is sent to exam.html.
+     * BACKUP:
+     * Save the UUID temporarily.
      */
 
-    const url =
+    sessionStorage.setItem(
+        "selectedExamId",
+        String(examId)
+    );
+
+
+    /*
+     * PRIMARY:
+     * Send UUID to exam.html.
+     */
+
+    const examUrl =
         "exam.html?id=" +
-        encodeURIComponent(examId);
+        encodeURIComponent(
+            String(examId)
+        );
 
 
-    console.log("Opening exam:", examId);
-    console.log("Exam URL:", url);
+    console.log(
+        "Opening:",
+        examUrl
+    );
 
 
-    window.location.href = url;
+    window.location.href =
+        examUrl;
 }
 
 
 /* =========================================================
-   HTML SAFETY
+   HTML ESCAPE
    ========================================================= */
 
 function escapeHTML(value) {
 
     return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
 }
 
 
