@@ -1,192 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<title>Binod Academy - Exams</title>
 
-    <title>Binod Academy - Exams</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+* {
+    box-sizing: border-box;
+}
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #222;
+}
 
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fb;
-            color: #222;
-        }
+header {
+    background: #fff;
+    padding: 22px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
 
-        header {
-            background: white;
-            padding: 22px 20px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-        }
+header h1 {
+    margin: 0;
+    color: #1565c0;
+    font-size: 34px;
+}
 
-        header h1 {
-            margin: 0;
-            color: #1565c0;
-            font-size: 34px;
-        }
+header p {
+    margin: 8px 0 0;
+    color: #666;
+    font-size: 16px;
+}
 
-        header p {
-            margin: 8px 0 0;
-            color: #666;
-            font-size: 16px;
-        }
+.container {
+    width: min(1100px, 94%);
+    margin: 30px auto 50px;
+}
 
-        .container {
-            width: min(1100px, 94%);
-            margin: 30px auto 50px;
-        }
+.page-title {
+    text-align: center;
+    color: #1565c0;
+    font-size: 30px;
+    margin-bottom: 25px;
+}
 
-        .page-title {
-            text-align: center;
-            color: #1565c0;
-            font-size: 30px;
-            margin: 0 0 25px;
-        }
+#examList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+}
 
-        #examList {
-            display: grid;
-            grid-template-columns: repeat(
-                auto-fit,
-                minmax(280px, 1fr)
-            );
-            gap: 22px;
-        }
+.exam-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 25px;
+    border: 1px solid #e5eaf0;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
 
-        .exam-card {
-            background: white;
-            border-radius: 18px;
-            padding: 25px;
-            border: 1px solid #e5eaf0;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-        }
+.exam-card h2 {
+    margin: 0 0 18px;
+    color: #1565c0;
+    font-size: 23px;
+}
 
-        .exam-card h2 {
-            margin: 0 0 18px;
-            color: #1565c0;
-            font-size: 23px;
-        }
+.exam-info {
+    margin: 10px 0;
+    color: #444;
+    font-size: 16px;
+}
 
-        .exam-info {
-            margin: 10px 0;
-            font-size: 16px;
-            color: #444;
-        }
+.start-btn {
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: #1565c0;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-        .start-btn {
-            display: block;
-            width: 100%;
-            margin-top: 18px;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            background: #1565c0;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.start-btn:hover {
+    background: #0d47a1;
+}
 
-        .start-btn:hover {
-            background: #0d47a1;
-        }
+.loading,
+.no-exams,
+.error {
+    text-align: center;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+}
 
-        .loading,
-        .no-exams,
-        .error {
-            text-align: center;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
-        }
+.error {
+    color: #c62828;
+}
 
-        .error {
-            color: #c62828;
-        }
+@media (max-width: 600px) {
 
-        .exam-id {
-            margin-top: 15px;
-            padding: 10px;
-            background: #f5f7fb;
-            border-radius: 8px;
-            font-size: 11px;
-            color: #777;
-            word-break: break-all;
-        }
+    header {
+        padding: 18px 12px;
+    }
 
-        @media (max-width: 600px) {
+    header h1 {
+        font-size: 28px;
+    }
 
-            header {
-                padding: 18px 12px;
-            }
+    header p {
+        font-size: 14px;
+    }
 
-            header h1 {
-                font-size: 28px;
-            }
+    .container {
+        width: 92%;
+        margin: 20px auto 35px;
+    }
 
-            header p {
-                font-size: 14px;
-            }
+    .page-title {
+        font-size: 25px;
+    }
 
-            .container {
-                width: 92%;
-                margin: 20px auto 30px;
-            }
+    #examList {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
 
-            .page-title {
-                font-size: 25px;
-            }
+    .exam-card {
+        padding: 20px;
+    }
 
-            #examList {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
+    .exam-card h2 {
+        font-size: 21px;
+    }
 
-            .exam-card {
-                padding: 20px;
-                border-radius: 16px;
-            }
+    .exam-info {
+        font-size: 15px;
+    }
 
-            .exam-card h2 {
-                font-size: 21px;
-            }
-
-            .exam-info {
-                font-size: 15px;
-            }
-
-            .start-btn {
-                padding: 15px;
-                font-size: 16px;
-            }
-        }
-    </style>
+    .start-btn {
+        padding: 15px;
+        font-size: 16px;
+    }
+}
+</style>
 </head>
-
 
 <body>
 
 <header>
-
     <h1>🎓 Binod Academy</h1>
-
     <p>Online Examination Portal</p>
-
 </header>
-
 
 <div class="container">
 
@@ -195,21 +170,17 @@
     </h2>
 
     <div id="examList">
-
         <div class="loading">
             ⏳ Loading examinations...
         </div>
-
     </div>
 
 </div>
 
-
 <script>
-
 /* =========================================================
    SUPABASE
-   ========================================================= */
+========================================================= */
 
 const SUPABASE_URL =
     "https://zapjcweouiohabrmymqq.supabase.co";
@@ -225,13 +196,24 @@ const supabaseClient =
 
 
 /* =========================================================
+   ELEMENT
+========================================================= */
+
+const examList =
+    document.getElementById("examList");
+
+
+/* =========================================================
    LOAD EXAMS
-   ========================================================= */
+========================================================= */
 
 async function loadExams() {
 
-    const examList =
-        document.getElementById("examList");
+    examList.innerHTML = `
+        <div class="loading">
+            ⏳ Loading examinations...
+        </div>
+    `;
 
     try {
 
@@ -239,184 +221,105 @@ async function loadExams() {
             data: exams,
             error
         } = await supabaseClient
-
             .from("exams")
-
             .select("*")
-
-            .order(
-                "created_at",
-                {
-                    ascending: false
-                }
-            );
-
+            .order("created_at", {
+                ascending: false
+            });
 
         if (error) {
-
             throw error;
-
         }
-
 
         if (!exams || exams.length === 0) {
 
             examList.innerHTML = `
-
                 <div class="no-exams">
-
-                    <h3>
-                        📭 No examinations available
-                    </h3>
-
-                    <p>
-                        Please check again later.
-                    </p>
-
+                    <h3>📭 No examinations available</h3>
+                    <p>Please check again later.</p>
                 </div>
-
             `;
 
             return;
-
         }
-
 
         examList.innerHTML = "";
 
+        exams.forEach(exam => {
 
-        exams.forEach(function(exam) {
-
-            /* =================================================
-               GET REAL SUPABASE UUID
-               ================================================= */
-
-            const examId =
-                exam.id;
-
+            const examId = exam.id;
 
             if (!examId) {
-
-                console.error(
-                    "Exam has no ID:",
-                    exam
-                );
-
                 return;
-
             }
-
 
             const title =
                 exam.title ||
                 exam.name ||
                 "Untitled Examination";
 
-
             const duration =
-                exam.duration ||
-                exam.duration_minutes ||
-                30;
-
+                Number(
+                    exam.duration ??
+                    exam.duration_minutes ??
+                    30
+                );
 
             const totalMarks =
-                exam.total_marks ||
-                exam.marks ||
+                exam.total_marks ??
+                exam.marks ??
                 0;
-
-
-            /* =================================================
-               CREATE CARD
-               ================================================= */
 
             const card =
                 document.createElement("div");
 
-            card.className =
-                "exam-card";
-
+            card.className = "exam-card";
 
             card.innerHTML = `
-
                 <h2>
                     📚 ${escapeHTML(title)}
                 </h2>
 
                 <div class="exam-info">
-
-                    ⏱️
-                    <strong>Duration:</strong>
+                    ⏱️ <strong>Duration:</strong>
                     ${escapeHTML(String(duration))}
                     Minutes
-
                 </div>
 
                 <div class="exam-info">
-
-                    📊
-                    <strong>Total Marks:</strong>
+                    📊 <strong>Total Marks:</strong>
                     ${escapeHTML(String(totalMarks))}
-
                 </div>
 
-                <a
-                    class="start-btn"
-                    href="exam.html?id=${encodeURIComponent(examId)}"
-                >
-
+                <button
+                    type="button"
+                    class="start-btn">
                     📝 Start Exam
-
-                </a>
-
-                <div class="exam-id">
-
-                    Exam ID:
-                    ${escapeHTML(String(examId))}
-
-                </div>
-
+                </button>
             `;
 
+            const button =
+                card.querySelector(".start-btn");
+
+            button.addEventListener(
+                "click",
+                function () {
+                    openExam(examId);
+                }
+            );
 
             examList.appendChild(card);
-
-
-            /* =================================================
-               DEBUG
-               ================================================= */
-
-            console.log(
-                "Exam:",
-                title
-            );
-
-            console.log(
-                "UUID:",
-                examId
-            );
-
-            console.log(
-                "Opening URL:",
-                "exam.html?id=" +
-                encodeURIComponent(examId)
-            );
-
         });
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.error(
-            "Could not load exams:",
+            "Exam loading error:",
             error
         );
 
-
         examList.innerHTML = `
-
             <div class="error">
-
                 <h3>
                     ❌ Could not load examinations
                 </h3>
@@ -424,60 +327,59 @@ async function loadExams() {
                 <p>
                     ${escapeHTML(error.message)}
                 </p>
-
             </div>
-
         `;
+    }
+}
 
+
+/* =========================================================
+   OPEN EXAM
+========================================================= */
+
+function openExam(examId) {
+
+    if (!examId) {
+
+        alert("❌ Exam ID is missing.");
+
+        return;
     }
 
+    const url =
+        "exam.html?id=" +
+        encodeURIComponent(examId);
+
+    console.log(
+        "Opening exam with ID:",
+        examId
+    );
+
+    window.location.href = url;
 }
 
 
 /* =========================================================
    HTML ESCAPE
-   ========================================================= */
+========================================================= */
 
 function escapeHTML(value) {
 
     return String(value)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 
 /* =========================================================
    START
-   ========================================================= */
+========================================================= */
 
 loadExams();
-
 </script>
 
 </body>
-
 </html>
