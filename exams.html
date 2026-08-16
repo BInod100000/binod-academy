@@ -1,462 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
+<title>Binod Academy - Exams</title>
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <title>Binod Academy - Exams</title>
+<style>
+* {
+    box-sizing: border-box;
+}
 
-    <link rel="stylesheet"
-          href="style.css">
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    color: #222;
+}
 
-    <style>
+header {
+    background: white;
+    padding: 22px 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
 
-        .exam-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
+header h1 {
+    margin: 0;
+    color: #1565c0;
+    font-size: 34px;
+}
 
-        .exam-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.10);
-            text-align: center;
-        }
+header p {
+    margin: 8px 0 0;
+    color: #666;
+}
 
-        .exam-card h3 {
-            color: #1565c0;
-            margin-bottom: 15px;
-        }
+.container {
+    width: min(1100px, 94%);
+    margin: 30px auto;
+}
 
-        .exam-card p {
-            margin: 8px 0;
-            font-size: 17px;
-        }
+.page-title {
+    text-align: center;
+    color: #1565c0;
+    margin-bottom: 25px;
+    font-size: 30px;
+}
 
-        .exam-button {
-            display: inline-block;
-            margin-top: 18px;
-            padding: 12px 25px;
-            background: #1565c0;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 17px;
-        }
+#examList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+}
 
-        .exam-button:hover {
-            background: #0d47a1;
-        }
+.exam-card {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    border: 1px solid #e5eaf0;
+}
 
-        #loading {
-            font-size: 18px;
-            margin: 30px;
-        }
+.exam-card h2 {
+    margin-top: 0;
+    color: #1565c0;
+    font-size: 23px;
+}
 
-        #noExams {
-            display: none;
-            font-size: 18px;
-            margin: 30px;
-        }
+.exam-info {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #444;
+}
 
-        #errorMessage {
-            display: none;
-            color: red;
-            font-weight: bold;
-            margin: 30px;
-        }
+.start-btn {
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: #1565c0;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-    </style>
+.start-btn:hover {
+    background: #0d47a1;
+}
 
+.loading,
+.no-exams,
+.error {
+    text-align: center;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+}
+
+.error {
+    color: #c62828;
+}
+
+@media (max-width: 600px) {
+
+    header {
+        padding: 18px 12px;
+    }
+
+    header h1 {
+        font-size: 28px;
+    }
+
+    .container {
+        width: 92%;
+        margin: 20px auto;
+    }
+
+    .page-title {
+        font-size: 25px;
+    }
+
+    #examList {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .exam-card {
+        padding: 20px;
+        border-radius: 16px;
+    }
+
+    .exam-card h2 {
+        font-size: 21px;
+    }
+
+    .exam-info {
+        font-size: 15px;
+    }
+
+    .start-btn {
+        padding: 15px;
+        font-size: 16px;
+    }
+}
+</style>
 </head>
-
 
 <body>
 
-<h1>🎓 Binod Academy</h1>
+<header>
+    <h1>🎓 Binod Academy</h1>
+    <p>Online Examination Portal</p>
+</header>
 
+<div class="container">
 
-<nav>
+    <h2 class="page-title">📝 Available Examinations</h2>
 
-    <a href="index.html">
-        🏠 Home
-    </a>
-
-    <a href="notes.html">
-        📚 Notes
-    </a>
-
-    <a href="exams.html">
-        📝 Exams
-    </a>
-
-    <a href="results.html">
-        📊 Results
-    </a>
-
-    <a href="contact.html">
-        📞 Contact
-    </a>
-
-    <a href="login.html">
-        🔐 Login
-    </a>
-
-</nav>
-
-
-<section>
-
-    <h2>📝 Online Exams</h2>
-
-    <p>
-        Select an available examination to begin.
-    </p>
-
-
-    <!-- Loading message -->
-
-    <div id="loading">
-        ⏳ Loading exams...
+    <div id="examList">
+        <div class="loading">
+            ⏳ Loading examinations...
+        </div>
     </div>
 
-
-    <!-- Exams will appear here -->
-
-    <div id="examList"
-         class="exam-list">
-    </div>
-
-
-    <!-- No exams -->
-
-    <div id="noExams">
-
-        📭
-        <br><br>
-
-        No published examinations are available right now.
-
-    </div>
-
-
-    <!-- Error -->
-
-    <div id="errorMessage"></div>
-
-
-</section>
-
-
-<!-- =====================================
-     SUPABASE
-===================================== -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-</script>
-
-
-<script src="supabase-config.js">
-</script>
-
+</div>
 
 <script>
 
+/* =========================================================
+   SUPABASE CONFIGURATION
+   ========================================================= */
 
-/* =====================================
-   LOAD PUBLISHED EXAMS
-===================================== */
+const SUPABASE_URL = "NEXT_PUBLIC_SUPABASE_URL=https://zapjcweouiohabrmymqq.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_LzpPYJfrnh604E-guWCezA_mzZjaS6x";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+
+/* =========================================================
+   LOAD EXAMS
+   ========================================================= */
 
 async function loadExams() {
 
-    const loading =
-        document.getElementById("loading");
+    const examList = document.getElementById("examList");
 
-    const examList =
-        document.getElementById("examList");
-
-    const noExams =
-        document.getElementById("noExams");
-
-    const errorMessage =
-        document.getElementById("errorMessage");
-
+    examList.innerHTML = `
+        <div class="loading">
+            ⏳ Loading examinations...
+        </div>
+    `;
 
     try {
 
-
-        /* ===============================
-           GET EXAMS FROM SUPABASE
-        =============================== */
-
-        const {
-            data,
-            error
-        } = await supabaseClient
-
+        const { data: exams, error } = await supabaseClient
             .from("exams")
-
             .select("*")
-
-            .eq("status", "published")
-
-            .order(
-                "created_at",
-                {
-                    ascending: false
-                }
-            );
-
-
-        /* ===============================
-           ERROR
-        =============================== */
+            .order("created_at", { ascending: false });
 
         if (error) {
+            throw error;
+        }
 
-            console.error(
-                "Supabase error:",
-                error
-            );
+        if (!exams || exams.length === 0) {
 
-            loading.style.display =
-                "none";
-
-            errorMessage.style.display =
-                "block";
-
-            errorMessage.textContent =
-                "❌ Could not load exams: "
-                + error.message;
+            examList.innerHTML = `
+                <div class="no-exams">
+                    <h3>📭 No examinations available</h3>
+                    <p>Please check again later.</p>
+                </div>
+            `;
 
             return;
         }
-
-
-        /* ===============================
-           NO EXAMS
-        =============================== */
-
-        if (!data || data.length === 0) {
-
-            loading.style.display =
-                "none";
-
-            noExams.style.display =
-                "block";
-
-            return;
-        }
-
-
-        /* ===============================
-           EXAMS FOUND
-        =============================== */
-
-        loading.style.display =
-            "none";
-
 
         examList.innerHTML = "";
 
+        exams.forEach(exam => {
 
-        data.forEach(function(exam) {
+            /*
+             * IMPORTANT:
+             * We use exam.id here.
+             *
+             * This is the REAL Supabase UUID.
+             *
+             * We DO NOT use serial numbers such as 21.
+             */
 
+            const examId = exam.id;
 
-            /* ===============================
-               CREATE CARD
-            =============================== */
-
-            const card =
-                document.createElement("div");
-
-            card.className =
-                "exam-card";
-
-
-            /* ===============================
-               DURATION
-            =============================== */
+            const title =
+                exam.title ||
+                exam.name ||
+                "Untitled Examination";
 
             const duration =
-                formatDuration(
-                    exam.duration_minutes
-                );
+                exam.duration ||
+                exam.duration_minutes ||
+                30;
 
+            const totalMarks =
+                exam.total_marks ||
+                exam.marks ||
+                0;
 
-            /* ===============================
-               CREATE HTML
-            =============================== */
+            const card = document.createElement("div");
+
+            card.className = "exam-card";
 
             card.innerHTML = `
 
-                <h3>
-                    📝 ${escapeHtml(
-                        exam.title || "Untitled Exam"
-                    )}
-                </h3>
+                <h2>📚 ${escapeHTML(title)}</h2>
 
+                <div class="exam-info">
+                    ⏱️ <strong>Duration:</strong>
+                    ${escapeHTML(String(duration))} Minutes
+                </div>
 
-                <p>
-                    📚
-                    <strong>Subject:</strong>
-                    ${escapeHtml(
-                        exam.subject || "Not specified"
-                    )}
-                </p>
+                <div class="exam-info">
+                    📊 <strong>Total Marks:</strong>
+                    ${escapeHTML(String(totalMarks))}
+                </div>
 
-
-                <p>
-                    📅
-                    <strong>Date:</strong>
-                    ${escapeHtml(
-                        exam.exam_date || "Not specified"
-                    )}
-                </p>
-
-
-                <p>
-                    ⏱️
-                    <strong>Duration:</strong>
-                    ${duration}
-                </p>
-
-
-                <p>
-                    📊
-                    <strong>Total Marks:</strong>
-                    ${exam.total_marks || 0}
-                </p>
-
-
-                <a
-                    class="exam-button"
-                    href="exam.html?id=${encodeURIComponent(exam.id)}">
-
-                    ▶️ View Exam
-
-                </a>
+                <button class="start-btn">
+                    📝 Start Exam
+                </button>
 
             `;
 
+            const button = card.querySelector(".start-btn");
+
+            button.addEventListener("click", function() {
+
+                startExam(examId);
+
+            });
 
             examList.appendChild(card);
 
         });
 
+    } catch (error) {
+
+        console.error("Error loading exams:", error);
+
+        examList.innerHTML = `
+            <div class="error">
+                <h3>❌ Could not load examinations</h3>
+                <p>${escapeHTML(error.message)}</p>
+            </div>
+        `;
     }
-
-
-    catch (error) {
-
-        console.error(error);
-
-
-        loading.style.display =
-            "none";
-
-
-        errorMessage.style.display =
-            "block";
-
-
-        errorMessage.textContent =
-            "❌ Something went wrong while loading exams.";
-
-    }
-
 }
 
 
-/* =====================================
-   FORMAT DURATION
-===================================== */
+/* =========================================================
+   START EXAM
+   ========================================================= */
 
-function formatDuration(minutes) {
+function startExam(examId) {
 
-    minutes =
-        Number(minutes);
+    /*
+     * STOP if there is no ID.
+     */
 
+    if (!examId) {
 
-    if (!minutes || minutes <= 0) {
+        alert("❌ Exam ID is missing.");
 
-        return "Not specified";
-
+        return;
     }
 
 
-    if (minutes < 60) {
+    /*
+     * This is the important fix.
+     *
+     * The actual UUID from Supabase is sent to exam.html.
+     */
 
-        return minutes +
-            " Minutes";
-
-    }
-
-
-    const hours =
-        Math.floor(
-            minutes / 60
-        );
+    const url =
+        "exam.html?id=" +
+        encodeURIComponent(examId);
 
 
-    const remainingMinutes =
-        minutes % 60;
+    console.log("Opening exam:", examId);
+    console.log("Exam URL:", url);
 
 
-    if (remainingMinutes === 0) {
-
-        return hours +
-            (hours === 1
-                ? " Hour"
-                : " Hours");
-
-    }
-
-
-    return hours +
-        (hours === 1
-            ? " Hour "
-            : " Hours ") +
-        remainingMinutes +
-        " Minutes";
-
+    window.location.href = url;
 }
 
 
-/* =====================================
-   SECURITY / HTML ESCAPE
-===================================== */
+/* =========================================================
+   HTML SAFETY
+   ========================================================= */
 
-function escapeHtml(value) {
+function escapeHTML(value) {
 
-    const div =
-        document.createElement("div");
-
-    div.textContent =
-        value;
-
-    return div.innerHTML;
-
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 
-/* =====================================
+/* =========================================================
    START
-===================================== */
+   ========================================================= */
 
 loadExams();
 
-
 </script>
 
-
 </body>
-
 </html>
