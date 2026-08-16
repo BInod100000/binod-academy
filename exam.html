@@ -1,365 +1,2353 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+               maximum-scale=5.0,
+               user-scalable=yes">
 
-<title>Binod Academy - Exams</title>
+<title>Binod Academy - Examination</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
 * {
     box-sizing: border-box;
 }
 
+html,
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
     background: #f5f7fb;
     color: #222;
 }
 
-header {
-    background: white;
-    padding: 22px 20px;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+body {
+    min-height: 100vh;
 }
 
-header h1 {
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.top-header {
+    background: white;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.top-header h1 {
     margin: 0;
     color: #1565c0;
     font-size: 34px;
 }
 
-header p {
+.top-header p {
     margin: 8px 0 0;
     color: #666;
+    font-size: 16px;
 }
+
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
 
 .container {
-    width: min(1100px, 94%);
-    margin: 30px auto;
+    width: min(1000px, 94%);
+    margin: 25px auto 50px;
 }
 
-.page-title {
-    text-align: center;
-    color: #1565c0;
-    margin-bottom: 25px;
-    font-size: 30px;
-}
 
-#examList {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 22px;
-}
+/* =========================================================
+   CARD
+========================================================= */
 
-.exam-card {
+.card {
     background: white;
-    border-radius: 18px;
-    padding: 25px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    border: 1px solid #e5eaf0;
-}
-
-.exam-card h2 {
-    margin-top: 0;
-    color: #1565c0;
-    font-size: 23px;
-}
-
-.exam-info {
-    margin: 10px 0;
-    font-size: 16px;
-    color: #444;
-}
-
-.start-btn {
-    width: 100%;
-    margin-top: 18px;
-    padding: 14px;
-    border: none;
-    border-radius: 12px;
-    background: #1565c0;
-    color: white;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.start-btn:hover {
-    background: #0d47a1;
-}
-
-.loading,
-.no-exams,
-.error {
-    text-align: center;
-    background: white;
+    border-radius: 20px;
     padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    margin-bottom: 25px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
 }
-
-.error {
-    color: #c62828;
-}
-
-@media (max-width: 600px) {
-
-    header {
-        padding: 18px 12px;
-    }
-
-    header h1 {
-        font-size: 28px;
-    }
-
-    .container {
-        width: 92%;
-        margin: 20px auto;
-    }
-
-    .page-title {
-        font-size: 25px;
-    }
-
-    #examList {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-
-    .exam-card {
-        padding: 20px;
-        border-radius: 16px;
-    }
-
-    .exam-card h2 {
-        font-size: 21px;
-    }
-
-    .exam-info {
-        font-size: 15px;
-    }
-
-    .start-btn {
-        padding: 15px;
-        font-size: 16px;
-    }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-    <h1>🎓 Binod Academy</h1>
-    <p>Online Examination Portal</p>
-</header>
-
-<div class="container">
-
-    <h2 class="page-title">📝 Available Examinations</h2>
-
-    <div id="examList">
-        <div class="loading">
-            ⏳ Loading examinations...
-        </div>
-    </div>
-
-</div>
-
-<script>
-
-/* =========================================================
-   SUPABASE CONFIGURATION
-   ========================================================= */
-
-const SUPABASE_URL = "NEXT_PUBLIC_SUPABASE_URL=https://zapjcweouiohabrmymqq.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_LzpPYJfrnh604E-guWCezA_mzZjaS6x";
-
-const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
 
 
 /* =========================================================
-   LOAD EXAMS
-   ========================================================= */
+   EXAM INFORMATION
+========================================================= */
 
-async function loadExams() {
+.exam-title {
+    text-align: center;
+    color: #1565c0;
+    font-size: 32px;
+    margin: 0 0 25px;
+}
 
-    const examList = document.getElementById("examList");
+.exam-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
 
-    examList.innerHTML = `
-        <div class="loading">
-            ⏳ Loading examinations...
-        </div>
-    `;
+.info-box {
+    background: #f5f8fc;
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+    font-size: 17px;
+}
 
-    try {
+.info-box strong {
+    display: block;
+    color: #1565c0;
+    margin-top: 5px;
+}
 
-        const { data: exams, error } = await supabaseClient
-            .from("exams")
-            .select("*")
-            .order("created_at", { ascending: false });
 
-        if (error) {
-            throw error;
-        }
+/* =========================================================
+   INSTRUCTIONS
+========================================================= */
 
-        if (!exams || exams.length === 0) {
+.instructions {
+    margin-top: 25px;
+}
 
-            examList.innerHTML = `
-                <div class="no-exams">
-                    <h3>📭 No examinations available</h3>
-                    <p>Please check again later.</p>
-                </div>
-            `;
+.instructions h2 {
+    color: #1565c0;
+    margin-top: 0;
+    font-size: 26px;
+}
 
-            return;
-        }
+.instructions ul {
+    margin: 15px 0 0;
+    padding-left: 25px;
+}
 
-        examList.innerHTML = "";
-
-        exams.forEach(exam => {
-
-            /*
-             * IMPORTANT:
-             * We use exam.id here.
-             *
-             * This is the REAL Supabase UUID.
-             *
-             * We DO NOT use serial numbers such as 21.
-             */
-
-            const examId = exam.id;
-
-            const title =
-                exam.title ||
-                exam.name ||
-                "Untitled Examination";
-
-            const duration =
-                exam.duration ||
-                exam.duration_minutes ||
-                30;
-
-            const totalMarks =
-                exam.total_marks ||
-                exam.marks ||
-                0;
-
-            const card = document.createElement("div");
-
-            card.className = "exam-card";
-
-            card.innerHTML = `
-
-                <h2>📚 ${escapeHTML(title)}</h2>
-
-                <div class="exam-info">
-                    ⏱️ <strong>Duration:</strong>
-                    ${escapeHTML(String(duration))} Minutes
-                </div>
-
-                <div class="exam-info">
-                    📊 <strong>Total Marks:</strong>
-                    ${escapeHTML(String(totalMarks))}
-                </div>
-
-                <button class="start-btn">
-                    📝 Start Exam
-                </button>
-
-            `;
-
-            const button = card.querySelector(".start-btn");
-
-            button.addEventListener("click", function() {
-
-                startExam(examId);
-
-            });
-
-            examList.appendChild(card);
-
-        });
-
-    } catch (error) {
-
-        console.error("Error loading exams:", error);
-
-        examList.innerHTML = `
-            <div class="error">
-                <h3>❌ Could not load examinations</h3>
-                <p>${escapeHTML(error.message)}</p>
-            </div>
-        `;
-    }
+.instructions li {
+    margin-bottom: 12px;
+    line-height: 1.6;
+    font-size: 16px;
 }
 
 
 /* =========================================================
    START EXAM
-   ========================================================= */
+========================================================= */
 
-function startExam(examId) {
+.start-section {
+    text-align: center;
+    padding: 30px 10px;
+}
 
-    /*
-     * STOP if there is no ID.
-     */
+.start-button {
+    border: none;
+    background: #1565c0;
+    color: white;
+    padding: 17px 35px;
+    border-radius: 14px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(21,101,192,0.25);
+}
 
-    if (!examId) {
+.start-button:hover {
+    background: #0d47a1;
+}
 
-        alert("❌ Exam ID is missing.");
+.start-button:disabled {
+    background: #999;
+    cursor: not-allowed;
+}
 
-        return;
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+.exam-running {
+    display: none;
+}
+
+.timer-box {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: #1565c0;
+    color: white;
+    padding: 16px;
+    border-radius: 14px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.timer-label {
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.timer {
+    font-size: 34px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   QUESTION PAPER
+========================================================= */
+
+.paper-section h2 {
+    color: #1565c0;
+    text-align: center;
+    margin-top: 0;
+}
+
+.paper-help {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.paper-viewer {
+    position: relative;
+    width: 100%;
+    min-height: 300px;
+    background: #111;
+    border-radius: 16px;
+    overflow: hidden;
+    touch-action: pan-x pan-y pinch-zoom;
+    user-select: none;
+}
+
+.paper-image {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+    transform-origin: center center;
+    transition: transform 0.15s ease;
+    touch-action: pan-x pan-y pinch-zoom;
+}
+
+.page-counter {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(0,0,0,0.72);
+    color: white;
+    padding: 8px 13px;
+    border-radius: 20px;
+    font-size: 14px;
+    z-index: 10;
+}
+
+.viewer-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: #e53935;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 20;
+}
+
+.fullscreen-viewer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.96);
+    align-items: center;
+    justify-content: center;
+    touch-action: none;
+}
+
+.fullscreen-viewer.active {
+    display: flex;
+}
+
+.fullscreen-image {
+    max-width: 96vw;
+    max-height: 94vh;
+    object-fit: contain;
+    transform-origin: center center;
+    user-select: none;
+    -webkit-user-drag: none;
+    touch-action: none;
+}
+
+.fullscreen-counter {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    color: white;
+    background: rgba(0,0,0,0.65);
+    padding: 9px 14px;
+    border-radius: 20px;
+    z-index: 10;
+}
+
+.fullscreen-close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    width: 55px;
+    height: 55px;
+    border: none;
+    border-radius: 50%;
+    background: #e53935;
+    color: white;
+    font-size: 32px;
+    z-index: 20;
+}
+
+.fullscreen-help {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    background: rgba(0,0,0,0.6);
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   ANSWER SHEET
+========================================================= */
+
+.answer-section {
+    display: none;
+}
+
+.answer-section h2 {
+    text-align: center;
+    color: #1565c0;
+    margin-top: 0;
+}
+
+.answer-intro {
+    text-align: center;
+    color: #555;
+    line-height: 1.5;
+}
+
+.details-box {
+    background: #f5f8fc;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.details-box label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+    color: #333;
+}
+
+.details-box input,
+.details-box textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ccd4df;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: inherit;
+    margin-bottom: 15px;
+}
+
+.details-box textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+
+/* =========================================================
+   FILE UPLOAD
+========================================================= */
+
+.upload-box {
+    border: 3px dashed #1565c0;
+    border-radius: 18px;
+    padding: 25px;
+    text-align: center;
+    background: #f8fbff;
+}
+
+.upload-box h3 {
+    color: #1565c0;
+    margin-top: 0;
+}
+
+.upload-box p {
+    color: #555;
+}
+
+.file-input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: white;
+    font-size: 15px;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.photo-card {
+    position: relative;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.photo-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+.remove-photo {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #e53935;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+
+.submit-section {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.submit-button {
+    width: 100%;
+    border: none;
+    border-radius: 15px;
+    padding: 18px;
+    background: #2e7d32;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background: #1b5e20;
+}
+
+.submit-button:disabled {
+    background: #888;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 12px;
+    display: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+.status.success {
+    display: block;
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status.error {
+    display: block;
+    background: #ffebee;
+    color: #c62828;
+}
+
+.status.info {
+    display: block;
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+
+/* =========================================================
+   FINISHED
+========================================================= */
+
+.finished {
+    display: none;
+    text-align: center;
+}
+
+.finished h2 {
+    color: #2e7d32;
+    font-size: 30px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .top-header {
+        padding: 15px 10px;
+    }
+
+    .top-header h1 {
+        font-size: 27px;
+    }
+
+    .top-header p {
+        font-size: 14px;
+    }
+
+    .container {
+        width: 94%;
+        margin: 15px auto 30px;
+    }
+
+    .card {
+        padding: 18px;
+        border-radius: 16px;
+    }
+
+    .exam-title {
+        font-size: 25px;
+    }
+
+    .exam-info-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .info-box {
+        padding: 14px;
+        font-size: 15px;
+    }
+
+    .instructions h2 {
+        font-size: 22px;
+    }
+
+    .instructions li {
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    .start-button {
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .timer {
+        font-size: 29px;
+    }
+
+    .paper-viewer {
+        border-radius: 10px;
+    }
+
+    .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .photo-card img {
+        height: 150px;
+    }
+
+    .fullscreen-help {
+        font-size: 11px;
+        white-space: nowrap;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .photo-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .photo-card img {
+        height: auto;
+        max-height: 400px;
+    }
+
+    .timer {
+        font-size: 26px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="top-header">
+
+    <h1>🎓 Binod Academy</h1>
+
+    <p>Online Examination Portal</p>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- =====================================================
+     LOADING
+===================================================== -->
+
+<div id="loadingCard" class="card">
+
+    <h2 style="text-align:center;">
+        ⏳ Loading Examination...
+    </h2>
+
+    <p style="text-align:center;color:#666;">
+        Please wait.
+    </p>
+
+</div>
+
+
+<!-- =====================================================
+     EXAM INSTRUCTIONS
+===================================================== -->
+
+<div id="instructionSection"
+     class="card"
+     style="display:none;">
+
+    <h1 id="examTitle"
+        class="exam-title">
+        Examination
+    </h1>
+
+
+    <div class="exam-info-grid">
+
+        <div class="info-box">
+
+            ⏱️ Duration
+
+            <strong id="durationText">
+                30 Minutes
+            </strong>
+
+        </div>
+
+
+        <div class="info-box">
+
+            📊 Total Marks
+
+            <strong id="marksText">
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="instructions">
+
+        <h2>
+            📜 Examination Instructions
+        </h2>
+
+        <ul>
+
+            <li>
+                🎓 Welcome to Binod Academy. Stay calm
+                and give your best effort.
+            </li>
+
+            <li>
+                ⏱️ The examination duration is the
+                duration selected by the teacher,
+                with a maximum of 3 hours.
+            </li>
+
+            <li>
+                ▶️ The timer starts only after you
+                click <strong>START EXAM NOW</strong>.
+            </li>
+
+            <li>
+                🚫 The timer cannot be paused after
+                the examination starts.
+            </li>
+
+            <li>
+                📄 Read every question carefully before
+                answering.
+            </li>
+
+            <li>
+                📸 After completing the examination,
+                upload clear photos of your answer sheet.
+            </li>
+
+            <li>
+                📷 You may upload multiple answer-sheet
+                photographs.
+            </li>
+
+            <li>
+                ✅ Make sure your photographs are clear
+                and readable before submitting.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="start-section">
+
+        <button id="startButton"
+                class="start-button">
+
+            📝 START EXAM NOW
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     RUNNING EXAM
+===================================================== -->
+
+<div id="examRunning"
+     class="exam-running">
+
+
+    <!-- TIMER -->
+
+    <div class="timer-box">
+
+        <div class="timer-label">
+            ⏱️ TIME REMAINING
+        </div>
+
+        <div id="timer"
+             class="timer">
+
+            00:00:00
+
+        </div>
+
+    </div>
+
+
+    <!-- QUESTION PAPER -->
+
+    <div class="card paper-section">
+
+        <h2>
+            📄 Question Paper
+        </h2>
+
+        <p class="paper-help">
+
+            👆 Tap the paper for full screen.
+            Swipe left/right to change pages.
+            Pinch to zoom.
+
+        </p>
+
+
+        <div id="paperViewer"
+             class="paper-viewer">
+
+            <div id="pageCounter"
+                 class="page-counter">
+
+                Page 0 of 0
+
+            </div>
+
+
+            <img id="paperImage"
+                 class="paper-image"
+                 src=""
+                 alt="Question Paper">
+
+
+        </div>
+
+    </div>
+
+
+    <!-- ANSWER SHEET -->
+
+    <div id="answerSection"
+         class="card answer-section">
+
+        <h2>
+            📸 Submit Answer Sheet
+        </h2>
+
+        <p class="answer-intro">
+
+            After completing your examination,
+            provide your details and upload
+            clear photographs of your complete
+            answer sheet.
+
+        </p>
+
+
+        <!-- DETAILS -->
+
+        <div class="details-box">
+
+            <label for="studentName">
+                👤 Student Name
+            </label>
+
+            <input
+                type="text"
+                id="studentName"
+                placeholder="Enter your full name"
+                autocomplete="name"
+            >
+
+
+            <label for="answerDetails">
+                📝 Answer Sheet Details
+            </label>
+
+            <textarea
+                id="answerDetails"
+                placeholder="Example: Answer sheet contains 5 pages. All pages are uploaded in order."
+            ></textarea>
+
+        </div>
+
+
+        <!-- UPLOAD -->
+
+        <div class="upload-box">
+
+            <h3>
+                📷 Answer Sheet Photos
+            </h3>
+
+            <p>
+                Select multiple photos of your answer sheet.
+            </p>
+
+            <input
+                id="answerFiles"
+                class="file-input"
+                type="file"
+                accept="image/*"
+                multiple
+            >
+
+
+            <div id="photoGrid"
+                 class="photo-grid">
+            </div>
+
+        </div>
+
+
+        <!-- SUBMIT -->
+
+        <div class="submit-section">
+
+            <button id="submitButton"
+                    class="submit-button">
+
+                📤 SUBMIT ANSWER SHEET
+
+            </button>
+
+            <div id="submitStatus"
+                 class="status">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FINISHED
+===================================================== -->
+
+<div id="finishedSection"
+     class="card finished">
+
+    <h2>
+        🎉 Examination Submitted Successfully!
+    </h2>
+
+    <p>
+        Your answer sheet has been submitted.
+    </p>
+
+    <p>
+        Please wait for your teacher to check
+        and publish your result.
+    </p>
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     FULLSCREEN PAPER VIEWER
+===================================================== -->
+
+<div id="fullscreenViewer"
+     class="fullscreen-viewer">
+
+    <div id="fullscreenCounter"
+         class="fullscreen-counter">
+
+        Page 1 of 1
+
+    </div>
+
+
+    <button id="fullscreenClose"
+            class="fullscreen-close">
+
+        ×
+
+    </button>
+
+
+    <img id="fullscreenImage"
+         class="fullscreen-image"
+         src=""
+         alt="Question Paper">
+
+
+    <div class="fullscreen-help">
+
+        Swipe ← → for pages • Pinch to zoom • Tap × to close
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   SUPABASE CONFIG
+========================================================= */
+
+const SUPABASE_URL = "YOUR_SUPABASE_URL";
+
+const SUPABASE_ANON_KEY =
+    "YOUR_SUPABASE_ANON_KEY";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+/* =========================================================
+   GET REAL EXAM UUID FROM URL
+========================================================= */
+
+const urlParams =
+    new URLSearchParams(window.location.search);
+
+
+const examId =
+    urlParams.get("id");
+
+
+console.log("Exam ID received:", examId);
+
+
+if (!examId) {
+
+    alert("❌ Exam ID not found.");
+
+    throw new Error(
+        "Exam ID not found in URL."
+    );
+}
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let currentExam = null;
+
+let questionPages = [];
+
+let currentPage = 0;
+
+let durationSeconds = 1800;
+
+let remainingSeconds = 1800;
+
+let timerInterval = null;
+
+let examStarted = false;
+
+let selectedFiles = [];
+
+let uploadedUrls = [];
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const loadingCard =
+    document.getElementById("loadingCard");
+
+const instructionSection =
+    document.getElementById("instructionSection");
+
+const examRunning =
+    document.getElementById("examRunning");
+
+const answerSection =
+    document.getElementById("answerSection");
+
+const finishedSection =
+    document.getElementById("finishedSection");
+
+const examTitle =
+    document.getElementById("examTitle");
+
+const durationText =
+    document.getElementById("durationText");
+
+const marksText =
+    document.getElementById("marksText");
+
+const startButton =
+    document.getElementById("startButton");
+
+const timer =
+    document.getElementById("timer");
+
+const paperImage =
+    document.getElementById("paperImage");
+
+const pageCounter =
+    document.getElementById("pageCounter");
+
+const paperViewer =
+    document.getElementById("paperViewer");
+
+const fullscreenViewer =
+    document.getElementById("fullscreenViewer");
+
+const fullscreenImage =
+    document.getElementById("fullscreenImage");
+
+const fullscreenCounter =
+    document.getElementById("fullscreenCounter");
+
+const fullscreenClose =
+    document.getElementById("fullscreenClose");
+
+const answerFiles =
+    document.getElementById("answerFiles");
+
+const photoGrid =
+    document.getElementById("photoGrid");
+
+const submitButton =
+    document.getElementById("submitButton");
+
+const submitStatus =
+    document.getElementById("submitStatus");
+
+
+/* =========================================================
+   LOAD EXAM
+========================================================= */
+
+async function loadExam() {
+
+    try {
+
+        /*
+         * IMPORTANT:
+         * Search by UUID received from exams.html.
+         */
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+
+            .from("exams")
+
+            .select("*")
+
+            .eq("id", examId)
+
+            .single();
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (!data) {
+
+            throw new Error(
+                "Exam could not be found."
+            );
+
+        }
+
+
+        currentExam = data;
+
+
+        console.log(
+            "Exam loaded successfully:",
+            currentExam
+        );
+
+
+        /* TITLE */
+
+        examTitle.textContent =
+            currentExam.title ||
+            currentExam.name ||
+            "Examination";
+
+
+        /* MARKS */
+
+        marksText.textContent =
+            currentExam.total_marks ||
+            currentExam.marks ||
+            0;
+
+
+        /* DURATION */
+
+        let duration =
+            Number(
+                currentExam.duration ||
+                currentExam.duration_minutes ||
+                30
+            );
+
+
+        if (!duration ||
+            duration < 1) {
+
+            duration = 30;
+
+        }
+
+
+        /*
+         * Maximum 3 hours.
+         */
+
+        duration =
+            Math.min(duration, 180);
+
+
+        durationSeconds =
+            duration * 60;
+
+
+        remainingSeconds =
+            durationSeconds;
+
+
+        durationText.textContent =
+            duration + " Minutes";
+
+
+        /* LOAD QUESTION PAPER */
+
+        await loadQuestionPapers();
+
+
+        loadingCard.style.display =
+            "none";
+
+        instructionSection.style.display =
+            "block";
+
+
+    } catch (error) {
+
+        console.error(
+            "Exam loading error:",
+            error
+        );
+
+
+        loadingCard.innerHTML = `
+
+            <h2 style="text-align:center;color:#c62828;">
+                ❌ Unable to Load Examination
+            </h2>
+
+            <p style="text-align:center;">
+                ${escapeHTML(error.message)}
+            </p>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD QUESTION PAPERS
+========================================================= */
+
+async function loadQuestionPapers() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+
+        .from("exam_question_papers")
+
+        .select("*")
+
+        .eq("exam_id", examId);
+
+
+    if (error) {
+        throw error;
+    }
+
+
+    if (!data ||
+        data.length === 0) {
+
+        throw new Error(
+            "No question paper was found for this examination."
+        );
+
     }
 
 
     /*
-     * This is the important fix.
-     *
-     * The actual UUID from Supabase is sent to exam.html.
+     * Find the URL column automatically.
      */
 
-    const url =
-        "exam.html?id=" +
-        encodeURIComponent(examId);
+    const possibleUrlFields = [
+        "question_paper_url",
+        "paper_url",
+        "image_url",
+        "file_url",
+        "url",
+        "question_url"
+    ];
 
 
-    console.log("Opening exam:", examId);
-    console.log("Exam URL:", url);
+    const pages = [];
 
 
-    window.location.href = url;
+    data.forEach(row => {
+
+        let url = null;
+
+
+        for (
+            const field of possibleUrlFields
+        ) {
+
+            if (
+                row[field] &&
+                typeof row[field] === "string"
+            ) {
+
+                url = row[field];
+
+                break;
+
+            }
+
+        }
+
+
+        /*
+         * Also check common JSON/text structures.
+         */
+
+        if (!url) {
+
+            for (
+                const key in row
+            ) {
+
+                const value =
+                    row[key];
+
+                if (
+                    typeof value === "string" &&
+                    (
+                        value.startsWith("http://") ||
+                        value.startsWith("https://")
+                    )
+                ) {
+
+                    if (
+                        value.match(
+                            /\.(jpg|jpeg|png|webp|gif|pdf)/i
+                        )
+                    ) {
+
+                        url = value;
+
+                        break;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+
+        if (url) {
+
+            pages.push({
+
+                url: url,
+
+                page:
+                    Number(
+                        row.page_number ||
+                        row.page ||
+                        row.order_number ||
+                        row.position ||
+                        9999
+                    )
+
+            });
+
+        }
+
+    });
+
+
+    pages.sort(
+        (a, b) =>
+            a.page - b.page
+    );
+
+
+    questionPages =
+        pages.map(
+            item => item.url
+        );
+
+
+    if (
+        questionPages.length === 0
+    ) {
+
+        throw new Error(
+            "Question paper images could not be found."
+        );
+
+    }
+
+
+    currentPage = 0;
+
+    showQuestionPage();
+
 }
 
 
 /* =========================================================
-   HTML SAFETY
-   ========================================================= */
+   SHOW QUESTION PAGE
+========================================================= */
+
+function showQuestionPage() {
+
+    if (
+        !questionPages.length
+    ) {
+        return;
+    }
+
+
+    const url =
+        questionPages[currentPage];
+
+
+    paperImage.src =
+        url;
+
+
+    pageCounter.textContent =
+        `Page ${currentPage + 1} of ${questionPages.length}`;
+
+}
+
+
+/* =========================================================
+   START EXAM
+========================================================= */
+
+startButton.addEventListener(
+    "click",
+    startExam
+);
+
+
+function startExam() {
+
+    if (examStarted) {
+        return;
+    }
+
+
+    examStarted = true;
+
+
+    instructionSection.style.display =
+        "none";
+
+
+    examRunning.style.display =
+        "block";
+
+
+    answerSection.style.display =
+        "block";
+
+
+    startButton.disabled =
+        true;
+
+
+    startTimer();
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+function startTimer() {
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(
+            () => {
+
+                remainingSeconds--;
+
+
+                updateTimer();
+
+
+                if (
+                    remainingSeconds <= 0
+                ) {
+
+                    clearInterval(
+                        timerInterval
+                    );
+
+
+                    remainingSeconds = 0;
+
+
+                    timer.textContent =
+                        "00:00:00";
+
+
+                    alert(
+                        "⏰ Your examination time has ended. Please submit your answer sheet."
+                    );
+
+                }
+
+            },
+            1000
+        );
+
+}
+
+
+/* =========================================================
+   UPDATE TIMER
+========================================================= */
+
+function updateTimer() {
+
+    const hours =
+        Math.floor(
+            remainingSeconds / 3600
+        );
+
+
+    const minutes =
+        Math.floor(
+            (remainingSeconds % 3600) / 60
+        );
+
+
+    const seconds =
+        remainingSeconds % 60;
+
+
+    timer.textContent =
+        `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+
+}
+
+
+function pad(number) {
+
+    return String(number)
+        .padStart(2, "0");
+
+}
+
+
+/* =========================================================
+   OPEN FULLSCREEN
+========================================================= */
+
+paperViewer.addEventListener(
+    "click",
+    openFullscreen
+);
+
+
+function openFullscreen() {
+
+    if (
+        !questionPages.length
+    ) {
+        return;
+    }
+
+
+    fullscreenViewer.classList.add(
+        "active"
+    );
+
+
+    fullscreenImage.src =
+        questionPages[currentPage];
+
+
+    fullscreenCounter.textContent =
+        `Page ${currentPage + 1} of ${questionPages.length}`;
+
+
+    fullscreenImage.style.transform =
+        "scale(1)";
+
+}
+
+
+/* =========================================================
+   CLOSE FULLSCREEN
+========================================================= */
+
+fullscreenClose.addEventListener(
+    "click",
+    closeFullscreen
+);
+
+
+function closeFullscreen() {
+
+    fullscreenViewer.classList.remove(
+        "active"
+    );
+
+}
+
+
+/* =========================================================
+   FULLSCREEN SWIPE
+========================================================= */
+
+let touchStartX = 0;
+
+let touchStartY = 0;
+
+
+fullscreenViewer.addEventListener(
+    "touchstart",
+    function(event) {
+
+        if (
+            event.touches.length === 1
+        ) {
+
+            touchStartX =
+                event.touches[0].clientX;
+
+            touchStartY =
+                event.touches[0].clientY;
+
+        }
+
+    },
+    { passive: true }
+);
+
+
+fullscreenViewer.addEventListener(
+    "touchend",
+    function(event) {
+
+        if (
+            event.changedTouches.length !== 1
+        ) {
+            return;
+        }
+
+
+        const endX =
+            event.changedTouches[0].clientX;
+
+
+        const endY =
+            event.changedTouches[0].clientY;
+
+
+        const differenceX =
+            endX - touchStartX;
+
+
+        const differenceY =
+            endY - touchStartY;
+
+
+        /*
+         * Only treat it as a page swipe
+         * when horizontal movement is larger.
+         */
+
+        if (
+            Math.abs(differenceX) > 60 &&
+            Math.abs(differenceX) >
+            Math.abs(differenceY)
+        ) {
+
+            if (
+                differenceX < 0
+            ) {
+
+                nextPage();
+
+            } else {
+
+                previousPage();
+
+            }
+
+        }
+
+    },
+    { passive: true }
+);
+
+
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
+
+function nextPage() {
+
+    if (
+        currentPage <
+        questionPages.length - 1
+    ) {
+
+        currentPage++;
+
+        showQuestionPage();
+
+        fullscreenImage.src =
+            questionPages[currentPage];
+
+        fullscreenCounter.textContent =
+            `Page ${currentPage + 1} of ${questionPages.length}`;
+
+    }
+
+}
+
+
+function previousPage() {
+
+    if (
+        currentPage > 0
+    ) {
+
+        currentPage--;
+
+        showQuestionPage();
+
+        fullscreenImage.src =
+            questionPages[currentPage];
+
+        fullscreenCounter.textContent =
+            `Page ${currentPage + 1} of ${questionPages.length}`;
+
+    }
+
+}
+
+
+/* =========================================================
+   KEYBOARD PAGE CONTROL
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            !fullscreenViewer.classList.contains(
+                "active"
+            )
+        ) {
+            return;
+        }
+
+
+        if (
+            event.key === "ArrowRight"
+        ) {
+
+            nextPage();
+
+        }
+
+
+        if (
+            event.key === "ArrowLeft"
+        ) {
+
+            previousPage();
+
+        }
+
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeFullscreen();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ANSWER FILE SELECTION
+========================================================= */
+
+answerFiles.addEventListener(
+    "change",
+    function(event) {
+
+        const files =
+            Array.from(
+                event.target.files
+            );
+
+
+        selectedFiles =
+            selectedFiles.concat(
+                files
+            );
+
+
+        renderPhotos();
+
+
+        /*
+         * Reset input so the same
+         * photo can be selected again.
+         */
+
+        answerFiles.value = "";
+
+    }
+);
+
+
+/* =========================================================
+   RENDER PHOTOS
+========================================================= */
+
+function renderPhotos() {
+
+    photoGrid.innerHTML = "";
+
+
+    selectedFiles.forEach(
+        (file, index) => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "photo-card";
+
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+
+            image.src =
+                URL.createObjectURL(
+                    file
+                );
+
+
+            image.alt =
+                `Answer sheet page ${index + 1}`;
+
+
+            const remove =
+                document.createElement(
+                    "button"
+                );
+
+
+            remove.className =
+                "remove-photo";
+
+
+            remove.textContent =
+                "×";
+
+
+            remove.type =
+                "button";
+
+
+            remove.addEventListener(
+                "click",
+                function() {
+
+                    selectedFiles.splice(
+                        index,
+                        1
+                    );
+
+
+                    renderPhotos();
+
+                }
+            );
+
+
+            card.appendChild(
+                image
+            );
+
+
+            card.appendChild(
+                remove
+            );
+
+
+            photoGrid.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SUBMIT ANSWER SHEET
+========================================================= */
+
+submitButton.addEventListener(
+    "click",
+    submitAnswerSheet
+);
+
+
+async function submitAnswerSheet() {
+
+    if (
+        !examId
+    ) {
+
+        showStatus(
+            "❌ Exam ID is missing.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const studentName =
+        document
+            .getElementById(
+                "studentName"
+            )
+            .value
+            .trim();
+
+
+    const answerDetails =
+        document
+            .getElementById(
+                "answerDetails"
+            )
+            .value
+            .trim();
+
+
+    if (!studentName) {
+
+        showStatus(
+            "❌ Please enter your name.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        selectedFiles.length === 0
+    ) {
+
+        showStatus(
+            "❌ Please upload at least one answer-sheet photo.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    submitButton.disabled =
+        true;
+
+
+    submitButton.textContent =
+        "⏳ Saving Submission...";
+
+
+    try {
+
+        uploadedUrls = [];
+
+
+        /*
+         * Upload every answer-sheet photo.
+         */
+
+        for (
+            let i = 0;
+            i < selectedFiles.length;
+            i++
+        ) {
+
+            showStatus(
+                `⏳ Uploading answer sheet ${i + 1} of ${selectedFiles.length}...`,
+                "info"
+            );
+
+
+            const file =
+                selectedFiles[i];
+
+
+            const extension =
+                getFileExtension(
+                    file.name
+                );
+
+
+            /*
+             * UUID filename.
+             * This avoids filename conflicts.
+             */
+
+            const fileName =
+                `${crypto.randomUUID()}.${extension}`;
+
+
+            const filePath =
+                `answers/${examId}/${fileName}`;
+
+
+            /*
+             * IMPORTANT:
+             * Change "answer-sheets" ONLY if your
+             * Supabase Storage bucket has another name.
+             */
+
+            const {
+                error: uploadError
+            } =
+                await supabaseClient
+                    .storage
+                    .from("answer-sheets")
+                    .upload(
+                        filePath,
+                        file,
+                        {
+                            upsert: false
+                        }
+                    );
+
+
+            if (
+                uploadError
+            ) {
+
+                throw uploadError;
+
+            }
+
+
+            const {
+                data: publicData
+            } =
+                supabaseClient
+                    .storage
+                    .from("answer-sheets")
+                    .getPublicUrl(
+                        filePath
+                    );
+
+
+            uploadedUrls.push(
+                publicData.publicUrl
+            );
+
+        }
+
+
+        showStatus(
+            "⏳ Saving submission...",
+            "info"
+        );
+
+
+        /*
+         * IMPORTANT:
+         *
+         * We intentionally use ONLY columns
+         * that belong to the basic submission:
+         *
+         * exam_id
+         * student_name
+         * answer_sheet_urls
+         *
+         * We do NOT send:
+         * student_id
+         * answer_sheet_details
+         *
+         * because those columns caused the errors
+         * you showed in your screenshots.
+         */
+
+        const submissionData = {
+
+            exam_id:
+                examId,
+
+            student_name:
+                studentName,
+
+            answer_sheet_urls:
+                uploadedUrls
+
+        };
+
+
+        /*
+         * Add answer details only if your existing
+         * database supports a column for it.
+         *
+         * For now it is NOT sent to prevent the
+         * "answer_sheet_details column not found"
+         * error.
+         */
+
+
+        const {
+            error: submissionError
+        } =
+            await supabaseClient
+                .from("exam_submissions")
+                .insert(
+                    submissionData
+                );
+
+
+        if (
+            submissionError
+        ) {
+
+            throw submissionError;
+
+        }
+
+
+        /*
+         * SUCCESS
+         */
+
+        if (
+            timerInterval
+        ) {
+
+            clearInterval(
+                timerInterval
+            );
+
+        }
+
+
+        examRunning.style.display =
+            "none";
+
+
+        finishedSection.style.display =
+            "block";
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Submission error:",
+            error
+        );
+
+
+        showStatus(
+            "❌ Submission failed: " +
+            error.message,
+            "error"
+        );
+
+
+        submitButton.disabled =
+            false;
+
+
+        submitButton.textContent =
+            "📤 SUBMIT ANSWER SHEET";
+
+    }
+
+}
+
+
+/* =========================================================
+   STATUS MESSAGE
+========================================================= */
+
+function showStatus(
+    message,
+    type
+) {
+
+    submitStatus.textContent =
+        message;
+
+
+    submitStatus.className =
+        "status " + type;
+
+}
+
+
+/* =========================================================
+   FILE EXTENSION
+========================================================= */
+
+function getFileExtension(
+    filename
+) {
+
+    const parts =
+        filename.split(".");
+
+
+    if (
+        parts.length < 2
+    ) {
+
+        return "jpg";
+
+    }
+
+
+    return parts
+        .pop()
+        .toLowerCase();
+
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
 
 function escapeHTML(value) {
 
     return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
 }
 
 
 /* =========================================================
-   START
-   ========================================================= */
+   INITIALIZE
+========================================================= */
 
-loadExams();
+loadExam();
 
 </script>
 
