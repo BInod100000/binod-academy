@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width,
-             initial-scale=1.0,
-             maximum-scale=5.0,
-             user-scalable=yes">
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=5.0,
+               user-scalable=yes">
 
 <title>Binod Academy - Examination</title>
 
@@ -83,7 +81,7 @@ body {
     border-radius: 20px;
     padding: 30px;
     margin-bottom: 25px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
 
@@ -91,37 +89,29 @@ body {
    LOADING / ERROR
 ========================================================= */
 
-.message-card {
+.loading-card {
     text-align: center;
 }
 
-.message-card h2 {
-    font-size: 30px;
+.error-card {
+    text-align: center;
 }
 
-.error-title {
+.error-card h2 {
     color: #c62828;
 }
 
-.error-message {
-    color: #555;
-    line-height: 1.6;
-}
-
 .back-button {
+    display: inline-block;
     margin-top: 20px;
+    padding: 14px 25px;
     border: none;
+    border-radius: 12px;
     background: #1565c0;
     color: white;
-    padding: 15px 28px;
-    border-radius: 12px;
-    font-size: 17px;
+    text-decoration: none;
     font-weight: bold;
-    cursor: pointer;
-}
-
-.back-button:hover {
-    background: #0d47a1;
+    font-size: 16px;
 }
 
 
@@ -184,12 +174,12 @@ body {
 
 
 /* =========================================================
-   START
+   START BUTTON
 ========================================================= */
 
 .start-section {
     text-align: center;
-    padding: 30px 10px 10px;
+    padding: 30px 10px;
 }
 
 .start-button {
@@ -201,7 +191,7 @@ body {
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 6px 18px rgba(21,101,192,0.25);
+    box-shadow: 0 6px 18px rgba(21, 101, 192, 0.25);
 }
 
 .start-button:hover {
@@ -230,14 +220,14 @@ body {
 .timer-box {
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 50;
     background: #1565c0;
     color: white;
     padding: 16px;
     border-radius: 14px;
     text-align: center;
     margin-bottom: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
 .timer-label {
@@ -275,27 +265,32 @@ body {
     background: #111;
     border-radius: 16px;
     overflow: hidden;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
 }
 
 .paper-image {
     display: block;
     width: 100%;
+    max-width: 100%;
     height: auto;
     margin: auto;
 }
 
-
-/* =========================================================
-   PAGE COUNTER
-========================================================= */
+.paper-pdf {
+    width: 100%;
+    min-height: 700px;
+    border: none;
+    background: white;
+}
 
 .page-counter {
     position: absolute;
     top: 12px;
     left: 12px;
-    background: rgba(0,0,0,0.72);
+    background: rgba(0, 0, 0, 0.72);
     color: white;
     padding: 8px 13px;
     border-radius: 20px;
@@ -313,10 +308,9 @@ body {
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: rgba(0,0,0,0.97);
+    background: rgba(0, 0, 0, 0.97);
     align-items: center;
     justify-content: center;
-    overflow: hidden;
 }
 
 .fullscreen-viewer.active {
@@ -325,7 +319,7 @@ body {
 
 .fullscreen-image {
     max-width: 96vw;
-    max-height: 92vh;
+    max-height: 94vh;
     object-fit: contain;
     user-select: none;
     -webkit-user-drag: none;
@@ -336,7 +330,7 @@ body {
     top: 15px;
     left: 15px;
     color: white;
-    background: rgba(0,0,0,0.65);
+    background: rgba(0, 0, 0, 0.65);
     padding: 9px 14px;
     border-radius: 20px;
     z-index: 10;
@@ -363,7 +357,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     color: white;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
     padding: 8px 14px;
     border-radius: 20px;
     font-size: 13px;
@@ -371,7 +365,7 @@ body {
 
 
 /* =========================================================
-   ANSWER SECTION
+   ANSWER SHEET
 ========================================================= */
 
 .answer-section {
@@ -389,11 +383,6 @@ body {
     color: #555;
     line-height: 1.5;
 }
-
-
-/* =========================================================
-   DETAILS
-========================================================= */
 
 .details-box {
     background: #f5f8fc;
@@ -426,7 +415,7 @@ body {
 
 
 /* =========================================================
-   UPLOAD
+   FILE UPLOAD
 ========================================================= */
 
 .upload-box {
@@ -454,11 +443,6 @@ body {
     background: white;
     font-size: 15px;
 }
-
-
-/* =========================================================
-   PHOTO GRID
-========================================================= */
 
 .photo-grid {
     display: grid;
@@ -623,6 +607,7 @@ body {
 
     .instructions li {
         font-size: 15px;
+        line-height: 1.5;
     }
 
     .start-button {
@@ -634,8 +619,13 @@ body {
         font-size: 29px;
     }
 
+    .paper-viewer {
+        border-radius: 10px;
+    }
+
     .photo-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 
     .photo-card img {
@@ -646,8 +636,16 @@ body {
         font-size: 11px;
         white-space: nowrap;
     }
+
+    .paper-pdf {
+        min-height: 550px;
+    }
 }
 
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
 
 @media (max-width: 400px) {
 
@@ -668,7 +666,6 @@ body {
 </style>
 
 </head>
-
 
 <body>
 
@@ -693,45 +690,11 @@ body {
      LOADING
 ===================================================== -->
 
-<div id="loadingCard" class="card message-card">
+<div id="loadingCard" class="card loading-card">
 
-    <h2>
-        ⏳ Loading Examination...
-    </h2>
+    <h2>⏳ Loading Examination...</h2>
 
-    <p>
-        Please wait.
-    </p>
-
-</div>
-
-
-<!-- =====================================================
-     ERROR
-===================================================== -->
-
-<div
-    id="errorCard"
-    class="card message-card"
-    style="display:none;"
->
-
-    <h2 class="error-title">
-        ❌ Unable to Load Examination
-    </h2>
-
-    <p
-        id="errorMessage"
-        class="error-message"
-    ></p>
-
-    <button
-        type="button"
-        class="back-button"
-        onclick="goBackToExams()"
-    >
-        ← Back to Exams
-    </button>
+    <p>Please wait.</p>
 
 </div>
 
@@ -740,17 +703,15 @@ body {
      INSTRUCTIONS
 ===================================================== -->
 
-<div
-    id="instructionSection"
-    class="card"
-    style="display:none;"
->
+<div id="instructionSection"
+     class="card"
+     style="display:none;">
 
-    <h1
-        id="examTitle"
-        class="exam-title"
-    >
+    <h1 id="examTitle"
+        class="exam-title">
+
         Examination
+
     </h1>
 
 
@@ -782,35 +743,34 @@ body {
 
     <div class="instructions">
 
-        <h2>
-            📜 Examination Instructions
-        </h2>
+        <h2>📜 Examination Instructions</h2>
 
         <ul>
 
             <li>
-                🎓 Welcome to Binod Academy.
-                Stay calm and give your best effort.
+                🎓 Welcome to Binod Academy. Stay calm
+                and give your best effort.
             </li>
 
             <li>
-                ⏱️ The examination duration is
-                the duration selected by the teacher,
+                ⏱️ The examination duration is the
+                duration selected by the teacher,
                 with a maximum of 3 hours.
             </li>
 
             <li>
-                ▶️ The timer starts only after
-                you click <strong>START EXAM NOW</strong>.
+                ▶️ The timer starts only after you
+                click <strong>START EXAM NOW</strong>.
             </li>
 
             <li>
-                🚫 The timer cannot be paused
-                after the examination starts.
+                🚫 The timer cannot be paused after
+                the examination starts.
             </li>
 
             <li>
-                📄 Read every question carefully.
+                📄 Read every question carefully before
+                answering.
             </li>
 
             <li>
@@ -819,13 +779,13 @@ body {
             </li>
 
             <li>
-                📷 You may upload multiple
-                answer-sheet photographs.
+                📷 You may upload multiple answer-sheet
+                photographs.
             </li>
 
             <li>
-                ✅ Make sure all photographs
-                are clear and readable.
+                ✅ Make sure your photographs are clear
+                and readable before submitting.
             </li>
 
         </ul>
@@ -835,12 +795,11 @@ body {
 
     <div class="start-section">
 
-        <button
-            id="startButton"
-            type="button"
-            class="start-button"
-        >
+        <button id="startButton"
+                class="start-button">
+
             📝 START EXAM NOW
+
         </button>
 
     </div>
@@ -852,10 +811,8 @@ body {
      RUNNING EXAM
 ===================================================== -->
 
-<div
-    id="examRunning"
-    class="exam-running"
->
+<div id="examRunning"
+     class="exam-running">
 
 
     <!-- TIMER -->
@@ -866,11 +823,11 @@ body {
             ⏱️ TIME REMAINING
         </div>
 
-        <div
-            id="timer"
-            class="timer"
-        >
+        <div id="timer"
+             class="timer">
+
             00:00:00
+
         </div>
 
     </div>
@@ -880,35 +837,37 @@ body {
 
     <div class="card paper-section">
 
-        <h2>
-            📄 Question Paper
-        </h2>
+        <h2>📄 Question Paper</h2>
 
         <p class="paper-help">
+
             👆 Tap the paper for full screen.
             Swipe left/right to change pages.
+
         </p>
 
 
-        <div
-            id="paperViewer"
-            class="paper-viewer"
-        >
+        <div id="paperViewer"
+             class="paper-viewer">
 
-            <div
-                id="pageCounter"
-                class="page-counter"
-            >
+            <div id="pageCounter"
+                 class="page-counter">
+
                 Page 0 of 0
+
             </div>
 
+            <img id="paperImage"
+                 class="paper-image"
+                 src=""
+                 alt="Question Paper"
+                 style="display:none;">
 
-            <img
-                id="paperImage"
-                class="paper-image"
-                src=""
-                alt="Question Paper"
-            >
+            <iframe id="paperPDF"
+                    class="paper-pdf"
+                    style="display:none;"
+                    title="Question Paper PDF">
+            </iframe>
 
         </div>
 
@@ -917,19 +876,18 @@ body {
 
     <!-- ANSWER SHEET -->
 
-    <div
-        id="answerSection"
-        class="card answer-section"
-    >
+    <div id="answerSection"
+         class="card answer-section">
 
-        <h2>
-            📸 Submit Answer Sheet
-        </h2>
+        <h2>📸 Submit Answer Sheet</h2>
 
         <p class="answer-intro">
+
             After completing your examination,
-            enter your details and upload clear
-            photographs of your complete answer sheet.
+            provide your details and upload
+            clear photographs of your complete
+            answer sheet.
+
         </p>
 
 
@@ -953,7 +911,7 @@ body {
 
             <textarea
                 id="answerDetails"
-                placeholder="Example: Answer sheet contains 5 pages."
+                placeholder="Example: Answer sheet contains 5 pages. All pages are uploaded in order."
             ></textarea>
 
         </div>
@@ -961,12 +919,10 @@ body {
 
         <div class="upload-box">
 
-            <h3>
-                📷 Answer Sheet Photos
-            </h3>
+            <h3>📷 Answer Sheet Photos</h3>
 
             <p>
-                Select multiple photos.
+                Select multiple photos of your answer sheet.
             </p>
 
             <input
@@ -978,28 +934,25 @@ body {
             >
 
 
-            <div
-                id="photoGrid"
-                class="photo-grid"
-            ></div>
+            <div id="photoGrid"
+                 class="photo-grid">
+            </div>
 
         </div>
 
 
         <div class="submit-section">
 
-            <button
-                id="submitButton"
-                type="button"
-                class="submit-button"
-            >
+            <button id="submitButton"
+                    class="submit-button">
+
                 📤 SUBMIT ANSWER SHEET
+
             </button>
 
-            <div
-                id="submitStatus"
-                class="status"
-            ></div>
+            <div id="submitStatus"
+                 class="status">
+            </div>
 
         </div>
 
@@ -1012,10 +965,8 @@ body {
      FINISHED
 ===================================================== -->
 
-<div
-    id="finishedSection"
-    class="card finished"
->
+<div id="finishedSection"
+     class="card finished">
 
     <h2>
         🎉 Examination Submitted Successfully!
@@ -1040,38 +991,36 @@ body {
      FULLSCREEN VIEWER
 ===================================================== -->
 
-<div
-    id="fullscreenViewer"
-    class="fullscreen-viewer"
->
+<div id="fullscreenViewer"
+     class="fullscreen-viewer">
 
-    <div
-        id="fullscreenCounter"
-        class="fullscreen-counter"
-    >
+    <div id="fullscreenCounter"
+         class="fullscreen-counter">
+
         Page 1 of 1
+
     </div>
 
 
-    <button
-        id="fullscreenClose"
-        type="button"
-        class="fullscreen-close"
-    >
+    <button id="fullscreenClose"
+            class="fullscreen-close"
+            type="button">
+
         ×
+
     </button>
 
 
-    <img
-        id="fullscreenImage"
-        class="fullscreen-image"
-        src=""
-        alt="Question Paper"
-    >
+    <img id="fullscreenImage"
+         class="fullscreen-image"
+         src=""
+         alt="Question Paper">
 
 
     <div class="fullscreen-help">
+
         Swipe ← → for pages • Tap × to close
+
     </div>
 
 </div>
@@ -1097,7 +1046,7 @@ const supabaseClient =
 
 
 /* =========================================================
-   EXAM ID
+   GET EXAM ID
 ========================================================= */
 
 const urlParams =
@@ -1108,10 +1057,78 @@ const urlParams =
 const examId =
     urlParams.get("id");
 
-console.log(
-    "Exam ID:",
-    examId
-);
+console.log("Exam ID:", examId);
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const loadingCard =
+    document.getElementById("loadingCard");
+
+const instructionSection =
+    document.getElementById("instructionSection");
+
+const examRunning =
+    document.getElementById("examRunning");
+
+const answerSection =
+    document.getElementById("answerSection");
+
+const finishedSection =
+    document.getElementById("finishedSection");
+
+const examTitle =
+    document.getElementById("examTitle");
+
+const durationText =
+    document.getElementById("durationText");
+
+const marksText =
+    document.getElementById("marksText");
+
+const startButton =
+    document.getElementById("startButton");
+
+const timer =
+    document.getElementById("timer");
+
+const paperViewer =
+    document.getElementById("paperViewer");
+
+const paperImage =
+    document.getElementById("paperImage");
+
+const paperPDF =
+    document.getElementById("paperPDF");
+
+const pageCounter =
+    document.getElementById("pageCounter");
+
+const fullscreenViewer =
+    document.getElementById("fullscreenViewer");
+
+const fullscreenImage =
+    document.getElementById("fullscreenImage");
+
+const fullscreenCounter =
+    document.getElementById("fullscreenCounter");
+
+const fullscreenClose =
+    document.getElementById("fullscreenClose");
+
+const answerFiles =
+    document.getElementById("answerFiles");
+
+const photoGrid =
+    document.getElementById("photoGrid");
+
+const submitButton =
+    document.getElementById("submitButton");
+
+const submitStatus =
+    document.getElementById("submitStatus");
 
 
 /* =========================================================
@@ -1138,201 +1155,60 @@ let uploadedUrls = [];
 
 
 /* =========================================================
-   ELEMENTS
-========================================================= */
-
-const loadingCard =
-    document.getElementById(
-        "loadingCard"
-    );
-
-const errorCard =
-    document.getElementById(
-        "errorCard"
-    );
-
-const errorMessage =
-    document.getElementById(
-        "errorMessage"
-    );
-
-const instructionSection =
-    document.getElementById(
-        "instructionSection"
-    );
-
-const examRunning =
-    document.getElementById(
-        "examRunning"
-    );
-
-const answerSection =
-    document.getElementById(
-        "answerSection"
-    );
-
-const finishedSection =
-    document.getElementById(
-        "finishedSection"
-    );
-
-const examTitle =
-    document.getElementById(
-        "examTitle"
-    );
-
-const durationText =
-    document.getElementById(
-        "durationText"
-    );
-
-const marksText =
-    document.getElementById(
-        "marksText"
-    );
-
-const startButton =
-    document.getElementById(
-        "startButton"
-    );
-
-const timer =
-    document.getElementById(
-        "timer"
-    );
-
-const paperViewer =
-    document.getElementById(
-        "paperViewer"
-    );
-
-const paperImage =
-    document.getElementById(
-        "paperImage"
-    );
-
-const pageCounter =
-    document.getElementById(
-        "pageCounter"
-    );
-
-const fullscreenViewer =
-    document.getElementById(
-        "fullscreenViewer"
-    );
-
-const fullscreenImage =
-    document.getElementById(
-        "fullscreenImage"
-    );
-
-const fullscreenCounter =
-    document.getElementById(
-        "fullscreenCounter"
-    );
-
-const fullscreenClose =
-    document.getElementById(
-        "fullscreenClose"
-    );
-
-const answerFiles =
-    document.getElementById(
-        "answerFiles"
-    );
-
-const photoGrid =
-    document.getElementById(
-        "photoGrid"
-    );
-
-const submitButton =
-    document.getElementById(
-        "submitButton"
-    );
-
-const submitStatus =
-    document.getElementById(
-        "submitStatus"
-    );
-
-
-/* =========================================================
-   BACK
-========================================================= */
-
-function goBackToExams() {
-
-    window.location.href =
-        "exams.html";
-}
-
-
-/* =========================================================
-   SHOW ERROR
-========================================================= */
-
-function showError(message) {
-
-    loadingCard.style.display =
-        "none";
-
-    instructionSection.style.display =
-        "none";
-
-    examRunning.style.display =
-        "none";
-
-    errorCard.style.display =
-        "block";
-
-    errorMessage.textContent =
-        message;
-
-    console.error(
-        "EXAM ERROR:",
-        message
-    );
-}
-
-
-/* =========================================================
    LOAD EXAM
 ========================================================= */
 
 async function loadExam() {
 
-    if (!examId) {
+    try {
 
-        showError(
-            "No Exam ID was received. Please open the examination from the Exams page."
+        if (!examId) {
+
+            throw new Error(
+                "No Exam ID was received. Please open the examination from the Exams page."
+            );
+
+        }
+
+
+        console.log(
+            "Loading examination:",
+            examId
         );
 
-        return;
-    }
 
-
-    try {
+        /* -----------------------------------------------
+           LOAD EXAM
+        ----------------------------------------------- */
 
         const {
             data,
             error
         } = await supabaseClient
+
             .from("exams")
+
             .select("*")
+
             .eq("id", examId)
+
             .single();
 
 
         if (error) {
-            throw error;
+
+            throw new Error(
+                "Unable to load exam: " +
+                error.message
+            );
+
         }
 
 
         if (!data) {
 
             throw new Error(
-                "This examination could not be found."
+                "The examination could not be found."
             );
 
         }
@@ -1347,7 +1223,9 @@ async function loadExam() {
         );
 
 
-        /* TITLE */
+        /* -----------------------------------------------
+           TITLE
+        ----------------------------------------------- */
 
         examTitle.textContent =
             currentExam.title ||
@@ -1355,7 +1233,9 @@ async function loadExam() {
             "Examination";
 
 
-        /* MARKS */
+        /* -----------------------------------------------
+           MARKS
+        ----------------------------------------------- */
 
         marksText.textContent =
             currentExam.total_marks ??
@@ -1363,7 +1243,9 @@ async function loadExam() {
             0;
 
 
-        /* DURATION */
+        /* -----------------------------------------------
+           DURATION
+        ----------------------------------------------- */
 
         let duration =
             Number(
@@ -1377,7 +1259,9 @@ async function loadExam() {
             !Number.isFinite(duration) ||
             duration < 1
         ) {
+
             duration = 30;
+
         }
 
 
@@ -1399,7 +1283,9 @@ async function loadExam() {
             duration + " Minutes";
 
 
-        /* QUESTION PAPER */
+        /* -----------------------------------------------
+           QUESTION PAPER
+        ----------------------------------------------- */
 
         await loadQuestionPapers();
 
@@ -1410,10 +1296,16 @@ async function loadExam() {
         instructionSection.style.display =
             "block";
 
+
     } catch (error) {
 
+        console.error(
+            "EXAM ERROR:",
+            error
+        );
+
+
         showError(
-            "Unable to load this examination: " +
             error.message
         );
 
@@ -1428,22 +1320,33 @@ async function loadExam() {
 
 async function loadQuestionPapers() {
 
+    console.log(
+        "Loading question papers..."
+    );
+
+
     /*
-     * First try the standard table.
+     * IMPORTANT:
+     *
+     * We intentionally select *
+     * instead of assuming that the table
+     * has a particular URL column.
      */
 
     const {
         data,
         error
     } = await supabaseClient
+
         .from("exam_question_papers")
+
         .select("*");
 
 
     if (error) {
 
         throw new Error(
-            "Question paper database error: " +
+            "Unable to read question papers: " +
             error.message
         );
 
@@ -1451,112 +1354,85 @@ async function loadQuestionPapers() {
 
 
     console.log(
-        "Question paper rows:",
+        "Question paper table:",
         data
     );
 
 
-    const pages = [];
+    if (!data || data.length === 0) {
 
-
-    /*
-     * Check every returned row.
-     *
-     * This allows different ID column names.
-     */
-
-    (data || []).forEach(row => {
-
-        const possibleExamIds = [
-
-            row.exam_id,
-            row.examId,
-            row.examination_id,
-            row.examinationId,
-            row.exam_number
-
-        ];
-
-
-        const belongsToExam =
-            possibleExamIds.some(
-                value =>
-                    value !== null &&
-                    value !== undefined &&
-                    String(value) === String(examId)
-            );
-
-
-        if (!belongsToExam) {
-            return;
-        }
-
-
-        const url =
-            findUrlInObject(row);
-
-
-        if (!url) {
-            return;
-        }
-
-
-        const pageNumber =
-            Number(
-                row.page_number ??
-                row.page ??
-                row.order_number ??
-                row.position ??
-                row.sort_order ??
-                9999
-            );
-
-
-        pages.push({
-            url: url,
-            page: Number.isFinite(pageNumber)
-                ? pageNumber
-                : 9999
-        });
-
-    });
-
-
-    /*
-     * If the question paper table did not give us
-     * anything, also check the exams row itself.
-     *
-     * This supports systems where the teacher's
-     * paper URL was saved directly inside exams.
-     */
-
-    if (pages.length === 0) {
-
-        const examUrl =
-            findUrlInObject(
-                currentExam
-            );
-
-
-        if (examUrl) {
-
-            pages.push({
-                url: examUrl,
-                page: 1
-            });
-
-        }
+        throw new Error(
+            "The exam_question_papers table is empty."
+        );
 
     }
 
 
-    /*
-     * Sort pages.
-     */
+    /* -----------------------------------------------
+       FIND ROWS BELONGING TO THIS EXAM
+    ----------------------------------------------- */
+
+    const matchingRows =
+        data.filter(
+            row => rowBelongsToExam(
+                row,
+                examId
+            )
+        );
+
+
+    console.log(
+        "Matching question-paper rows:",
+        matchingRows
+    );
+
+
+    if (matchingRows.length === 0) {
+
+        throw new Error(
+            "No question paper was found for this examination."
+        );
+
+    }
+
+
+    /* -----------------------------------------------
+       EXTRACT PAPER URLS
+    ----------------------------------------------- */
+
+    const pages = [];
+
+
+    matchingRows.forEach(
+        (row, index) => {
+
+            const paper =
+                findPaperValue(row);
+
+
+            if (paper) {
+
+                pages.push({
+
+                    url: paper,
+
+                    order:
+                        findPageOrder(
+                            row,
+                            index
+                        )
+
+                });
+
+            }
+
+        }
+    );
+
 
     pages.sort(
         (a, b) =>
-            a.page - b.page
+            a.order - b.order
     );
 
 
@@ -1566,14 +1442,18 @@ async function loadQuestionPapers() {
         );
 
 
+    console.log(
+        "Question paper pages:",
+        questionPages
+    );
+
+
     if (
         questionPages.length === 0
     ) {
 
         throw new Error(
-            "No question paper is linked to this examination. The exam itself is working, but the question-paper record is not connected to Exam ID " +
-            examId +
-            "."
+            "A question-paper record was found, but no usable paper URL/file was found in it."
         );
 
     }
@@ -1587,83 +1467,175 @@ async function loadQuestionPapers() {
 
 
 /* =========================================================
-   FIND URL
+   DETECT EXAM RELATIONSHIP
 ========================================================= */
 
-function findUrlInObject(object) {
+function rowBelongsToExam(
+    row,
+    targetExamId
+) {
 
-    if (!object) {
-        return null;
-    }
+    const possibleKeys = [
 
+        "exam_id",
 
-    /*
-     * First check common URL columns.
-     */
+        "examId",
 
-    const possibleUrlFields = [
+        "exam",
 
-        "question_paper_url",
-        "questionPaperUrl",
+        "examination_id",
 
-        "paper_url",
-        "paperUrl",
+        "examinationId",
 
-        "image_url",
-        "imageUrl",
+        "exam_uuid",
 
-        "file_url",
-        "fileUrl",
+        "examid",
 
-        "question_url",
-        "questionUrl",
+        "exam_number",
 
-        "document_url",
-        "documentUrl",
+        "exam_no",
 
-        "public_url",
-        "publicUrl",
-
-        "url"
+        "exam_serial"
 
     ];
 
 
     for (
-        const field of possibleUrlFields
+        const key of possibleKeys
     ) {
 
-        const value =
-            object[field];
-
-
         if (
-            typeof value === "string" &&
-            isValidUrl(value)
+            Object.prototype.hasOwnProperty.call(
+                row,
+                key
+            )
         ) {
 
-            return value;
+            const value =
+                row[key];
+
+
+            if (
+                value !== null &&
+                value !== undefined &&
+                String(value) ===
+                String(targetExamId)
+            ) {
+
+                return true;
+
+            }
 
         }
 
     }
 
 
-    /*
-     * Finally search every string property.
-     */
+    return false;
+
+}
+
+
+/* =========================================================
+   FIND PAPER URL / FILE
+========================================================= */
+
+function findPaperValue(row) {
+
+    const preferredKeys = [
+
+        "question_paper_url",
+
+        "questionPaperUrl",
+
+        "paper_url",
+
+        "paperUrl",
+
+        "image_url",
+
+        "imageUrl",
+
+        "file_url",
+
+        "fileUrl",
+
+        "url",
+
+        "question_url",
+
+        "questionUrl",
+
+        "question_paper",
+
+        "questionPaper",
+
+        "paper",
+
+        "file",
+
+        "file_path",
+
+        "filePath",
+
+        "storage_path",
+
+        "storagePath",
+
+        "path"
+
+    ];
+
+
+    /* -----------------------------------------------
+       FIRST: CHECK KNOWN FIELDS
+    ----------------------------------------------- */
 
     for (
-        const key in object
+        const key of preferredKeys
+    ) {
+
+        if (
+            row[key] !== null &&
+            row[key] !== undefined
+        ) {
+
+            const value =
+                extractUsefulString(
+                    row[key]
+                );
+
+
+            if (value) {
+
+                return value;
+
+            }
+
+        }
+
+    }
+
+
+    /* -----------------------------------------------
+       SECOND: SEARCH EVERY VALUE
+    ----------------------------------------------- */
+
+    for (
+        const key in row
     ) {
 
         const value =
-            object[key];
+            extractUsefulString(
+                row[key]
+            );
 
 
         if (
-            typeof value === "string" &&
-            isValidUrl(value)
+            value &&
+            looksLikePaper(
+                value
+            )
         ) {
 
             return value;
@@ -1674,41 +1646,215 @@ function findUrlInObject(object) {
 
 
     return null;
+
 }
 
 
 /* =========================================================
-   URL CHECK
+   EXTRACT STRING
 ========================================================= */
 
-function isValidUrl(value) {
+function extractUsefulString(value) {
 
     if (
-        !value ||
-        typeof value !== "string"
+        typeof value === "string"
     ) {
-        return false;
+
+        const text =
+            value.trim();
+
+
+        if (!text) {
+            return null;
+        }
+
+
+        if (
+            text.startsWith("http://") ||
+            text.startsWith("https://")
+        ) {
+
+            return text;
+
+        }
+
+
+        /*
+         * Supabase storage paths and common
+         * image/PDF filenames.
+         */
+
+        if (
+            looksLikePaper(text)
+        ) {
+
+            return text;
+
+        }
+
     }
 
 
+    if (
+        Array.isArray(value)
+    ) {
+
+        for (
+            const item of value
+        ) {
+
+            const result =
+                extractUsefulString(
+                    item
+                );
+
+
+            if (result) {
+
+                return result;
+
+            }
+
+        }
+
+    }
+
+
+    if (
+        typeof value === "object" &&
+        value !== null
+    ) {
+
+        for (
+            const key in value
+        ) {
+
+            const result =
+                extractUsefulString(
+                    value[key]
+                );
+
+
+            if (result) {
+
+                return result;
+
+            }
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================================================
+   CHECK PAPER
+========================================================= */
+
+function looksLikePaper(value) {
+
+    const lower =
+        String(value)
+            .toLowerCase();
+
+
     return (
-        value.startsWith("http://") ||
-        value.startsWith("https://")
+
+        lower.includes(".jpg") ||
+
+        lower.includes(".jpeg") ||
+
+        lower.includes(".png") ||
+
+        lower.includes(".webp") ||
+
+        lower.includes(".gif") ||
+
+        lower.includes(".pdf") ||
+
+        lower.includes("question") ||
+
+        lower.includes("paper")
+
     );
 
 }
 
 
 /* =========================================================
-   SHOW PAGE
+   FIND PAGE ORDER
+========================================================= */
+
+function findPageOrder(
+    row,
+    fallback
+) {
+
+    const keys = [
+
+        "page_number",
+
+        "pageNumber",
+
+        "page",
+
+        "order_number",
+
+        "orderNumber",
+
+        "position",
+
+        "sort_order",
+
+        "sortOrder",
+
+        "display_order",
+
+        "displayOrder"
+
+    ];
+
+
+    for (
+        const key of keys
+    ) {
+
+        const number =
+            Number(row[key]);
+
+
+        if (
+            Number.isFinite(number)
+        ) {
+
+            return number;
+
+        }
+
+    }
+
+
+    return fallback + 1;
+
+}
+
+
+/* =========================================================
+   SHOW QUESTION PAGE
 ========================================================= */
 
 function showQuestionPage() {
 
     if (
-        questionPages.length === 0
+        !questionPages.length
     ) {
+
         return;
+
     }
 
 
@@ -1716,15 +1862,68 @@ function showQuestionPage() {
         questionPages[currentPage];
 
 
+    pageCounter.textContent =
+        `Page ${currentPage + 1} of ${questionPages.length}`;
+
+
+    /*
+     * PDF
+     */
+
+    if (
+        isPDF(url)
+    ) {
+
+        paperImage.style.display =
+            "none";
+
+        paperPDF.style.display =
+            "block";
+
+        paperPDF.src =
+            url;
+
+        return;
+
+    }
+
+
+    /*
+     * IMAGE
+     */
+
+    paperPDF.style.display =
+        "none";
+
+    paperImage.style.display =
+        "block";
+
     paperImage.src =
         url;
 
 
-    pageCounter.textContent =
-        "Page " +
-        (currentPage + 1) +
-        " of " +
-        questionPages.length;
+    paperImage.onerror =
+        function() {
+
+            console.error(
+                "Could not display paper:",
+                url
+            );
+
+        };
+
+}
+
+
+/* =========================================================
+   PDF CHECK
+========================================================= */
+
+function isPDF(url) {
+
+    return String(url)
+        .toLowerCase()
+        .includes(".pdf");
 
 }
 
@@ -1742,19 +1941,9 @@ startButton.addEventListener(
 function startExam() {
 
     if (examStarted) {
-        return;
-    }
-
-
-    if (
-        questionPages.length === 0
-    ) {
-
-        alert(
-            "❌ Question paper is not available."
-        );
 
         return;
+
     }
 
 
@@ -1764,8 +1953,10 @@ function startExam() {
     instructionSection.style.display =
         "none";
 
+
     examRunning.style.display =
         "block";
+
 
     answerSection.style.display =
         "block";
@@ -1797,31 +1988,37 @@ function startTimer() {
 
     timerInterval =
         setInterval(
-            function () {
+            function() {
+
+                remainingSeconds--;
+
 
                 if (
-                    remainingSeconds <= 0
+                    remainingSeconds < 0
+                ) {
+
+                    remainingSeconds = 0;
+
+                }
+
+
+                updateTimer();
+
+
+                if (
+                    remainingSeconds === 0
                 ) {
 
                     clearInterval(
                         timerInterval
                     );
 
-                    remainingSeconds = 0;
-
-                    updateTimer();
 
                     alert(
                         "⏰ Your examination time has ended. Please submit your answer sheet."
                     );
 
-                    return;
                 }
-
-
-                remainingSeconds--;
-
-                updateTimer();
 
             },
             1000
@@ -1841,21 +2038,19 @@ function updateTimer() {
             remainingSeconds / 3600
         );
 
+
     const minutes =
         Math.floor(
             (remainingSeconds % 3600) / 60
         );
+
 
     const seconds =
         remainingSeconds % 60;
 
 
     timer.textContent =
-        pad(hours) +
-        ":" +
-        pad(minutes) +
-        ":" +
-        pad(seconds);
+        `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
 
 }
 
@@ -1881,9 +2076,14 @@ paperViewer.addEventListener(
 function openFullscreen() {
 
     if (
-        questionPages.length === 0
+        !questionPages.length ||
+        isPDF(
+            questionPages[currentPage]
+        )
     ) {
+
         return;
+
     }
 
 
@@ -1897,10 +2097,7 @@ function openFullscreen() {
 
 
     fullscreenCounter.textContent =
-        "Page " +
-        (currentPage + 1) +
-        " of " +
-        questionPages.length;
+        `Page ${currentPage + 1} of ${questionPages.length}`;
 
 }
 
@@ -1925,7 +2122,7 @@ function closeFullscreen() {
 
 
 /* =========================================================
-   TOUCH SWIPE
+   FULLSCREEN TOUCH SWIPE
 ========================================================= */
 
 let touchStartX = 0;
@@ -1963,12 +2160,15 @@ fullscreenViewer.addEventListener(
         if (
             event.changedTouches.length !== 1
         ) {
+
             return;
+
         }
 
 
         const endX =
             event.changedTouches[0].clientX;
+
 
         const endY =
             event.changedTouches[0].clientY;
@@ -1976,6 +2176,7 @@ fullscreenViewer.addEventListener(
 
         const differenceX =
             endX - touchStartX;
+
 
         const differenceY =
             endY - touchStartY;
@@ -2027,10 +2228,7 @@ function nextPage() {
             questionPages[currentPage];
 
         fullscreenCounter.textContent =
-            "Page " +
-            (currentPage + 1) +
-            " of " +
-            questionPages.length;
+            `Page ${currentPage + 1} of ${questionPages.length}`;
 
     }
 
@@ -2055,10 +2253,7 @@ function previousPage() {
             questionPages[currentPage];
 
         fullscreenCounter.textContent =
-            "Page " +
-            (currentPage + 1) +
-            " of " +
-            questionPages.length;
+            `Page ${currentPage + 1} of ${questionPages.length}`;
 
     }
 
@@ -2078,7 +2273,9 @@ document.addEventListener(
                 "active"
             )
         ) {
+
             return;
+
         }
 
 
@@ -2113,7 +2310,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   FILE SELECTION
+   ANSWER FILE SELECTION
 ========================================================= */
 
 answerFiles.addEventListener(
@@ -2176,8 +2373,7 @@ function renderPhotos() {
 
 
             image.alt =
-                "Answer sheet page " +
-                (index + 1);
+                `Answer sheet page ${index + 1}`;
 
 
             const remove =
@@ -2186,11 +2382,11 @@ function renderPhotos() {
                 );
 
 
-            remove.type =
-                "button";
-
             remove.className =
                 "remove-photo";
+
+            remove.type =
+                "button";
 
             remove.textContent =
                 "×";
@@ -2204,6 +2400,7 @@ function renderPhotos() {
                         index,
                         1
                     );
+
 
                     renderPhotos();
 
@@ -2230,7 +2427,7 @@ function renderPhotos() {
 
 
 /* =========================================================
-   SUBMIT
+   SUBMIT ANSWER SHEET
 ========================================================= */
 
 submitButton.addEventListener(
@@ -2258,6 +2455,7 @@ async function submitAnswerSheet() {
         );
 
         return;
+
     }
 
 
@@ -2271,11 +2469,13 @@ async function submitAnswerSheet() {
         );
 
         return;
+
     }
 
 
     submitButton.disabled =
         true;
+
 
     submitButton.textContent =
         "⏳ Saving Submission...";
@@ -2286,9 +2486,9 @@ async function submitAnswerSheet() {
         uploadedUrls = [];
 
 
-        /*
-         * UPLOAD PHOTOS
-         */
+        /* -----------------------------------------------
+           UPLOAD PHOTOS
+        ----------------------------------------------- */
 
         for (
             let i = 0;
@@ -2297,11 +2497,7 @@ async function submitAnswerSheet() {
         ) {
 
             showStatus(
-                "⏳ Uploading answer sheet " +
-                (i + 1) +
-                " of " +
-                selectedFiles.length +
-                "...",
+                `⏳ Uploading answer sheet ${i + 1} of ${selectedFiles.length}...`,
                 "info"
             );
 
@@ -2317,16 +2513,11 @@ async function submitAnswerSheet() {
 
 
             const fileName =
-                crypto.randomUUID() +
-                "." +
-                extension;
+                `${crypto.randomUUID()}.${extension}`;
 
 
             const filePath =
-                "answers/" +
-                examId +
-                "/" +
-                fileName;
+                `answers/${examId}/${fileName}`;
 
 
             const {
@@ -2344,8 +2535,12 @@ async function submitAnswerSheet() {
                     );
 
 
-            if (uploadError) {
+            if (
+                uploadError
+            ) {
+
                 throw uploadError;
+
             }
 
 
@@ -2367,9 +2562,9 @@ async function submitAnswerSheet() {
         }
 
 
-        /*
-         * SAVE SUBMISSION
-         */
+        /* -----------------------------------------------
+           SAVE SUBMISSION
+        ----------------------------------------------- */
 
         showStatus(
             "⏳ Saving submission...",
@@ -2377,40 +2572,41 @@ async function submitAnswerSheet() {
         );
 
 
-        const submissionData = {
-
-            exam_id:
-                examId,
-
-            student_name:
-                studentName,
-
-            answer_sheet_urls:
-                uploadedUrls
-
-        };
-
-
         const {
             error: submissionError
         } =
             await supabaseClient
                 .from("exam_submissions")
-                .insert(
-                    submissionData
-                );
+                .insert({
+
+                    exam_id:
+                        examId,
+
+                    student_name:
+                        studentName,
+
+                    answer_sheet_urls:
+                        uploadedUrls
+
+                });
 
 
-        if (submissionError) {
+        if (
+            submissionError
+        ) {
+
             throw submissionError;
+
         }
 
 
-        /*
-         * SUCCESS
-         */
+        /* -----------------------------------------------
+           SUCCESS
+        ----------------------------------------------- */
 
-        if (timerInterval) {
+        if (
+            timerInterval
+        ) {
 
             clearInterval(
                 timerInterval
@@ -2451,6 +2647,7 @@ async function submitAnswerSheet() {
         submitButton.disabled =
             false;
 
+
         submitButton.textContent =
             "📤 SUBMIT ANSWER SHEET";
 
@@ -2470,6 +2667,7 @@ function showStatus(
 
     submitStatus.textContent =
         message;
+
 
     submitStatus.className =
         "status " + type;
@@ -2492,13 +2690,87 @@ function getFileExtension(
     if (
         parts.length < 2
     ) {
+
         return "jpg";
+
     }
 
 
     return parts
         .pop()
         .toLowerCase();
+
+}
+
+
+/* =========================================================
+   ERROR SCREEN
+========================================================= */
+
+function showError(
+    message
+) {
+
+    loadingCard.innerHTML = `
+
+        <div class="error-card">
+
+            <h2>
+                ❌ Unable to Load Examination
+            </h2>
+
+            <p>
+                ${escapeHTML(message)}
+            </p>
+
+            <a
+                href="exams.html"
+                class="back-button"
+            >
+                ← Back to Exams
+            </a>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
+
+function escapeHTML(
+    value
+) {
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
