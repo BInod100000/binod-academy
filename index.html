@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Binod Academy</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <h1>🎓 Binod Academy</h1>
@@ -15,26 +18,58 @@
 <hr>
 
 <nav>
+
     <a href="index.html">🏠 Home</a>
-    <a href="exams.html">📝 Exams</a>
+
     <a href="notes.html">📚 Notes</a>
-    <a href="results.html">📊 Results</a>
+
     <a href="contact.html">📞 Contact</a>
-    <a href="login.html">🔐 Login</a>
+
+    <!-- ONLY LOGGED-IN USERS CAN SEE THESE -->
+
+    <a
+        href="exams.html"
+        id="examsLink"
+        style="display: none;">
+        📝 Exams
+    </a>
+
+    <a
+        href="results.html"
+        id="resultsLink"
+        style="display: none;">
+        📊 Results
+    </a>
+
+    <!-- LOGIN -->
+
+    <a
+        href="login.html"
+        id="loginLink">
+        🔐 Login
+    </a>
+
+    <!-- LOGOUT -->
+
+    <a
+        href="#"
+        id="logoutLink"
+        style="display: none;">
+        🚪 Logout
+    </a>
+
 </nav>
 
 <hr>
 
 <section>
 
-<h2>Welcome Students!</h2>
+    <h2>Welcome Students!</h2>
 
-<p>
-Prepare well for your exams and achieve your goals.
-Your success journey starts here.
-</p>
-
-<button>Start Exam</button>
+    <p>
+        Prepare well for your exams and achieve your goals.
+        Your success journey starts here.
+    </p>
 
 </section>
 
@@ -42,27 +77,106 @@ Your success journey starts here.
 
 <div class="subjects">
 
-<div class="card">
-📘 Mathematics
+    <div class="card">
+        📘 Mathematics
+    </div>
+
+    <div class="card">
+        🔬 Science
+    </div>
+
+    <div class="card">
+        📐 Optional Mathematics
+    </div>
+
+    <div class="card">
+        💻 Computer
+    </div>
+
+    <div class="card">
+        📖 English
+    </div>
+
 </div>
 
-<div class="card">
-🔬 Science
-</div>
 
-<div class="card">
-📐 Optional Mathematics
-</div>
+<script>
 
-<div class="card">
-💻 Computer
-</div>
+/* =====================================================
+   LOGIN STATUS
+===================================================== */
 
-<div class="card">
-📖 English
-</div>
+const loggedInStudent =
+    localStorage.getItem("loggedInStudent");
 
-</div>
+const loggedInTeacher =
+    localStorage.getItem("loggedInTeacher");
+
+
+const examsLink =
+    document.getElementById("examsLink");
+
+const resultsLink =
+    document.getElementById("resultsLink");
+
+const loginLink =
+    document.getElementById("loginLink");
+
+const logoutLink =
+    document.getElementById("logoutLink");
+
+
+/* =====================================================
+   SHOW OPTIONS AFTER LOGIN
+===================================================== */
+
+if (
+    loggedInStudent ||
+    loggedInTeacher
+) {
+
+    examsLink.style.display =
+        "inline-block";
+
+    resultsLink.style.display =
+        "inline-block";
+
+    loginLink.style.display =
+        "none";
+
+    logoutLink.style.display =
+        "inline-block";
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+logoutLink.addEventListener(
+    "click",
+    function(event) {
+
+        event.preventDefault();
+
+        localStorage.removeItem(
+            "loggedInStudent"
+        );
+
+        localStorage.removeItem(
+            "loggedInTeacher"
+        );
+
+        localStorage.removeItem(
+            "teacherName"
+        );
+
+        window.location.href =
+            "index.html";
+    }
+);
+
+</script>
 
 </body>
 </html>
