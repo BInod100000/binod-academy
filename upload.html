@@ -7,177 +7,100 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0">
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Upload Answer Sheet</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css">
+    <link rel="stylesheet" href="style.css">
 
     <style>
 
         .upload-box {
-            max-width: 700px;
+            max-width: 650px;
             margin: 30px auto;
             padding: 25px;
             text-align: center;
         }
 
-        .add-photo-btn {
-            display: inline-block;
-            border: none;
-            background: #1565c0;
-            color: white;
-            padding: 13px 24px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .add-photo-btn:hover {
-            background: #0d47a1;
-        }
-
-        #fileInput {
+        .file-input {
             display: none;
         }
 
-        .selected-count {
-            margin-top: 20px;
-            font-weight: bold;
-            color: #1565c0;
-        }
-
-        .preview-container {
-            margin-top: 20px;
-
-            display: grid;
-            grid-template-columns:
-                repeat(auto-fill, minmax(150px, 1fr));
-
-            gap: 15px;
-        }
-
-        .preview-card {
-            position: relative;
-            background: #f1f4f8;
-            padding: 8px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .preview-card img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 7px;
-            display: block;
-        }
-
-        .preview-name {
-            font-size: 12px;
-            margin-top: 7px;
-
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .remove-photo {
-            position: absolute;
-
-            top: 5px;
-            right: 5px;
-
-            width: 28px;
-            height: 28px;
-
-            border: none;
-            border-radius: 50%;
-
-            background: #e53935;
+        .select-btn {
+            display: inline-block;
+            background: #1565c0;
             color: white;
-
-            font-size: 16px;
+            padding: 13px 22px;
+            border-radius: 10px;
             font-weight: bold;
-
             cursor: pointer;
         }
 
-        .upload-btn {
-            margin-top: 25px;
+        .select-btn:hover {
+            background: #0d47a1;
+        }
 
+        .file-list {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: #f1f4f8;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+        }
+
+        .file-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .remove-btn {
             border: none;
-
-            background: #2e7d32;
+            background: #e53935;
             color: white;
+            padding: 6px 10px;
+            border-radius: 7px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
 
-            padding: 13px 28px;
-
+        .upload-btn {
+            margin-top: 20px;
+            padding: 12px 25px;
+            border: none;
             border-radius: 10px;
-
+            background: #1565c0;
+            color: white;
             font-size: 16px;
             font-weight: bold;
-
             cursor: pointer;
         }
 
         .upload-btn:hover {
-            background: #1b5e20;
-        }
-
-        .clear-btn {
-            margin-top: 12px;
-
-            border: none;
-
-            background: #eeeeee;
-            color: #333;
-
-            padding: 10px 20px;
-
-            border-radius: 9px;
-
-            font-weight: bold;
-
-            cursor: pointer;
+            background: #0d47a1;
         }
 
         .message {
-            margin-top: 18px;
+            margin-top: 15px;
             font-weight: bold;
-        }
-
-        @media (max-width: 600px) {
-
-            .upload-box {
-                width: 94%;
-                padding: 20px 15px;
-            }
-
-            .preview-container {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-            .preview-card img {
-                height: 130px;
-            }
-
         }
 
     </style>
 
 </head>
 
-
 <body>
 
-
 <h1>🎓 Binod Academy</h1>
-
 
 <nav>
 
@@ -185,24 +108,28 @@
         🏠 Home
     </a>
 
-    <a href="exams.html">
-        📝 Exams
+    <a href="student.html">
+        👨‍🎓 Dashboard
     </a>
 
     <a href="notes.html">
         📚 Notes
     </a>
 
-    <a href="results.html">
-        📊 Results
-    </a>
-
     <a href="contact.html">
         📞 Contact
     </a>
 
-    <a href="login.html">
-        🔐 Login
+    <a href="exams.html">
+        📝 Exams
+    </a>
+
+    <a href="results.html">
+        📊 Results
+    </a>
+
+    <a href="#" id="logoutLink">
+        🚪 Logout
     </a>
 
 </nav>
@@ -217,84 +144,49 @@
         </h2>
 
         <p>
-            Add all pages of your answer sheet.
+            Select all photos of your answer sheet.
         </p>
 
 
-        <!--
-            IMPORTANT:
-            This input allows multiple images.
-        -->
+        <!-- MULTIPLE IMAGE SELECTION -->
 
         <input
             type="file"
-            id="fileInput"
-            accept="image/*"
-            multiple>
+            id="answerFiles"
+            class="file-input"
+            accept="image/jpeg,image/png,image/webp,image/jpg"
+            multiple
+        >
 
 
-        <!-- ADD PHOTOS -->
-
-        <button
-            type="button"
-            id="addPhotoButton"
-            class="add-photo-btn">
-
+        <label
+            for="answerFiles"
+            class="select-btn"
+        >
             📷 Add Photos
+        </label>
 
-        </button>
-
-
-        <!-- COUNT -->
 
         <div
-            id="selectedCount"
-            class="selected-count">
-
-            No photos selected.
-
+            id="fileList"
+            class="file-list"
+        >
         </div>
 
-
-        <!-- PREVIEWS -->
-
-        <div
-            id="previewContainer"
-            class="preview-container">
-        </div>
-
-
-        <!-- UPLOAD -->
 
         <button
             type="button"
             id="uploadButton"
-            class="upload-btn">
-
+            class="upload-btn"
+        >
             📤 Upload Answer Sheet
-
         </button>
 
-
-        <!-- CLEAR -->
-
-        <br>
-
-        <button
-            type="button"
-            id="clearButton"
-            class="clear-btn">
-
-            🗑️ Clear All
-
-        </button>
-
-
-        <!-- MESSAGE -->
 
         <div
             id="message"
-            class="message">
+            class="message"
+        >
         </div>
 
     </div>
@@ -305,304 +197,172 @@
 <script>
 
 /* =====================================================
-   VARIABLES
+   STUDENT LOGIN CHECK
+===================================================== */
+
+const loggedInStudent =
+    localStorage.getItem("loggedInStudent");
+
+if (!loggedInStudent) {
+
+    window.location.href =
+        "student-login.html";
+
+}
+
+
+/* =====================================================
+   MULTIPLE FILES
 ===================================================== */
 
 let selectedFiles = [];
 
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
+const answerFiles =
+    document.getElementById("answerFiles");
 
-const fileInput =
-    document.getElementById(
-        "fileInput"
-    );
-
-const addPhotoButton =
-    document.getElementById(
-        "addPhotoButton"
-    );
+const fileList =
+    document.getElementById("fileList");
 
 const uploadButton =
-    document.getElementById(
-        "uploadButton"
-    );
-
-const clearButton =
-    document.getElementById(
-        "clearButton"
-    );
-
-const previewContainer =
-    document.getElementById(
-        "previewContainer"
-    );
-
-const selectedCount =
-    document.getElementById(
-        "selectedCount"
-    );
+    document.getElementById("uploadButton");
 
 const message =
-    document.getElementById(
-        "message"
-    );
+    document.getElementById("message");
 
 
 /* =====================================================
-   ADD PHOTO BUTTON
+   SELECT PHOTOS
 ===================================================== */
 
-addPhotoButton.addEventListener(
-    "click",
-    function () {
-
-        fileInput.click();
-
-    }
-);
-
-
-/* =====================================================
-   FILE SELECTION
-===================================================== */
-
-fileInput.addEventListener(
+answerFiles.addEventListener(
     "change",
-    function () {
+    function() {
 
-        const files =
-            Array.from(
-                fileInput.files
-            );
+        const newFiles =
+            Array.from(answerFiles.files);
 
 
-        if (files.length === 0) {
-            return;
-        }
+        newFiles.forEach(function(file) {
 
+            const alreadyExists =
+                selectedFiles.some(function(existingFile) {
 
-        files.forEach(
-            function (file) {
-
-                /*
-                 * Only images allowed.
-                 */
-
-                if (
-                    !file.type.startsWith(
-                        "image/"
-                    )
-                ) {
-                    return;
-                }
-
-
-                /*
-                 * Prevent duplicate files.
-                 */
-
-                const duplicate =
-                    selectedFiles.some(
-                        function (oldFile) {
-
-                            return (
-                                oldFile.name === file.name &&
-                                oldFile.size === file.size &&
-                                oldFile.lastModified === file.lastModified
-                            );
-
-                        }
+                    return (
+                        existingFile.name === file.name &&
+                        existingFile.size === file.size &&
+                        existingFile.lastModified === file.lastModified
                     );
 
+                });
 
-                if (!duplicate) {
 
-                    selectedFiles.push(
-                        file
-                    );
+            if (!alreadyExists) {
 
-                }
+                selectedFiles.push(file);
 
             }
-        );
+
+        });
 
 
         /*
-         * VERY IMPORTANT:
-         *
-         * Reset the real input.
-         *
-         * This allows you to click
-         * "Add Photos" again and
-         * select more pictures.
+         * Reset the input.
+         * This allows another selection
+         * without deleting previous photos.
          */
 
-        fileInput.value = "";
+        answerFiles.value = "";
 
-
-        updatePreview();
+        displayFiles();
 
     }
 );
 
 
 /* =====================================================
-   DISPLAY PHOTOS
+   DISPLAY SELECTED FILES
 ===================================================== */
 
-function updatePreview() {
+function displayFiles() {
 
-    previewContainer.innerHTML = "";
+    fileList.innerHTML = "";
 
 
-    if (
-        selectedFiles.length === 0
-    ) {
-
-        selectedCount.textContent =
-            "No photos selected.";
+    if (selectedFiles.length === 0) {
 
         return;
 
     }
 
 
-    selectedCount.textContent =
-        "📷 " +
+    const heading =
+        document.createElement("p");
+
+    heading.innerHTML =
+        "<strong>📷 " +
         selectedFiles.length +
-        " photo(s) selected";
+        " image(s) selected</strong>";
+
+    fileList.appendChild(heading);
 
 
-    selectedFiles.forEach(
-        function (file, index) {
+    selectedFiles.forEach(function(file, index) {
 
-            const card =
-                document.createElement(
-                    "div"
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "file-item";
+
+
+        const name =
+            document.createElement("span");
+
+        name.className =
+            "file-name";
+
+        name.textContent =
+            (index + 1) + ". " + file.name;
+
+
+        const remove =
+            document.createElement("button");
+
+        remove.type =
+            "button";
+
+        remove.className =
+            "remove-btn";
+
+        remove.textContent =
+            "✕ Remove";
+
+
+        remove.addEventListener(
+            "click",
+            function() {
+
+                selectedFiles.splice(
+                    index,
+                    1
                 );
 
-            card.className =
-                "preview-card";
+                displayFiles();
+
+            }
+        );
 
 
-            const image =
-                document.createElement(
-                    "img"
-                );
+        item.appendChild(name);
 
+        item.appendChild(remove);
 
-            const imageURL =
-                URL.createObjectURL(
-                    file
-                );
+        fileList.appendChild(item);
 
-
-            image.src =
-                imageURL;
-
-
-            image.onload =
-                function () {
-
-                    URL.revokeObjectURL(
-                        imageURL
-                    );
-
-                };
-
-
-            const name =
-                document.createElement(
-                    "div"
-                );
-
-            name.className =
-                "preview-name";
-
-            name.textContent =
-                (index + 1) +
-                ". " +
-                file.name;
-
-
-            const removeButton =
-                document.createElement(
-                    "button"
-                );
-
-            removeButton.type =
-                "button";
-
-            removeButton.className =
-                "remove-photo";
-
-            removeButton.textContent =
-                "×";
-
-
-            removeButton.title =
-                "Remove this photo";
-
-
-            removeButton.addEventListener(
-                "click",
-                function () {
-
-                    selectedFiles.splice(
-                        index,
-                        1
-                    );
-
-                    updatePreview();
-
-                }
-            );
-
-
-            card.appendChild(
-                image
-            );
-
-            card.appendChild(
-                name
-            );
-
-            card.appendChild(
-                removeButton
-            );
-
-
-            previewContainer.appendChild(
-                card
-            );
-
-        }
-    );
+    });
 
 }
-
-
-/* =====================================================
-   CLEAR ALL
-===================================================== */
-
-clearButton.addEventListener(
-    "click",
-    function () {
-
-        selectedFiles = [];
-
-        fileInput.value = "";
-
-        updatePreview();
-
-        message.textContent = "";
-
-    }
-);
 
 
 /* =====================================================
@@ -611,14 +371,12 @@ clearButton.addEventListener(
 
 uploadButton.addEventListener(
     "click",
-    function () {
+    function() {
 
-        if (
-            selectedFiles.length === 0
-        ) {
+        if (selectedFiles.length === 0) {
 
             message.textContent =
-                "⚠️ Please add answer-sheet photos first.";
+                "⚠️ Please select at least one answer-sheet image.";
 
             message.style.color =
                 "#c62828";
@@ -628,27 +386,10 @@ uploadButton.addEventListener(
         }
 
 
-        /*
-         * All selected images are
-         * stored here:
-         *
-         * selectedFiles
-         *
-         * Example:
-         *
-         * Page 1
-         * Page 2
-         * Page 3
-         * Page 4
-         *
-         * They are all preserved.
-         */
-
-
         message.textContent =
             "✅ " +
             selectedFiles.length +
-            " answer-sheet photo(s) selected successfully.";
+            " image(s) selected and ready to upload.";
 
         message.style.color =
             "#2e7d32";
@@ -656,8 +397,38 @@ uploadButton.addEventListener(
     }
 );
 
-</script>
 
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+document
+    .getElementById("logoutLink")
+    .addEventListener(
+        "click",
+        function(event) {
+
+            event.preventDefault();
+
+            localStorage.removeItem(
+                "loggedInStudent"
+            );
+
+            localStorage.removeItem(
+                "loggedInTeacher"
+            );
+
+            localStorage.removeItem(
+                "teacherName"
+            );
+
+            window.location.href =
+                "index.html";
+
+        }
+    );
+
+</script>
 
 </body>
 
