@@ -2,228 +2,207 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Binod Academy - Login</title>
 
     <link rel="stylesheet" href="style.css">
 
-    <style>
-        /* Hide login-only navigation until login */
-        #examsLink,
-        #resultsLink,
-        #logoutLink {
-            display: none !important;
-        }
-    </style>
 </head>
 
 <body>
 
-    <h1>🎓 Binod Academy</h1>
+<h1>🎓 Binod Academy</h1>
 
-    <nav>
+<nav>
 
-        <!-- ALWAYS VISIBLE -->
+    <a href="index.html">
+        🏠 Home
+    </a>
 
-        <a href="index.html">
-            🏠 Home
-        </a>
+    <a href="notes.html">
+        📚 Notes
+    </a>
 
-        <a href="notes.html">
-            📚 Notes
-        </a>
+    <a href="contact.html">
+        📞 Contact
+    </a>
 
-        <a href="contact.html">
-            📞 Contact
-        </a>
+    <!-- HIDDEN BEFORE LOGIN -->
 
+    <a
+        href="exams.html"
+        id="examsLink"
+        style="display:none;"
+    >
+        📝 Exams
+    </a>
 
-        <!-- ONLY AFTER LOGIN -->
+    <a
+        href="results.html"
+        id="resultsLink"
+        style="display:none;"
+    >
+        📊 Results
+    </a>
 
-        <a href="exams.html" id="examsLink">
-            📝 Exams
-        </a>
+    <!-- LOGIN -->
 
-        <a href="results.html" id="resultsLink">
-            📊 Results
-        </a>
+    <a
+        href="login.html"
+        id="loginLink"
+    >
+        🔐 Login
+    </a>
 
+    <!-- LOGOUT -->
 
-        <!-- LOGIN -->
+    <a
+        href="#"
+        id="logoutLink"
+        style="display:none;"
+    >
+        🚪 Logout
+    </a>
 
-        <a href="login.html" id="loginLink">
-            🔐 Login
-        </a>
+</nav>
 
+<section>
 
-        <!-- LOGOUT -->
+    <div class="login-box">
 
-        <a href="#" id="logoutLink">
-            🚪 Logout
-        </a>
+        <h2>🔐 Choose Login</h2>
 
-    </nav>
+        <p>
+            Select your account type.
+        </p>
 
-    <section>
-
-        <div class="login-box">
-
-            <h2>🔐 Choose Login</h2>
-
-            <p>Select your account type.</p>
-
-            <div class="subjects">
-
-                <!-- ============================= -->
-                <!-- TEACHER PORTAL -->
-                <!-- ============================= -->
-
-                <div class="card">
-
-                    <h2>👨‍🏫 Teacher Portal</h2>
-
-                    <p>
-                        Login to check answer sheets
-                        and publish results.
-                    </p>
-
-                    <a href="teacher-login.html">
-                        <button type="button">
-                            👨‍🏫 Teacher Login
-                        </button>
-                    </a>
-
-                </div>
+        <div class="subjects">
 
 
-                <!-- ============================= -->
-                <!-- STUDENT PORTAL -->
-                <!-- ============================= -->
+            <!-- ========================= -->
+            <!-- TEACHER -->
+            <!-- ========================= -->
 
-                <div class="card">
+            <div class="card">
 
-                    <h2>👨‍🎓 Student Portal</h2>
+                <h2>
+                    👨‍🏫 Teacher Portal
+                </h2>
 
-                    <p>
-                        Login to start exams
-                        and view your results.
-                    </p>
+                <p>
+                    Login to check answer sheets
+                    and publish results.
+                </p>
 
-                    <a href="student-login.html">
-                        <button type="button">
-                            👨‍🎓 Student Login
-                        </button>
-                    </a>
+                <a href="teacher-login.html">
 
-                </div>
+                    <button type="button">
+                        👨‍🏫 Teacher Login
+                    </button>
+
+                </a>
+
+            </div>
+
+
+            <!-- ========================= -->
+            <!-- STUDENT -->
+            <!-- ========================= -->
+
+            <div class="card">
+
+                <h2>
+                    👨‍🎓 Student Portal
+                </h2>
+
+                <p>
+                    Login to start exams
+                    and view your results.
+                </p>
+
+                <a href="student-login.html">
+
+                    <button type="button">
+                        👨‍🎓 Student Login
+                    </button>
+
+                </a>
 
             </div>
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <script>
+<script>
 
-        /* =====================================================
-           LOGIN STATUS
-        ===================================================== */
+/* =====================================================
+   LOGIN STATUS
+===================================================== */
 
-        const loggedInStudent =
-            localStorage.getItem("loggedInStudent");
+const loggedInStudent =
+    localStorage.getItem("loggedInStudent");
 
-        const loggedInTeacher =
-            localStorage.getItem("loggedInTeacher");
-
-
-        /* =====================================================
-           ELEMENTS
-        ===================================================== */
-
-        const examsLink =
-            document.getElementById("examsLink");
-
-        const resultsLink =
-            document.getElementById("resultsLink");
-
-        const loginLink =
-            document.getElementById("loginLink");
-
-        const logoutLink =
-            document.getElementById("logoutLink");
+const loggedInTeacher =
+    localStorage.getItem("loggedInTeacher");
 
 
-        /* =====================================================
-           DEFAULT
-        ===================================================== */
+const examsLink =
+    document.getElementById("examsLink");
 
-        examsLink.style.display = "none";
-        resultsLink.style.display = "none";
-        logoutLink.style.display = "none";
-        loginLink.style.display = "inline-block";
+const resultsLink =
+    document.getElementById("resultsLink");
 
+const loginLink =
+    document.getElementById("loginLink");
 
-        /* =====================================================
-           SHOW AFTER LOGIN
-        ===================================================== */
-
-        if (
-            (loggedInStudent &&
-             loggedInStudent !== "null" &&
-             loggedInStudent !== "undefined")
-            ||
-            (loggedInTeacher &&
-             loggedInTeacher !== "null" &&
-             loggedInTeacher !== "undefined")
-        ) {
-
-            examsLink.style.display =
-                "inline-block";
-
-            resultsLink.style.display =
-                "inline-block";
-
-            loginLink.style.display =
-                "none";
-
-            logoutLink.style.display =
-                "inline-block";
-        }
+const logoutLink =
+    document.getElementById("logoutLink");
 
 
-        /* =====================================================
-           LOGOUT
-        ===================================================== */
+/* =====================================================
+   SHOW ONLY AFTER LOGIN
+===================================================== */
 
-        logoutLink.addEventListener(
-            "click",
-            function(event) {
+if (loggedInStudent || loggedInTeacher) {
 
-                event.preventDefault();
+    examsLink.style.display = "inline-block";
 
-                localStorage.removeItem(
-                    "loggedInStudent"
-                );
+    resultsLink.style.display = "inline-block";
 
-                localStorage.removeItem(
-                    "loggedInTeacher"
-                );
+    loginLink.style.display = "none";
 
-                localStorage.removeItem(
-                    "teacherName"
-                );
+    logoutLink.style.display = "inline-block";
+}
 
-                window.location.replace(
-                    "index.html"
-                );
 
-            }
-        );
+/* =====================================================
+   LOGOUT
+===================================================== */
 
-    </script>
+logoutLink.addEventListener("click", function(event) {
+
+    event.preventDefault();
+
+    localStorage.removeItem("loggedInStudent");
+    localStorage.removeItem("loggedInTeacher");
+    localStorage.removeItem("teacherName");
+
+    window.location.href = "index.html";
+
+});
+
+</script>
 
 </body>
 
