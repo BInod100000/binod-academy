@@ -10,7 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Binod Academy - Teacher Login</title>
+    <title>Binod Academy - Student Login</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -28,7 +28,7 @@
             🏠 Home
         </a>
 
-        <!-- HIDDEN BEFORE TEACHER LOGIN -->
+        <!-- HIDDEN BEFORE STUDENT LOGIN -->
         <a
             href="exams.html"
             id="examsLink"
@@ -41,7 +41,7 @@
             📚 Notes
         </a>
 
-        <!-- HIDDEN BEFORE TEACHER LOGIN -->
+        <!-- HIDDEN BEFORE STUDENT LOGIN -->
         <a
             href="results.html"
             id="resultsLink"
@@ -77,19 +77,19 @@
 
         <div class="login-box">
 
-            <h2>👨‍🏫 Teacher Login</h2>
+            <h2>👨‍🎓 Student Login</h2>
 
             <p>
-                Enter your Teacher ID and Password.
+                Enter your Student ID and Password.
             </p>
 
 
-            <!-- TEACHER ID -->
+            <!-- STUDENT ID -->
 
             <input
                 type="text"
-                id="teacherId"
-                placeholder="Teacher ID"
+                id="studentId"
+                placeholder="Student ID"
                 autocomplete="username"
             >
 
@@ -98,7 +98,7 @@
 
             <input
                 type="password"
-                id="teacherPassword"
+                id="studentPassword"
                 placeholder="Password"
                 autocomplete="current-password"
             >
@@ -109,15 +109,15 @@
 
             <!-- LOGIN BUTTON -->
 
-            <button onclick="teacherLogin()">
-                Teacher Login
+            <button onclick="studentLogin()">
+                👨‍🎓 Student Login
             </button>
 
 
             <!-- ERROR MESSAGE -->
 
             <p
-                id="teacherError"
+                id="studentError"
                 style="color:red; margin-top:15px;"
             ></p>
 
@@ -171,8 +171,8 @@
 
     <script>
 
-        const loggedInTeacher =
-            localStorage.getItem("loggedInTeacher");
+        const loggedInStudent =
+            localStorage.getItem("loggedInStudent");
 
 
         const examsLink =
@@ -196,7 +196,7 @@
          * Exams and Results become visible.
          */
 
-        if (loggedInTeacher) {
+        if (loggedInStudent) {
 
             examsLink.style.display =
                 "inline-block";
@@ -224,11 +224,11 @@
 
 
                 localStorage.removeItem(
-                    "loggedInTeacher"
+                    "loggedInStudent"
                 );
 
                 localStorage.removeItem(
-                    "loggedInStudent"
+                    "loggedInTeacher"
                 );
 
                 localStorage.removeItem(
