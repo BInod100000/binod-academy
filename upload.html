@@ -1,38 +1,645 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Upload Answer Sheet</title>
-    <link rel="stylesheet" href="style.css">
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+
+        .upload-box {
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 25px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .file-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px dashed #1565c0;
+            border-radius: 10px;
+            background: #f4f8ff;
+            cursor: pointer;
+        }
+
+        .preview-container {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(130px, 1fr)
+            );
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .preview-item {
+            position: relative;
+            background: #f5f5f5;
+            padding: 6px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 7px;
+            display: block;
+        }
+
+        .file-name {
+            font-size: 12px;
+            margin-top: 5px;
+            word-break: break-word;
+            text-align: center;
+        }
+
+        .upload-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #1565c0;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .upload-btn:hover {
+            background: #0d47a1;
+        }
+
+        .upload-btn:disabled {
+            background: #9e9e9e;
+            cursor: not-allowed;
+        }
+
+        .status {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        .success {
+            display: block;
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .error {
+            display: block;
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .count {
+            margin-top: 10px;
+            text-align: center;
+            color: #555;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+
+            .upload-box {
+                width: 94%;
+                padding: 18px;
+            }
+
+            .preview-item img {
+                height: 130px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
 <h1>🎓 Binod Academy</h1>
 
+
 <nav>
-    <a href="index.html">🏠 Home</a>
-    <a href="exams.html">📝 Exams</a>
-    <a href="notes.html">📚 Notes</a>
-    <a href="results.html">📊 Results</a>
-    <a href="contact.html">📞 Contact</a>
-    <a href="login.html">🔐 Login</a>
+
+    <a href="index.html">
+        🏠 Home
+    </a>
+
+    <a href="exams.html">
+        📝 Exams
+    </a>
+
+    <a href="notes.html">
+        📚 Notes
+    </a>
+
+    <a href="results.html">
+        📊 Results
+    </a>
+
+    <a href="contact.html">
+        📞 Contact
+    </a>
+
+    <a href="login.html">
+        🔐 Login
+    </a>
+
 </nav>
+
 
 <section>
 
-<h2>📷 Upload Answer Sheet</h2>
+    <div class="upload-box">
 
-<p>Select photos of your answer sheet.</p>
+        <h2>
+            📷 Upload Answer Sheet
+        </h2>
 
-<input type="file">
+        <p>
+            Select multiple photos of your answer sheet.
+        </p>
 
-<br><br>
 
-<button>Upload</button>
+        <!-- MULTIPLE IMAGE SELECT -->
+
+        <input
+            type="file"
+            id="answerFiles"
+            class="file-input"
+            accept="image/*"
+            multiple
+        >
+
+
+        <div
+            id="fileCount"
+            class="count">
+        </div>
+
+
+        <!-- IMAGE PREVIEWS -->
+
+        <div
+            id="previewContainer"
+            class="preview-container">
+        </div>
+
+
+        <!-- UPLOAD -->
+
+        <button
+            id="uploadButton"
+            class="upload-btn"
+            disabled
+        >
+
+            📤 Upload Answer Sheet
+
+        </button>
+
+
+        <div
+            id="status"
+            class="status">
+        </div>
+
+    </div>
 
 </section>
 
+
+<script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+    "https://zapjcweouiohabrmymqq.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_LzpPYJfrnh604E-guWCezA_mzZjaS6x";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+/* =====================================================
+   STORAGE BUCKET
+===================================================== */
+
+/*
+   IMPORTANT:
+   Create a Supabase Storage bucket named:
+
+   answer-sheets
+*/
+
+const BUCKET_NAME =
+    "answer-sheets";
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const answerFiles =
+    document.getElementById(
+        "answerFiles"
+    );
+
+const previewContainer =
+    document.getElementById(
+        "previewContainer"
+    );
+
+const uploadButton =
+    document.getElementById(
+        "uploadButton"
+    );
+
+const fileCount =
+    document.getElementById(
+        "fileCount"
+    );
+
+const status =
+    document.getElementById(
+        "status"
+    );
+
+
+/* =====================================================
+   SELECTED FILES
+===================================================== */
+
+let selectedFiles = [];
+
+
+/* =====================================================
+   FILE SELECTION
+===================================================== */
+
+answerFiles.addEventListener(
+    "change",
+    function () {
+
+        selectedFiles =
+            Array.from(
+                answerFiles.files
+            );
+
+
+        previewContainer.innerHTML =
+            "";
+
+
+        if (
+            selectedFiles.length === 0
+        ) {
+
+            fileCount.textContent =
+                "";
+
+            uploadButton.disabled =
+                true;
+
+            return;
+        }
+
+
+        fileCount.textContent =
+            selectedFiles.length +
+            " image" +
+            (
+                selectedFiles.length === 1
+                    ? ""
+                    : "s"
+            ) +
+            " selected";
+
+
+        uploadButton.disabled =
+            false;
+
+
+        /* =========================
+           PREVIEW EACH IMAGE
+        ========================= */
+
+        selectedFiles.forEach(
+            function (file) {
+
+                const reader =
+                    new FileReader();
+
+
+                const preview =
+                    document.createElement(
+                        "div"
+                    );
+
+                preview.className =
+                    "preview-item";
+
+
+                reader.onload =
+                    function (event) {
+
+                        preview.innerHTML =
+
+                            `
+                            <img
+                                src="${event.target.result}"
+                                alt="Answer Sheet"
+                            >
+
+                            <div class="file-name">
+                                ${file.name}
+                            </div>
+                            `;
+
+                    };
+
+
+                reader.readAsDataURL(
+                    file
+                );
+
+
+                previewContainer.appendChild(
+                    preview
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   UPLOAD
+===================================================== */
+
+uploadButton.addEventListener(
+    "click",
+    async function () {
+
+        if (
+            selectedFiles.length === 0
+        ) {
+
+            showStatus(
+                "Please select at least one image.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        uploadButton.disabled =
+            true;
+
+        uploadButton.textContent =
+            "⏳ Uploading...";
+
+
+        status.className =
+            "status";
+
+
+        status.style.display =
+            "none";
+
+
+        try {
+
+            /*
+             * Get student information
+             * from the existing login system.
+             */
+
+            const studentName =
+                localStorage.getItem(
+                    "studentName"
+                ) ||
+                localStorage.getItem(
+                    "loggedInStudent"
+                ) ||
+                "student";
+
+
+            /*
+             * Make a safe folder name.
+             */
+
+            const safeStudentName =
+                String(studentName)
+                    .replace(
+                        /[^a-zA-Z0-9_-]/g,
+                        "_"
+                    );
+
+
+            const uploadedFiles = [];
+
+
+            /* =========================
+               UPLOAD EVERY IMAGE
+            ========================= */
+
+            for (
+                let i = 0;
+                i < selectedFiles.length;
+                i++
+            ) {
+
+                const file =
+                    selectedFiles[i];
+
+
+                const extension =
+                    file.name
+                        .split(".")
+                        .pop()
+                        .toLowerCase();
+
+
+                const uniqueName =
+                    Date.now() +
+                    "_" +
+                    i +
+                    "_" +
+                    Math.random()
+                        .toString(36)
+                        .substring(2, 8) +
+                    "." +
+                    extension;
+
+
+                const filePath =
+                    safeStudentName +
+                    "/" +
+                    uniqueName;
+
+
+                const {
+                    error
+                } =
+                    await supabaseClient
+                        .storage
+                        .from(
+                            BUCKET_NAME
+                        )
+                        .upload(
+                            filePath,
+                            file,
+                            {
+                                cacheControl:
+                                    "3600",
+
+                                upsert:
+                                    false,
+
+                                contentType:
+                                    file.type
+                            }
+                        );
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+
+                uploadedFiles.push(
+                    filePath
+                );
+
+            }
+
+
+            /* =========================
+               SUCCESS
+            ========================= */
+
+            showStatus(
+                "✅ " +
+                uploadedFiles.length +
+                " answer-sheet image" +
+                (
+                    uploadedFiles.length === 1
+                        ? ""
+                        : "s"
+                ) +
+                " uploaded successfully!",
+                "success"
+            );
+
+
+            selectedFiles = [];
+
+            answerFiles.value =
+                "";
+
+            previewContainer.innerHTML =
+                "";
+
+            fileCount.textContent =
+                "";
+
+
+        } catch (error) {
+
+            console.error(
+                "Upload error:",
+                error
+            );
+
+
+            showStatus(
+                "❌ Upload failed: " +
+                (
+                    error.message ||
+                    "Please try again."
+                ),
+                "error"
+            );
+
+        }
+
+
+        uploadButton.disabled =
+            true;
+
+        uploadButton.textContent =
+            "📤 Upload Answer Sheet";
+
+    }
+);
+
+
+/* =====================================================
+   STATUS MESSAGE
+===================================================== */
+
+function showStatus(
+    message,
+    type
+) {
+
+    status.textContent =
+        message;
+
+
+    status.className =
+        "status " +
+        type;
+
+
+    status.style.display =
+        "block";
+
+}
+
+</script>
+
 </body>
+
 </html>
