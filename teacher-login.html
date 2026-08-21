@@ -24,17 +24,51 @@
 
     <nav>
 
-        <a href="index.html">🏠 Home</a>
+        <a href="index.html">
+            🏠 Home
+        </a>
 
-        <a href="exams.html">📝 Exams</a>
+        <!-- HIDDEN BEFORE TEACHER LOGIN -->
+        <a
+            href="exams.html"
+            id="examsLink"
+            style="display: none;"
+        >
+            📝 Exams
+        </a>
 
-        <a href="notes.html">📚 Notes</a>
+        <a href="notes.html">
+            📚 Notes
+        </a>
 
-        <a href="results.html">📊 Results</a>
+        <!-- HIDDEN BEFORE TEACHER LOGIN -->
+        <a
+            href="results.html"
+            id="resultsLink"
+            style="display: none;"
+        >
+            📊 Results
+        </a>
 
-        <a href="contact.html">📞 Contact</a>
+        <a href="contact.html">
+            📞 Contact
+        </a>
 
-        <a href="login.html">🔐 Login</a>
+        <a
+            href="login.html"
+            id="loginLink"
+        >
+            🔐 Login
+        </a>
+
+        <!-- HIDDEN BEFORE LOGIN -->
+        <a
+            href="#"
+            id="logoutLink"
+            style="display: none;"
+        >
+            🚪 Logout
+        </a>
 
     </nav>
 
@@ -128,6 +162,87 @@
     ====================================== -->
 
     <script src="script.js"></script>
+
+
+    <!-- =====================================
+         NAVIGATION VISIBILITY
+         DO NOT AFFECT LOGIN SYSTEM
+    ====================================== -->
+
+    <script>
+
+        const loggedInTeacher =
+            localStorage.getItem("loggedInTeacher");
+
+
+        const examsLink =
+            document.getElementById("examsLink");
+
+        const resultsLink =
+            document.getElementById("resultsLink");
+
+        const loginLink =
+            document.getElementById("loginLink");
+
+        const logoutLink =
+            document.getElementById("logoutLink");
+
+
+        /*
+         * BEFORE LOGIN:
+         * Exams and Results remain hidden.
+         *
+         * AFTER LOGIN:
+         * Exams and Results become visible.
+         */
+
+        if (loggedInTeacher) {
+
+            examsLink.style.display =
+                "inline-block";
+
+            resultsLink.style.display =
+                "inline-block";
+
+            loginLink.style.display =
+                "none";
+
+            logoutLink.style.display =
+                "inline-block";
+        }
+
+
+        /* =====================================
+           LOGOUT
+        ====================================== */
+
+        logoutLink.addEventListener(
+            "click",
+            function(event) {
+
+                event.preventDefault();
+
+
+                localStorage.removeItem(
+                    "loggedInTeacher"
+                );
+
+                localStorage.removeItem(
+                    "loggedInStudent"
+                );
+
+                localStorage.removeItem(
+                    "teacherName"
+                );
+
+
+                window.location.href =
+                    "index.html";
+
+            }
+        );
+
+    </script>
 
 
 </body>
