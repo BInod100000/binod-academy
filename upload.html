@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
+
         .upload-box {
             max-width: 650px;
             margin: 30px auto;
@@ -18,12 +19,21 @@
         }
 
         .file-input {
-            width: 100%;
-            padding: 15px;
-            border: 2px dashed #1565c0;
-            border-radius: 12px;
-            background: #f5f9ff;
+            display: none;
+        }
+
+        .select-btn {
+            display: inline-block;
+            background: #1565c0;
+            color: white;
+            padding: 13px 22px;
+            border-radius: 10px;
+            font-weight: bold;
             cursor: pointer;
+        }
+
+        .select-btn:hover {
+            background: #0d47a1;
         }
 
         .file-list {
@@ -32,11 +42,31 @@
         }
 
         .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+
             background: #f1f4f8;
-            padding: 10px 14px;
+            padding: 10px 12px;
             margin-bottom: 8px;
             border-radius: 8px;
-            word-break: break-word;
+        }
+
+        .file-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .remove-btn {
+            border: none;
+            background: #e53935;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 7px;
+            cursor: pointer;
+            flex-shrink: 0;
         }
 
         .upload-btn {
@@ -59,8 +89,11 @@
             margin-top: 15px;
             font-weight: bold;
         }
+
     </style>
+
 </head>
+
 
 <body>
 
@@ -82,6 +115,7 @@
 
 </nav>
 
+
 <section>
 
     <div class="upload-box">
@@ -89,22 +123,41 @@
         <h2>📷 Upload Answer Sheet</h2>
 
         <p>
-            Select all photos of your answer sheet at once.
+            Select all photos of your answer sheet.
         </p>
 
-        <!-- MULTIPLE IMAGE SELECT -->
+
+        <!-- HIDDEN FILE INPUT -->
+
         <input
             type="file"
             id="answerFiles"
             class="file-input"
-            accept="image/*"
+            accept="image/jpeg,image/png,image/webp,image/jpg"
             multiple
         >
+
+
+        <!-- ADD PHOTOS BUTTON -->
+
+        <label
+            for="answerFiles"
+            class="select-btn">
+
+            📷 Add Photos
+
+        </label>
+
+
+        <!-- SELECTED FILES -->
 
         <div
             id="fileList"
             class="file-list">
         </div>
+
+
+        <!-- UPLOAD -->
 
         <button
             type="button"
@@ -114,6 +167,7 @@
             📤 Upload Answer Sheet
 
         </button>
+
 
         <div
             id="message"
@@ -126,6 +180,13 @@
 
 
 <script>
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let selectedFiles = [];
+
 
 /* =====================================================
    ELEMENTS
@@ -145,62 +206,160 @@ const message =
 
 
 /* =====================================================
-   SHOW SELECTED FILES
+   ADD PHOTOS
 ===================================================== */
 
 answerFiles.addEventListener(
     "change",
     function () {
 
-        fileList.innerHTML = "";
-
-        const files =
+        const newFiles =
             Array.from(answerFiles.files);
 
-        if (files.length === 0) {
 
-            return;
+        /*
+         * Add newly selected files
+         * without removing previous files.
+         */
 
-        }
+        newFiles.forEach(
+            function (file) {
+
+                const alreadyExists =
+                    selectedFiles.some(
+                        function (existingFile) {
+
+                            return (
+                                existingFile.name === file.name &&
+                                existingFile.size === file.size &&
+                                existingFile.lastModified === file.lastModified
+                            );
+
+                        }
+                    );
 
 
-        const heading =
-            document.createElement("p");
+                if (!alreadyExists) {
 
-        heading.innerHTML =
-            "<strong>" +
-            files.length +
-            " image(s) selected</strong>";
+                    selectedFiles.push(file);
 
-        fileList.appendChild(
-            heading
-        );
-
-
-        files.forEach(
-            function (file, index) {
-
-                const item =
-                    document.createElement("div");
-
-                item.className =
-                    "file-item";
-
-                item.textContent =
-                    "📷 " +
-                    (index + 1) +
-                    ". " +
-                    file.name;
-
-                fileList.appendChild(
-                    item
-                );
+                }
 
             }
         );
 
+
+        /*
+         * Clear input so the SAME
+         * photo can also be selected
+         * again if needed.
+         */
+
+        answerFiles.value = "";
+
+
+        displayFiles();
+
     }
 );
+
+
+/* =====================================================
+   DISPLAY FILES
+===================================================== */
+
+function displayFiles() {
+
+    fileList.innerHTML = "";
+
+
+    if (selectedFiles.length === 0) {
+
+        return;
+
+    }
+
+
+    const heading =
+        document.createElement("p");
+
+    heading.innerHTML =
+        "<strong>📷 " +
+        selectedFiles.length +
+        " image(s) selected</strong>";
+
+    fileList.appendChild(
+        heading
+    );
+
+
+    selectedFiles.forEach(
+        function (file, index) {
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "file-item";
+
+
+            const name =
+                document.createElement("span");
+
+            name.className =
+                "file-name";
+
+            name.textContent =
+                (index + 1) +
+                ". " +
+                file.name;
+
+
+            const remove =
+                document.createElement("button");
+
+            remove.type =
+                "button";
+
+            remove.className =
+                "remove-btn";
+
+            remove.textContent =
+                "✕ Remove";
+
+
+            remove.addEventListener(
+                "click",
+                function () {
+
+                    selectedFiles.splice(
+                        index,
+                        1
+                    );
+
+                    displayFiles();
+
+                }
+            );
+
+
+            item.appendChild(
+                name
+            );
+
+            item.appendChild(
+                remove
+            );
+
+
+            fileList.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
 
 
 /* =====================================================
@@ -211,34 +370,30 @@ uploadButton.addEventListener(
     "click",
     function () {
 
-        const files =
-            Array.from(answerFiles.files);
-
-
-        if (files.length === 0) {
+        if (selectedFiles.length === 0) {
 
             message.textContent =
-                "⚠️ Please select answer-sheet images first.";
+                "⚠️ Please select at least one answer-sheet image.";
 
             message.style.color =
                 "#c62828";
 
             return;
+
         }
 
 
         /*
-         * At this stage the selected files are ready
-         * as a MULTIPLE-FILE collection.
+         * All selected images are now
+         * available inside selectedFiles.
          *
-         * Your existing upload/storage system can
-         * use answerFiles.files without changing
-         * the rest of the website.
+         * Your actual Supabase upload
+         * can use this array.
          */
 
         message.textContent =
             "✅ " +
-            files.length +
+            selectedFiles.length +
             " image(s) selected and ready to upload.";
 
         message.style.color =
@@ -250,4 +405,5 @@ uploadButton.addEventListener(
 </script>
 
 </body>
+
 </html>
