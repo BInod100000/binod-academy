@@ -1,49 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Student Dashboard</title>
+
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
 <h1>🎓 Binod Academy</h1>
-    <nav>
-    <a href="index.html">🏠 Home</a>
-    <a href="student.html">👨‍🎓 Dashboard</a>
-    <a href="login.html">🔐 Logout</a>
+
+<nav>
+
+    <a href="index.html">
+        🏠 Home
+    </a>
+
+    <a href="student.html">
+        👨‍🎓 Dashboard
+    </a>
+
+    <a href="notes.html">
+        📚 Notes
+    </a>
+
+    <a href="contact.html">
+        📞 Contact
+    </a>
+
+    <!-- SHOW AFTER LOGIN -->
+
+    <a href="exams.html">
+        📝 Exams
+    </a>
+
+    <a href="results.html">
+        📊 Results
+    </a>
+
+    <a href="#" id="logoutLink">
+        🚪 Logout
+    </a>
+
 </nav>
 
-<h2>👨‍🎓 Student Dashboard</h2>
+<h2>
+    👨‍🎓 Student Dashboard
+</h2>
 
 <section>
 
-<h3>Welcome Student</h3>
+    <h3>
+        Welcome Student
+    </h3>
 
-<p>Select an option below.</p>
+    <p>
+        Select an option below.
+    </p>
 
-<div class="subjects">
+    <div class="subjects">
 
-<div class="card">
-<a href="exam.html">📝 Start Exam</a>
-</div>
 
-<div class="card">
-<a href="upload.html">📷 Upload Answer Sheet</a>
-</div>
+        <div class="card">
 
-<div class="card">
-<a href="results.html">📊 View Results</a>
-</div>
+            <a href="exam.html">
+                📝 Start Exam
+            </a>
 
-<div class="card">
-<a href="notes.html">📚 Study Notes</a>
-</div>
+        </div>
 
-</div>
+
+        <div class="card">
+
+            <a href="upload.html">
+                📷 Upload Answer Sheet
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <a href="results.html">
+                📊 View Results
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <a href="notes.html">
+                📚 Study Notes
+            </a>
+
+        </div>
+
+    </div>
 
 </section>
 
+
+<script>
+
+/* =====================================================
+   STUDENT LOGIN CHECK
+===================================================== */
+
+const loggedInStudent =
+    localStorage.getItem("loggedInStudent");
+
+
+/* =====================================================
+   IF NOT LOGGED IN → LOGIN
+===================================================== */
+
+if (!loggedInStudent) {
+
+    window.location.href =
+        "student-login.html";
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+document
+    .getElementById("logoutLink")
+    .addEventListener("click", function(event) {
+
+        event.preventDefault();
+
+        localStorage.removeItem(
+            "loggedInStudent"
+        );
+
+        localStorage.removeItem(
+            "teacherName"
+        );
+
+        window.location.href =
+            "index.html";
+
+    });
+
+</script>
+
 </body>
+
 </html>
