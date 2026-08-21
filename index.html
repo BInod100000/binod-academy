@@ -2,100 +2,59 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Binod Academy</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <h1>🎓 Binod Academy</h1>
 
-<p>
-    <b>Learn • Practice • Succeed</b>
-</p>
+<p><b>Learn • Practice • Succeed</b></p>
 
 <hr>
 
-
 <nav>
 
-    <a href="index.html">
-        🏠 Home
-    </a>
+    <a href="index.html">🏠 Home</a>
 
-    <a href="notes.html">
-        📚 Notes
-    </a>
+    <a href="notes.html">📚 Notes</a>
 
-    <a href="contact.html">
-        📞 Contact
-    </a>
+    <a href="contact.html">📞 Contact</a>
 
-    <!-- HIDDEN UNTIL LOGIN -->
+    <!-- ONLY SHOW AFTER LOGIN -->
 
-    <a
-        href="exams.html"
-        id="examsLink"
-        style="display:none;">
-
+    <a href="exams.html" id="examsLink" style="display:none;">
         📝 Exams
-
     </a>
 
-
-    <a
-        href="results.html"
-        id="resultsLink"
-        style="display:none;">
-
+    <a href="results.html" id="resultsLink" style="display:none;">
         📊 Results
-
     </a>
-
 
     <!-- LOGIN -->
 
-    <a
-        href="login.html"
-        id="loginLink">
-
+    <a href="login.html" id="loginLink">
         🔐 Login
-
     </a>
-
 
     <!-- LOGOUT -->
 
-    <a
-        href="#"
-        id="logoutLink"
-        style="display:none;">
-
+    <a href="#" id="logoutLink" style="display:none;">
         🚪 Logout
-
     </a>
 
 </nav>
 
 <hr>
 
-
 <section>
 
-    <h2>
-        Welcome Students!
-    </h2>
+    <h2>Welcome Students!</h2>
 
     <p>
         Prepare well for your exams and achieve your goals.
@@ -104,11 +63,7 @@
 
 </section>
 
-
-<h2>
-    📚 Our Subjects
-</h2>
-
+<h2>📚 Our Subjects</h2>
 
 <div class="subjects">
 
@@ -142,58 +97,38 @@
 ===================================================== */
 
 const loggedInStudent =
-    localStorage.getItem(
-        "loggedInStudent"
-    );
+    localStorage.getItem("loggedInStudent");
 
 const loggedInTeacher =
-    localStorage.getItem(
-        "loggedInTeacher"
-    );
+    localStorage.getItem("loggedInTeacher");
 
 
 const examsLink =
-    document.getElementById(
-        "examsLink"
-    );
+    document.getElementById("examsLink");
 
 const resultsLink =
-    document.getElementById(
-        "resultsLink"
-    );
+    document.getElementById("resultsLink");
 
 const loginLink =
-    document.getElementById(
-        "loginLink"
-    );
+    document.getElementById("loginLink");
 
 const logoutLink =
-    document.getElementById(
-        "logoutLink"
-    );
+    document.getElementById("logoutLink");
 
 
 /* =====================================================
-   ONLY SHOW AFTER LOGIN
+   SHOW EXAMS + RESULTS ONLY AFTER LOGIN
 ===================================================== */
 
-if (
-    loggedInStudent ||
-    loggedInTeacher
-) {
+if (loggedInStudent || loggedInTeacher) {
 
-    examsLink.style.display =
-        "inline-block";
+    examsLink.style.display = "inline-block";
 
-    resultsLink.style.display =
-        "inline-block";
+    resultsLink.style.display = "inline-block";
 
-    loginLink.style.display =
-        "none";
+    loginLink.style.display = "none";
 
-    logoutLink.style.display =
-        "inline-block";
-
+    logoutLink.style.display = "inline-block";
 }
 
 
@@ -201,35 +136,19 @@ if (
    LOGOUT
 ===================================================== */
 
-logoutLink.addEventListener(
-    "click",
-    function(event) {
+logoutLink.addEventListener("click", function(event) {
 
-        event.preventDefault();
+    event.preventDefault();
 
+    localStorage.removeItem("loggedInStudent");
+    localStorage.removeItem("loggedInTeacher");
+    localStorage.removeItem("teacherName");
 
-        localStorage.removeItem(
-            "loggedInStudent"
-        );
+    window.location.href = "index.html";
 
-        localStorage.removeItem(
-            "loggedInTeacher"
-        );
-
-        localStorage.removeItem(
-            "teacherName"
-        );
-
-
-        window.location.href =
-            "index.html";
-
-    }
-);
+});
 
 </script>
 
-
 </body>
-
 </html>
