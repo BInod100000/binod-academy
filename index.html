@@ -19,13 +19,16 @@
 
 <nav>
 
+    <!-- ALWAYS VISIBLE -->
+
     <a href="index.html">🏠 Home</a>
 
     <a href="notes.html">📚 Notes</a>
 
     <a href="contact.html">📞 Contact</a>
 
-    <!-- ONLY LOGGED-IN USERS CAN SEE THESE -->
+
+    <!-- ONLY VISIBLE AFTER LOGIN -->
 
     <a
         href="exams.html"
@@ -41,6 +44,7 @@
         📊 Results
     </a>
 
+
     <!-- LOGIN -->
 
     <a
@@ -48,6 +52,7 @@
         id="loginLink">
         🔐 Login
     </a>
+
 
     <!-- LOGOUT -->
 
@@ -62,6 +67,11 @@
 
 <hr>
 
+
+<!-- =========================
+     WELCOME
+========================= -->
+
 <section>
 
     <h2>Welcome Students!</h2>
@@ -72,6 +82,11 @@
     </p>
 
 </section>
+
+
+<!-- =========================
+     SUBJECTS
+========================= -->
 
 <h2>📚 Our Subjects</h2>
 
@@ -103,7 +118,7 @@
 <script>
 
 /* =====================================================
-   LOGIN STATUS
+   CHECK LOGIN STATUS
 ===================================================== */
 
 const loggedInStudent =
@@ -112,6 +127,10 @@ const loggedInStudent =
 const loggedInTeacher =
     localStorage.getItem("loggedInTeacher");
 
+
+/* =====================================================
+   GET NAVIGATION ELEMENTS
+===================================================== */
 
 const examsLink =
     document.getElementById("examsLink");
@@ -127,7 +146,17 @@ const logoutLink =
 
 
 /* =====================================================
-   SHOW OPTIONS AFTER LOGIN
+   BEFORE LOGIN
+===================================================== */
+
+/*
+   Exams and Results remain hidden.
+   Login remains visible.
+*/
+
+
+/* =====================================================
+   AFTER STUDENT OR TEACHER LOGIN
 ===================================================== */
 
 if (
@@ -135,14 +164,25 @@ if (
     loggedInTeacher
 ) {
 
+    /* Show Exams */
+
     examsLink.style.display =
         "inline-block";
+
+
+    /* Show Results */
 
     resultsLink.style.display =
         "inline-block";
 
+
+    /* Hide Login */
+
     loginLink.style.display =
         "none";
+
+
+    /* Show Logout */
 
     logoutLink.style.display =
         "inline-block";
@@ -159,20 +199,33 @@ logoutLink.addEventListener(
 
         event.preventDefault();
 
+
+        /* Remove student login */
+
         localStorage.removeItem(
             "loggedInStudent"
         );
+
+
+        /* Remove teacher login */
 
         localStorage.removeItem(
             "loggedInTeacher"
         );
 
+
+        /* Remove teacher name */
+
         localStorage.removeItem(
             "teacherName"
         );
 
+
+        /* Return to Home */
+
         window.location.href =
             "index.html";
+
     }
 );
 
