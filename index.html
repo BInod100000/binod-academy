@@ -7,6 +7,18 @@
     <title>Binod Academy</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =====================================================
+           EXAMS & RESULTS ARE HIDDEN BY DEFAULT
+        ===================================================== */
+
+        #examsLink,
+        #resultsLink,
+        #logoutLink {
+            display: none !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -21,45 +33,40 @@
 
     <!-- ALWAYS VISIBLE -->
 
-    <a href="index.html">🏠 Home</a>
+    <a href="index.html">
+        🏠 Home
+    </a>
 
-    <a href="notes.html">📚 Notes</a>
+    <a href="notes.html">
+        📚 Notes
+    </a>
 
-    <a href="contact.html">📞 Contact</a>
+    <a href="contact.html">
+        📞 Contact
+    </a>
 
 
-    <!-- ONLY VISIBLE AFTER LOGIN -->
+    <!-- HIDDEN UNTIL LOGIN -->
 
-    <a
-        href="exams.html"
-        id="examsLink"
-        style="display: none;">
+    <a href="exams.html" id="examsLink">
         📝 Exams
     </a>
 
-    <a
-        href="results.html"
-        id="resultsLink"
-        style="display: none;">
+    <a href="results.html" id="resultsLink">
         📊 Results
     </a>
 
 
     <!-- LOGIN -->
 
-    <a
-        href="login.html"
-        id="loginLink">
+    <a href="login.html" id="loginLink">
         🔐 Login
     </a>
 
 
     <!-- LOGOUT -->
 
-    <a
-        href="#"
-        id="logoutLink"
-        style="display: none;">
+    <a href="#" id="logoutLink">
         🚪 Logout
     </a>
 
@@ -118,18 +125,18 @@
 <script>
 
 /* =====================================================
-   CHECK LOGIN STATUS
+   GET LOGIN INFORMATION
 ===================================================== */
 
-const loggedInStudent =
+const studentLogin =
     localStorage.getItem("loggedInStudent");
 
-const loggedInTeacher =
+const teacherLogin =
     localStorage.getItem("loggedInTeacher");
 
 
 /* =====================================================
-   GET NAVIGATION ELEMENTS
+   GET NAVIGATION ITEMS
 ===================================================== */
 
 const examsLink =
@@ -146,46 +153,98 @@ const logoutLink =
 
 
 /* =====================================================
-   BEFORE LOGIN
+   DEFAULT STATE
 ===================================================== */
 
 /*
-   Exams and Results remain hidden.
-   Login remains visible.
+   EVERYTHING REQUIRING LOGIN IS HIDDEN.
 */
+
+examsLink.style.setProperty(
+    "display",
+    "none",
+    "important"
+);
+
+resultsLink.style.setProperty(
+    "display",
+    "none",
+    "important"
+);
+
+logoutLink.style.setProperty(
+    "display",
+    "none",
+    "important"
+);
+
+loginLink.style.setProperty(
+    "display",
+    "inline-block",
+    "important"
+);
 
 
 /* =====================================================
-   AFTER STUDENT OR TEACHER LOGIN
+   CHECK WHETHER USER IS REALLY LOGGED IN
+===================================================== */
+
+const studentIsLoggedIn =
+    studentLogin !== null &&
+    studentLogin !== "" &&
+    studentLogin !== "null" &&
+    studentLogin !== "undefined";
+
+const teacherIsLoggedIn =
+    teacherLogin !== null &&
+    teacherLogin !== "" &&
+    teacherLogin !== "null" &&
+    teacherLogin !== "undefined";
+
+
+/* =====================================================
+   SHOW AFTER LOGIN
 ===================================================== */
 
 if (
-    loggedInStudent ||
-    loggedInTeacher
+    studentIsLoggedIn ||
+    teacherIsLoggedIn
 ) {
 
-    /* Show Exams */
+    /* SHOW EXAMS */
 
-    examsLink.style.display =
-        "inline-block";
-
-
-    /* Show Results */
-
-    resultsLink.style.display =
-        "inline-block";
+    examsLink.style.setProperty(
+        "display",
+        "inline-block",
+        "important"
+    );
 
 
-    /* Hide Login */
+    /* SHOW RESULTS */
 
-    loginLink.style.display =
-        "none";
+    resultsLink.style.setProperty(
+        "display",
+        "inline-block",
+        "important"
+    );
 
 
-    /* Show Logout */
+    /* HIDE LOGIN */
 
-    logoutLink.style.display =
-        "inline-block";
+    loginLink.style.setProperty(
+        "display",
+        "none",
+        "important"
+    );
+
+
+    /* SHOW LOGOUT */
+
+    logoutLink.style.setProperty(
+        "display",
+        "inline-block",
+        "important"
+    );
 }
 
 
@@ -200,21 +259,13 @@ logoutLink.addEventListener(
         event.preventDefault();
 
 
-        /* Remove student login */
-
         localStorage.removeItem(
             "loggedInStudent"
         );
 
-
-        /* Remove teacher login */
-
         localStorage.removeItem(
             "loggedInTeacher"
         );
-
-
-        /* Remove teacher name */
 
         localStorage.removeItem(
             "teacherName"
@@ -223,8 +274,9 @@ logoutLink.addEventListener(
 
         /* Return to Home */
 
-        window.location.href =
-            "index.html";
+        window.location.replace(
+            "index.html"
+        );
 
     }
 );
